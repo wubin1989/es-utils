@@ -44,18 +44,11 @@
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
-	__webpack_require__(1);
-	module.exports = __webpack_require__(2);
+	module.exports = __webpack_require__(1);
 
 
 /***/ },
 /* 1 */
-/***/ function(module, exports) {
-
-	module.exports = require("babel-polyfill");
-
-/***/ },
-/* 2 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -64,8 +57,8 @@
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
-	var elasticsearch = __webpack_require__(3);
-	var _ = __webpack_require__(4);
+	var elasticsearch = __webpack_require__(2);
+	var _ = __webpack_require__(3);
 	
 	var EsUtil = function () {
 		function EsUtil(config, index, type) {
@@ -79,67 +72,67 @@
 		_createClass(EsUtil, [{
 			key: 'dateHistogram',
 			value: function dateHistogram(fields, pageSize, sortByField, dateField, query, start_date, end_date) {
-				var _dateHistogram = __webpack_require__(5).bind(this, fields, pageSize, sortByField, dateField, query, start_date, end_date);
+				var _dateHistogram = __webpack_require__(4).bind(this, fields, pageSize, sortByField, dateField, query, start_date, end_date);
 				return _dateHistogram();
 			}
 		}, {
 			key: 'hourHistogram',
 			value: function hourHistogram(fields, pageSize, sortByField, dateField, query, start_date, end_date) {
-				var _hourHistogram = __webpack_require__(7).bind(this, fields, pageSize, sortByField, dateField, query, start_date, end_date);
+				var _hourHistogram = __webpack_require__(6).bind(this, fields, pageSize, sortByField, dateField, query, start_date, end_date);
 				return _hourHistogram();
 			}
 		}, {
 			key: 'scroll',
 			value: function scroll(fields, size, sum, sortByField, query, wantedField) {
-				var _scroll = __webpack_require__(8).bind(this, fields, size, sum, sortByField, query, wantedField);
+				var _scroll = __webpack_require__(7).bind(this, fields, size, sum, sortByField, query, wantedField);
 				return _scroll();
 			}
 		}, {
 			key: 'scroll_agg',
 			value: function scroll_agg(field, size, sum, query) {
-				var _scroll_agg = __webpack_require__(9).bind(this, field, size, sum, query);
+				var _scroll_agg = __webpack_require__(8).bind(this, field, size, sum, query);
 				return _scroll_agg();
 			}
 		}, {
 			key: 'search',
 			value: function search(pageSize, sortByField, query, page_index, aggs) {
-				var _search = __webpack_require__(10).bind(this, pageSize, sortByField, query, page_index, aggs);
+				var _search = __webpack_require__(9).bind(this, pageSize, sortByField, query, page_index, aggs);
 				return _search();
 			}
 		}, {
 			key: 'createIndex',
 			value: function createIndex(mapping) {
-				var _createIndex = __webpack_require__(11).bind(this, mapping);
+				var _createIndex = __webpack_require__(10).bind(this, mapping);
 				return _createIndex();
 			}
 		}, {
 			key: 'getMapping',
 			value: function getMapping() {
-				var _getMapping = __webpack_require__(12).bind(this);
+				var _getMapping = __webpack_require__(11).bind(this);
 				return _getMapping();
 			}
 		}, {
 			key: 'putMapping',
 			value: function putMapping(body) {
-				var _putMapping = __webpack_require__(13).bind(this, body);
+				var _putMapping = __webpack_require__(12).bind(this, body);
 				return _putMapping();
 			}
 		}, {
 			key: 'updateDoc',
 			value: function updateDoc(body) {
-				var _updateDoc = __webpack_require__(14).bind(this, body);
+				var _updateDoc = __webpack_require__(13).bind(this, body);
 				return _updateDoc();
 			}
 		}, {
 			key: 'bulkUpdateDocs',
 			value: function bulkUpdateDocs(docs) {
-				var _bulkUpdateDocs = __webpack_require__(15).bind(this, docs);
+				var _bulkUpdateDocs = __webpack_require__(14).bind(this, docs);
 				return _bulkUpdateDocs();
 			}
 		}, {
 			key: 'scrollAndBulkUpdate',
 			value: function scrollAndBulkUpdate(field, size, value, query, sum) {
-				var _scrollAndBulkUpdate = __webpack_require__(16).bind(this, field, size, value, query, sum);
+				var _scrollAndBulkUpdate = __webpack_require__(15).bind(this, field, size, value, query, sum);
 				return _scrollAndBulkUpdate();
 			}
 		}]);
@@ -150,24 +143,24 @@
 	module.exports = EsUtil;
 
 /***/ },
-/* 3 */
+/* 2 */
 /***/ function(module, exports) {
 
 	module.exports = require("elasticsearch");
 
 /***/ },
-/* 4 */
+/* 3 */
 /***/ function(module, exports) {
 
 	module.exports = require("lodash");
 
 /***/ },
-/* 5 */
+/* 4 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var moment = __webpack_require__(6);
+	var moment = __webpack_require__(5);
 	
 	module.exports = function (fields, pageSize, sortByField, dateField, query, start_date, end_date) {
 	    if (!fields) {
@@ -212,18 +205,18 @@
 	};
 
 /***/ },
-/* 6 */
+/* 5 */
 /***/ function(module, exports) {
 
 	module.exports = require("moment");
 
 /***/ },
-/* 7 */
+/* 6 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var moment = __webpack_require__(6);
+	var moment = __webpack_require__(5);
 	
 	module.exports = function (fields, pageSize, sortByField, dateField, query, start_date, end_date) {
 	    if (!fields) {
@@ -268,7 +261,7 @@
 	};
 
 /***/ },
-/* 8 */
+/* 7 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -349,7 +342,7 @@
 	};
 
 /***/ },
-/* 9 */
+/* 8 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -425,7 +418,7 @@
 	//
 
 /***/ },
-/* 10 */
+/* 9 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -458,7 +451,7 @@
 	};
 
 /***/ },
-/* 11 */
+/* 10 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -482,7 +475,7 @@
 	};
 
 /***/ },
-/* 12 */
+/* 11 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -492,6 +485,24 @@
 			index: this.index,
 			type: this.type
 		});
+	};
+
+/***/ },
+/* 12 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	module.exports = function (body) {
+	
+	    var options = {
+	        index: this.index,
+	        type: this.type,
+	        body: body,
+	        updateAllTypes: false
+	    };
+	
+	    return this.client.indices.putMapping(options);
 	};
 
 /***/ },
@@ -514,24 +525,6 @@
 
 /***/ },
 /* 14 */
-/***/ function(module, exports) {
-
-	'use strict';
-	
-	module.exports = function (body) {
-	
-	    var options = {
-	        index: this.index,
-	        type: this.type,
-	        body: body,
-	        updateAllTypes: false
-	    };
-	
-	    return this.client.indices.putMapping(options);
-	};
-
-/***/ },
-/* 15 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -563,7 +556,7 @@
 	
 		if (docs.length) {
 			var _ret = function () {
-				var _ = __webpack_require__(4);
+				var _ = __webpack_require__(3);
 				var that = _this;
 				var body = _.flatten(_.map(docs, function (item) {
 					var id = item.id;
@@ -591,7 +584,7 @@
 	};
 
 /***/ },
-/* 16 */
+/* 15 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -601,7 +594,7 @@
 	function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 	
 	module.exports = function (field, size, value, query, sum) {
-	    var _ = __webpack_require__(4);
+	    var _ = __webpack_require__(3);
 	
 	    var _query = {
 	        "query": {
