@@ -2,8 +2,9 @@ module.exports = {
   entry: ['babel-polyfill', './EsUtil.js'],
   output: {
     filename: 'index.js',
-    libraryTarget: 'umd',
-    umdNamedDefine: true,
+    libraryTarget: 'commonjs',
+    // libraryTarget: 'umd',
+    // umdNamedDefine: true,
   },
   externals: [
     /^(?!\.|\/).+/i,
