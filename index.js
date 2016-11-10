@@ -544,26 +544,6 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 15 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/*
-	client.bulk({
-	  body: [
-	    // action description
-	    { index:  { _index: 'myindex', _type: 'mytype', _id: 1 } },
-	     // the document to index
-	    { title: 'foo' },
-	    // action description
-	    { update: { _index: 'myindex', _type: 'mytype', _id: 2 } },
-	    // the document to update
-	    { doc: { title: 'foo' } },
-	    // action description
-	    { delete: { _index: 'myindex', _type: 'mytype', _id: 3 } },
-	    // no document needed for this delete
-	  ]
-	}, function (err, resp) {
-	  // ...
-	});
-	*/
-	
 	'use strict';
 	
 	module.exports = function (docs) {
@@ -583,8 +563,6 @@ return /******/ (function(modules) { // webpackBootstrap
 				"detect_noop": false
 			}];
 		}));
-	
-		console.log(JSON.stringify(body.slice(0, 2), null, 4));
 	
 		return that.client.bulk({
 			body: body,
@@ -646,8 +624,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	                                _context.prev = 3;
 	                                more = response.hits.hits.length;
 	                                total = response.hits.total;
-	
-	                                console.log(total);
 	                                docs = _.map(response.hits.hits, function (hit) {
 	                                    var id = hit._id;
 	                                    var doc = _defineProperty({}, field, value || hit._source[field]);
@@ -658,22 +634,20 @@ return /******/ (function(modules) { // webpackBootstrap
 	                                });
 	
 	                                if (!docs.length) {
-	                                    _context.next = 13;
+	                                    _context.next = 11;
 	                                    break;
 	                                }
 	
-	                                _context.next = 11;
+	                                _context.next = 10;
 	                                return that.bulkUpdateDocs(docs);
 	
-	                            case 11:
+	                            case 10:
 	                                bulkUpdateResult = _context.sent;
 	
-	                                console.log(JSON.stringify(bulkUpdateResult, null, 4));
-	
-	                            case 13:
+	                            case 11:
 	
 	                                count += more;
-	                                console.log(more + ' has been updated successfully, current progress is ' + (count / total).toFixed(4) * 100 + '%');
+	                                console.log(more + ' has been updated successfully, current progress is ' + (count / total).toFixed(2) * 100 + '%');
 	
 	                                compare = total;
 	
@@ -683,7 +657,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                                }
 	
 	                                if (!(count < compare)) {
-	                                    _context.next = 21;
+	                                    _context.next = 19;
 	                                    break;
 	                                }
 	
@@ -691,28 +665,28 @@ return /******/ (function(modules) { // webpackBootstrap
 	                                    scrollId: response._scroll_id,
 	                                    scroll: '60s'
 	                                }, getMoreUntilDone);
-	                                _context.next = 22;
+	                                _context.next = 20;
 	                                break;
 	
-	                            case 21:
+	                            case 19:
 	                                return _context.abrupt('return', resolve('scroll and update finished'));
 	
-	                            case 22:
-	                                _context.next = 27;
+	                            case 20:
+	                                _context.next = 25;
 	                                break;
 	
-	                            case 24:
-	                                _context.prev = 24;
+	                            case 22:
+	                                _context.prev = 22;
 	                                _context.t0 = _context['catch'](3);
 	
 	                                console.log(_context.t0);
 	
-	                            case 27:
+	                            case 25:
 	                            case 'end':
 	                                return _context.stop();
 	                        }
 	                    }
-	                }, _callee, this, [[3, 24]]);
+	                }, _callee, this, [[3, 22]]);
 	            }));
 	
 	            function getMoreUntilDone(_x, _x2) {
