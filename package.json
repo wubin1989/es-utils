@@ -20,9 +20,7 @@
   "dependencies": {
     "elasticsearch": "^11.0.1",
     "lodash": "^4.16.6",
-    "moment": "^2.14.1"
-  },
-  "devDependencies": {
+    "moment": "^2.14.1",
     "babel-core": "^6.18.2",
     "babel-loader": "^6.2.2",
     "babel-plugin-transform-async-to-generator": "^6.5.0",
