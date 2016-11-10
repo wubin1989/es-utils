@@ -18,15 +18,17 @@
   "author": "wubin1989",
   "license": "ISC",
   "dependencies": {
+    "elasticsearch": "^11.0.1",
+    "lodash": "^4.16.6",
+    "moment": "^2.14.1"
+  },
+  "devDependencies": {
     "babel-core": "^6.18.2",
     "babel-loader": "^6.2.2",
     "babel-plugin-transform-async-to-generator": "^6.5.0",
     "babel-polyfill": "^6.5.0",
     "babel-preset-es2015": "^6.5.0",
-    "elasticsearch": "^11.0.1",
     "json-loader": "^0.5.4",
-    "lodash": "^4.16.6",
-    "moment": "^2.14.1",
     "webpack": "^1.12.13"
   }
 }
