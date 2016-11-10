@@ -2,23 +2,9 @@
 
 module.exports = function(body){
     
-    /*
-    "properties": {
-        "title": {
-          "type": "string",
-          "index": "analyzed",
-          "fields": {
-            "raw": {
-              "type": "string",
-              "index": "not_analyzed"
-            }
-          }
-        }
-      }
-    */
     const options = {
-        index: index,
-        type: type,
+        index: this.index,
+        type: this.type,
         body: body,
         updateAllTypes: false,
     };
