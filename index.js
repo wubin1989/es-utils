@@ -1,4 +1,14 @@
-(function(e, a) { for(var i in a) e[i] = a[i]; }(exports, /******/ (function(modules) { // webpackBootstrap
+(function webpackUniversalModuleDefinition(root, factory) {
+	if(typeof exports === 'object' && typeof module === 'object')
+		module.exports = factory(require("babel-polyfill"), require("elasticsearch"), require("lodash"), require("moment"));
+	else if(typeof define === 'function' && define.amd)
+		define(["babel-polyfill", "elasticsearch", "lodash", "moment"], factory);
+	else {
+		var a = typeof exports === 'object' ? factory(require("babel-polyfill"), require("elasticsearch"), require("lodash"), require("moment")) : factory(root["babel-polyfill"], root["elasticsearch"], root["lodash"], root["moment"]);
+		for(var i in a) (typeof exports === 'object' ? exports : root)[i] = a[i];
+	}
+})(this, function(__WEBPACK_EXTERNAL_MODULE_1__, __WEBPACK_EXTERNAL_MODULE_3__, __WEBPACK_EXTERNAL_MODULE_4__, __WEBPACK_EXTERNAL_MODULE_6__) {
+return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
 /******/
@@ -52,7 +62,7 @@
 /* 1 */
 /***/ function(module, exports) {
 
-	module.exports = require("babel-polyfill");
+	module.exports = __WEBPACK_EXTERNAL_MODULE_1__;
 
 /***/ },
 /* 2 */
@@ -153,13 +163,13 @@
 /* 3 */
 /***/ function(module, exports) {
 
-	module.exports = require("elasticsearch");
+	module.exports = __WEBPACK_EXTERNAL_MODULE_3__;
 
 /***/ },
 /* 4 */
 /***/ function(module, exports) {
 
-	module.exports = require("lodash");
+	module.exports = __WEBPACK_EXTERNAL_MODULE_4__;
 
 /***/ },
 /* 5 */
@@ -215,7 +225,7 @@
 /* 6 */
 /***/ function(module, exports) {
 
-	module.exports = require("moment");
+	module.exports = __WEBPACK_EXTERNAL_MODULE_6__;
 
 /***/ },
 /* 7 */
@@ -700,5 +710,7 @@
 	};
 
 /***/ }
-/******/ ])));
+/******/ ])
+});
+;
 //# sourceMappingURL=index.js.map
