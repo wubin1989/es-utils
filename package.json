@@ -1,0 +1,25 @@
+{
+  "name": "es-utils",
+  "version": "0.0.1",
+  "description": "util library for elasticsearch js",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "elasticsearch",
+    "elastic",
+    "elasitcjs",
+    "util",
+    "tool",
+    "es",
+    "util"
+  ],
+  "author": "wubin1989",
+  "license": "ISC",
+  "dependencies": {
+    "elasticsearch": "^11.0.1",
+    "lodash": "^4.16.6",
+    "moment": "^2.14.1"
+  }
+}
