@@ -566,38 +566,30 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	'use strict';
 	
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-	
 	module.exports = function (docs) {
-		var _this = this;
+		var _ = __webpack_require__(4);
+		var that = this;
+		var body = _.flatten(_.map(docs, function (item) {
+			var id = item.id;
+			var doc = item.doc;
+			return [{
+				update: {
+					_index: that.index,
+					_type: that.type,
+					_id: id
+				}
+			}, {
+				doc: doc,
+				"detect_noop": false
+			}];
+		}));
 	
-		if (docs.length) {
-			var _ret = function () {
-				var _ = __webpack_require__(4);
-				var that = _this;
-				var body = _.flatten(_.map(docs, function (item) {
-					var id = item.id;
-					var doc = item.doc;
-					return [{
-						update: {
-							_index: that.index,
-							_type: that.type,
-							_id: id
-						}
-					}, {
-						doc: doc
-					}];
-				}));
+		console.log(JSON.stringify(body.slice(0, 2), null, 4));
 	
-				return {
-					v: _this.client.bulk(body)
-				};
-			}();
-	
-			if ((typeof _ret === 'undefined' ? 'undefined' : _typeof(_ret)) === "object") return _ret.v;
-		} else {
-			return Promise.resolve(0);
-		}
+		return that.client.bulk({
+			body: body,
+			refresh: true
+		});
 	};
 
 /***/ },
@@ -633,6 +625,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    var that = this;
 	
 	    return new Promise(function (resolve, reject) {
+	
 	        that.client.search(options, function () {
 	            var _ref = _asyncToGenerator(regeneratorRuntime.mark(function _callee(err, response) {
 	                var more, total, docs, bulkUpdateResult, compare;
@@ -649,8 +642,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	                            case 2:
 	                                ;
+	
+	                                _context.prev = 3;
 	                                more = response.hits.hits.length;
 	                                total = response.hits.total;
+	
+	                                console.log(total);
 	                                docs = _.map(response.hits.hits, function (hit) {
 	                                    var id = hit._id;
 	                                    var doc = _defineProperty({}, field, value || hit._source[field]);
@@ -659,16 +656,24 @@ return /******/ (function(modules) { // webpackBootstrap
 	                                        doc: doc
 	                                    };
 	                                });
-	                                _context.next = 8;
-	                                return this.bulkUpdateDocs(docs);
 	
-	                            case 8:
+	                                if (!docs.length) {
+	                                    _context.next = 13;
+	                                    break;
+	                                }
+	
+	                                _context.next = 11;
+	                                return that.bulkUpdateDocs(docs);
+	
+	                            case 11:
 	                                bulkUpdateResult = _context.sent;
 	
+	                                console.log(JSON.stringify(bulkUpdateResult, null, 4));
 	
-	                                console.log(more + ' has been updated successfully, current progress is ' + (more / total).toFixed(3) + '%');
+	                            case 13:
 	
 	                                count += more;
+	                                console.log(more + ' has been updated successfully, current progress is ' + (count / total).toFixed(4) * 100 + '%');
 	
 	                                compare = total;
 	
@@ -678,26 +683,36 @@ return /******/ (function(modules) { // webpackBootstrap
 	                                }
 	
 	                                if (!(count < compare)) {
-	                                    _context.next = 17;
+	                                    _context.next = 21;
 	                                    break;
 	                                }
 	
-	                                this.client.scroll({
+	                                that.client.scroll({
 	                                    scrollId: response._scroll_id,
 	                                    scroll: '60s'
 	                                }, getMoreUntilDone);
-	                                _context.next = 18;
+	                                _context.next = 22;
 	                                break;
 	
-	                            case 17:
+	                            case 21:
 	                                return _context.abrupt('return', resolve('scroll and update finished'));
 	
-	                            case 18:
+	                            case 22:
+	                                _context.next = 27;
+	                                break;
+	
+	                            case 24:
+	                                _context.prev = 24;
+	                                _context.t0 = _context['catch'](3);
+	
+	                                console.log(_context.t0);
+	
+	                            case 27:
 	                            case 'end':
 	                                return _context.stop();
 	                        }
 	                    }
-	                }, _callee, this);
+	                }, _callee, this, [[3, 24]]);
 	            }));
 	
 	            function getMoreUntilDone(_x, _x2) {

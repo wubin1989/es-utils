@@ -23,44 +23,49 @@ module.exports = function(field, size, value, query, sum) {
     const that = this
 
     return new Promise((resolve, reject) => {
+
         that.client.search(options, async function getMoreUntilDone(err, response) {
             if (err) {
                 return reject(err);
             };
-            const more = response.hits.hits.length
-            const total = response.hits.total
 
-            const docs = _.map(response.hits.hits, (hit) => {
-                const id = hit._id
-                const doc = {
-                    [field]: value || hit._source[field]
+            try {
+                const more = response.hits.hits.length
+                const total = response.hits.total
+                const docs = _.map(response.hits.hits, (hit) => {
+                    const id = hit._id
+                    const doc = {
+                        [field]: value || hit._source[field]
+                    }
+                    return {
+                        id: id,
+                        doc: doc
+                    }
+                })
+
+                if (docs.length) {
+                    const bulkUpdateResult = await that.bulkUpdateDocs(docs)
                 }
-                return {
-                    id: id,
-                    doc: doc
+
+                count += more
+                console.log(`${more} has been updated successfully, current progress is ${(count/total).toFixed(2)*100}%`);
+
+                let compare = total;
+
+                if (sum && response.hits.total > sum) {
+                    compare = sum
                 }
-            })
 
-            const bulkUpdateResult = await this.bulkUpdateDocs(docs)
-
-
-            console.log(`${more} has been updated successfully, current progress is ${(more / total).toFixed(3)}%`);
-
-            count += more
-
-            let compare = total;
-
-            if (sum && response.hits.total > sum) {
-                compare = sum
-            }
-
-            if (count < compare) {
-                this.client.scroll({
-                    scrollId: response._scroll_id,
-                    scroll: '60s',
-                }, getMoreUntilDone);
-            } else {
-                return resolve('scroll and update finished');
+                if (count < compare) {
+                    that.client.scroll({
+                        scrollId: response._scroll_id,
+                        scroll: '60s',
+                    }, getMoreUntilDone);
+                } else {
+                    return resolve('scroll and update finished');
+                }
+            } catch (err) {
+                console.log(err);
             }
         })
     });
