@@ -1,13 +1,13 @@
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
-		module.exports = factory(require("babel-polyfill"), require("elasticsearch"), require("lodash"), require("moment"), require("fs"), require("path"));
+		module.exports = factory(require("babel-polyfill"), require("elasticsearch"), require("lodash"), require("moment"), require("fs"), require("path"), require("shelljs"));
 	else if(typeof define === 'function' && define.amd)
-		define(["babel-polyfill", "elasticsearch", "lodash", "moment", "fs", "path"], factory);
+		define(["babel-polyfill", "elasticsearch", "lodash", "moment", "fs", "path", "shelljs"], factory);
 	else {
-		var a = typeof exports === 'object' ? factory(require("babel-polyfill"), require("elasticsearch"), require("lodash"), require("moment"), require("fs"), require("path")) : factory(root["babel-polyfill"], root["elasticsearch"], root["lodash"], root["moment"], root["fs"], root["path"]);
+		var a = typeof exports === 'object' ? factory(require("babel-polyfill"), require("elasticsearch"), require("lodash"), require("moment"), require("fs"), require("path"), require("shelljs")) : factory(root["babel-polyfill"], root["elasticsearch"], root["lodash"], root["moment"], root["fs"], root["path"], root["shelljs"]);
 		for(var i in a) (typeof exports === 'object' ? exports : root)[i] = a[i];
 	}
-})(this, function(__WEBPACK_EXTERNAL_MODULE_1__, __WEBPACK_EXTERNAL_MODULE_3__, __WEBPACK_EXTERNAL_MODULE_4__, __WEBPACK_EXTERNAL_MODULE_6__, __WEBPACK_EXTERNAL_MODULE_20__, __WEBPACK_EXTERNAL_MODULE_21__) {
+})(this, function(__WEBPACK_EXTERNAL_MODULE_1__, __WEBPACK_EXTERNAL_MODULE_3__, __WEBPACK_EXTERNAL_MODULE_4__, __WEBPACK_EXTERNAL_MODULE_6__, __WEBPACK_EXTERNAL_MODULE_20__, __WEBPACK_EXTERNAL_MODULE_22__, __WEBPACK_EXTERNAL_MODULE_23__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -789,7 +789,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                    scroll: '60s'
 	                }, getMoreUntilDone);
 	            } else {
-	                return resolve('scroll and update finished');
+	                return resolve('append file finished');
 	            }
 	        });
 	    });
@@ -813,10 +813,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	module.exports = function (file, data) {
 		var fs = __webpack_require__(20);
-		var path = __webpack_require__(21);
-		var dir = path.dirname(file);
-		var checkExists = __webpack_require__(22);
-		if (checkExists(dir)) {
+		var checkExists = __webpack_require__(21);
+		if (checkExists(file)) {
 			fs.appendFileSync(file, data);
 		}
 	};
@@ -829,27 +827,42 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 21 */
-/***/ function(module, exports) {
-
-	module.exports = __WEBPACK_EXTERNAL_MODULE_21__;
-
-/***/ },
-/* 22 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	module.exports = function (dir) {
+	module.exports = function (file) {
 		var fs = __webpack_require__(20);
+		var path = __webpack_require__(22);
+	
 		try {
-			var stats = fs.statSync(dir);
+			var stats = fs.statSync(file);
+			if (stats.isFile()) {
+				fs.unlinkSync(file);
+			} else {
+				throw new Error("Invalid! not a file path!");
+			}
 		} catch (err) {
 			if (err.code === 'ENOENT') {
-				fs.mkdirSync(dir);
+				var shell = __webpack_require__(23);
+				var dir = path.dirname(file);
+				shell.mkdir('-p', dir);
 			}
 		}
 		return true;
 	};
+
+/***/ },
+/* 22 */
+/***/ function(module, exports) {
+
+	module.exports = __WEBPACK_EXTERNAL_MODULE_22__;
+
+/***/ },
+/* 23 */
+/***/ function(module, exports) {
+
+	module.exports = __WEBPACK_EXTERNAL_MODULE_23__;
 
 /***/ }
 /******/ ])

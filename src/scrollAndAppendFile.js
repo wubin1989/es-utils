@@ -64,7 +64,7 @@ module.exports = function(size, query, sum, file) {
                     scroll: '60s',
                 }, getMoreUntilDone);
             } else {
-                return resolve('scroll and update finished');
+                return resolve('append file finished');
             }
 
         })
