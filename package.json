@@ -20,6 +20,7 @@
   "dependencies": {
     "babel-polyfill": "^6.5.0",
     "elasticsearch": "^11.0.1",
+    "fs_util": "^0.0.1",
     "lodash": "^4.16.6",
     "moment": "^2.14.1",
     "shelljs": "^0.7.5"

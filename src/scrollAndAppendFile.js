@@ -2,7 +2,7 @@
 
 module.exports = function(size, query, sum, file) {
     const _ = require('lodash')
-    const appendFile = require('./fs_util').appendFile
+    const appendFile = require('fs_util').appendFile
 
     const _query = {
         "query": {
