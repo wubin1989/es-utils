@@ -13,7 +13,6 @@ module.exports = function(field, size, value, query, sum) {
         _query.query = query
     }
 
-
     const options = {
         index: this.index,
         type: this.type,
@@ -36,7 +35,6 @@ module.exports = function(field, size, value, query, sum) {
 
             try {
                 const more = response.hits.hits.length
-                const total = response.hits.total
                 const docs = _.map(response.hits.hits, (hit) => {
                     const id = hit._id
                     const doc = {
@@ -53,13 +51,14 @@ module.exports = function(field, size, value, query, sum) {
                 }
 
                 count += more
-                console.log(`${more} has been updated successfully, current progress is ${(count/total).toFixed(2)*100}%`);
 
-                let compare = total;
+                let compare = response.hits.total
 
-                if (sum && response.hits.total > sum) {
+                if (sum && (response.hits.total > sum)) {
                     compare = sum
                 }
+
+                console.log(`${more} has been updated successfully, current progress is ${(count/compare).toFixed(2)*100}%`);
 
                 if (count < compare) {
                     that.client.scroll({

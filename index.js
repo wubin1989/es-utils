@@ -1,13 +1,13 @@
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
-		module.exports = factory(require("babel-polyfill"), require("elasticsearch"), require("lodash"), require("moment"));
+		module.exports = factory(require("babel-polyfill"), require("elasticsearch"), require("lodash"), require("moment"), require("fs"), require("path"));
 	else if(typeof define === 'function' && define.amd)
-		define(["babel-polyfill", "elasticsearch", "lodash", "moment"], factory);
+		define(["babel-polyfill", "elasticsearch", "lodash", "moment", "fs", "path"], factory);
 	else {
-		var a = typeof exports === 'object' ? factory(require("babel-polyfill"), require("elasticsearch"), require("lodash"), require("moment")) : factory(root["babel-polyfill"], root["elasticsearch"], root["lodash"], root["moment"]);
+		var a = typeof exports === 'object' ? factory(require("babel-polyfill"), require("elasticsearch"), require("lodash"), require("moment"), require("fs"), require("path")) : factory(root["babel-polyfill"], root["elasticsearch"], root["lodash"], root["moment"], root["fs"], root["path"]);
 		for(var i in a) (typeof exports === 'object' ? exports : root)[i] = a[i];
 	}
-})(this, function(__WEBPACK_EXTERNAL_MODULE_1__, __WEBPACK_EXTERNAL_MODULE_3__, __WEBPACK_EXTERNAL_MODULE_4__, __WEBPACK_EXTERNAL_MODULE_6__) {
+})(this, function(__WEBPACK_EXTERNAL_MODULE_1__, __WEBPACK_EXTERNAL_MODULE_3__, __WEBPACK_EXTERNAL_MODULE_4__, __WEBPACK_EXTERNAL_MODULE_6__, __WEBPACK_EXTERNAL_MODULE_20__, __WEBPACK_EXTERNAL_MODULE_21__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -151,6 +151,12 @@ return /******/ (function(modules) { // webpackBootstrap
 			value: function scrollAndBulkUpdate(field, size, value, query, sum) {
 				var _scrollAndBulkUpdate = __webpack_require__(16).bind(this, field, size, value, query, sum);
 				return _scrollAndBulkUpdate();
+			}
+		}, {
+			key: 'scrollAndAppendFile',
+			value: function scrollAndAppendFile(field, size, value, query, sum, file) {
+				var _scrollAndAppendFile = __webpack_require__(17).bind(this, field, size, value, query, sum, file);
+				return _scrollAndAppendFile();
 			}
 		}]);
 	
@@ -621,7 +627,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	        that.client.search(options, function () {
 	            var _ref = _asyncToGenerator(regeneratorRuntime.mark(function _callee(err, response) {
-	                var more, total, docs, bulkUpdateResult, compare;
+	                var more, docs, bulkUpdateResult, compare;
 	                return regeneratorRuntime.wrap(function _callee$(_context) {
 	                    while (1) {
 	                        switch (_context.prev = _context.next) {
@@ -638,7 +644,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	                                _context.prev = 3;
 	                                more = response.hits.hits.length;
-	                                total = response.hits.total;
 	                                docs = _.map(response.hits.hits, function (hit) {
 	                                    var id = hit._id;
 	                                    var doc = _defineProperty({}, field, value || hit._source[field]);
@@ -649,30 +654,31 @@ return /******/ (function(modules) { // webpackBootstrap
 	                                });
 	
 	                                if (!docs.length) {
-	                                    _context.next = 11;
+	                                    _context.next = 10;
 	                                    break;
 	                                }
 	
-	                                _context.next = 10;
+	                                _context.next = 9;
 	                                return that.bulkUpdateDocs(docs);
 	
-	                            case 10:
+	                            case 9:
 	                                bulkUpdateResult = _context.sent;
 	
-	                            case 11:
+	                            case 10:
 	
 	                                count += more;
-	                                console.log(more + ' has been updated successfully, current progress is ' + (count / total).toFixed(2) * 100 + '%');
 	
-	                                compare = total;
+	                                compare = response.hits.total;
 	
 	
 	                                if (sum && response.hits.total > sum) {
 	                                    compare = sum;
 	                                }
 	
+	                                console.log(more + ' has been updated successfully, current progress is ' + (count / compare).toFixed(2) * 100 + '%');
+	
 	                                if (!(count < compare)) {
-	                                    _context.next = 19;
+	                                    _context.next = 18;
 	                                    break;
 	                                }
 	
@@ -680,28 +686,28 @@ return /******/ (function(modules) { // webpackBootstrap
 	                                    scrollId: response._scroll_id,
 	                                    scroll: '60s'
 	                                }, getMoreUntilDone);
-	                                _context.next = 20;
+	                                _context.next = 19;
 	                                break;
 	
-	                            case 19:
+	                            case 18:
 	                                return _context.abrupt('return', resolve('scroll and update finished'));
 	
-	                            case 20:
-	                                _context.next = 25;
+	                            case 19:
+	                                _context.next = 24;
 	                                break;
 	
-	                            case 22:
-	                                _context.prev = 22;
+	                            case 21:
+	                                _context.prev = 21;
 	                                _context.t0 = _context['catch'](3);
 	
 	                                console.log(_context.t0);
 	
-	                            case 25:
+	                            case 24:
 	                            case 'end':
 	                                return _context.stop();
 	                        }
 	                    }
-	                }, _callee, this, [[3, 22]]);
+	                }, _callee, this, [[3, 21]]);
 	            }));
 	
 	            function getMoreUntilDone(_x, _x2) {
@@ -711,6 +717,138 @@ return /******/ (function(modules) { // webpackBootstrap
 	            return getMoreUntilDone;
 	        }());
 	    });
+	};
+
+/***/ },
+/* 17 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	module.exports = function (field, size, value, query, sum, file) {
+	    var _ = __webpack_require__(4);
+	    var appendFile = __webpack_require__(18).appendFile;
+	
+	    var _query = {
+	        "query": {
+	            "match_all": {}
+	        }
+	    };
+	
+	    if (query) {
+	        _query.query = query;
+	    }
+	
+	    var options = {
+	        index: this.index,
+	        type: this.type,
+	        scroll: '60s',
+	        size: size || 1000,
+	        body: _query,
+	        search_type: 'scan'
+	    };
+	
+	    var count = 0;
+	
+	    var that = this;
+	
+	    return new Promise(function (resolve, reject) {
+	
+	        that.client.search(options, function getMoreUntilDone(err, response) {
+	            if (err) {
+	                return reject(err);
+	            }
+	
+	            var more = response.hits.hits.length;
+	            var data = _.reduce(response.hits.hits, function (sum, hit) {
+	                sum += hit._source.content_full + '\n';
+	                return sum;
+	            }, "");
+	
+	            if (data) {
+	                try {
+	                    appendFile(file, data);
+	                } catch (err) {
+	                    return reject(err);
+	                }
+	            }
+	
+	            count += more;
+	
+	            var compare = response.hits.total;
+	
+	            if (sum && response.hits.total > sum) {
+	                compare = sum;
+	            }
+	
+	            console.log(more + ' has been append successfully, current progress is ' + (count / compare).toFixed(2) * 100 + '%');
+	
+	            if (count < compare) {
+	                that.client.scroll({
+	                    scrollId: response._scroll_id,
+	                    scroll: '60s'
+	                }, getMoreUntilDone);
+	            } else {
+	                return resolve('scroll and update finished');
+	            }
+	        });
+	    });
+	};
+
+/***/ },
+/* 18 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	module.exports = {
+		appendFile: __webpack_require__(19)
+	};
+
+/***/ },
+/* 19 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	module.exports = function (file, data) {
+		var fs = __webpack_require__(20);
+		var path = __webpack_require__(21);
+		var dir = path.dirname(file);
+		var checkExists = __webpack_require__(22);
+		if (checkExists(dir)) {
+			fs.appendFileSync(file, data);
+		}
+	};
+
+/***/ },
+/* 20 */
+/***/ function(module, exports) {
+
+	module.exports = __WEBPACK_EXTERNAL_MODULE_20__;
+
+/***/ },
+/* 21 */
+/***/ function(module, exports) {
+
+	module.exports = __WEBPACK_EXTERNAL_MODULE_21__;
+
+/***/ },
+/* 22 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	module.exports = function (dir) {
+		var fs = __webpack_require__(20);
+		try {
+			var stats = fs.statSync(dir);
+		} catch (err) {
+			if (err.code === 'ENOENT') {
+				fs.mkdirSync(dir);
+			}
+		}
+		return true;
 	};
 
 /***/ }

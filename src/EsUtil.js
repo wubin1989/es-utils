@@ -64,6 +64,11 @@ class EsUtil {
 		const _scrollAndBulkUpdate = require('./scrollAndBulkUpdate').bind(this, field, size, value, query, sum)
 		return _scrollAndBulkUpdate()
 	}
+
+	scrollAndAppendFile(field, size, value, query, sum, file) {
+		const _scrollAndAppendFile = require('./scrollAndAppendFile').bind(this, field, size, value, query, sum, file)
+		return _scrollAndAppendFile()
+	}
 }
 
 module.exports = EsUtil
