@@ -9,16 +9,17 @@ module.exports = function(field, size, value, query, sum) {
         }
     }
 
-    const query = {
-        query: query
+    if (query) {
+        _query.query = query
     }
+
 
     const options = {
         index: this.index,
         type: this.type,
         scroll: '60s',
         size: size || 1000,
-        body: query || _query,
+        body: _query,
         search_type: 'scan',
     };
 

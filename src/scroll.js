@@ -5,7 +5,7 @@ module.exports = function(fields, size, sum, sortByField, query, wantedField) {
         sum = 500;
     }
 
-    const query = {
+    const _query = {
         query: query
     }
 
@@ -14,7 +14,7 @@ module.exports = function(fields, size, sum, sortByField, query, wantedField) {
         type: this.type,
         scroll: '60s',
         size: size || 50,
-        body: query,
+        body: _query,
         search_type: 'scan',
     };
 

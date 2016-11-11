@@ -5,7 +5,7 @@ module.exports = function(field, size, sum, query) {
             sum = 500;
         }
 
-        const query = {
+        const _query = {
             query: query
         }
 
@@ -14,7 +14,7 @@ module.exports = function(field, size, sum, query) {
             type: this.type,
             scroll: '60s',
             size: size || 50,
-            body: query,
+            body: _query,
             fields: field,
             search_type: 'scan',
         };
@@ -41,7 +41,7 @@ module.exports = function(field, size, sum, query) {
                 console.log(compare);
                 if (allValues.length < compare) {
                     console.log(allValues.length);
-                    EsClient.scroll({
+                    that.client.scroll({
                         scrollId: response._scroll_id,
                         scroll: '60s',
                     }, getMoreUntilDone);

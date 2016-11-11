@@ -250,7 +250,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                        field: dateField,
 	                        interval: 'hour',
 	                        format: 'yyyy-M-d H:mm',
-	                        //time_zone: '+08:00',
+	                        time_zone: '+08:00',
 	                        min_doc_count: 0,
 	                        extended_bounds: {
 	                            min: start_date.getTime(),
@@ -287,12 +287,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	    if (!sum) {
 	        sum = 500;
 	    }
+	
+	    var _query = {
+	        query: query
+	    };
+	
 	    var options = {
 	        index: this.index,
 	        type: this.type,
 	        scroll: '60s',
 	        size: size || 50,
-	        body: query,
+	        body: _query,
 	        search_type: 'scan'
 	    };
 	
@@ -340,7 +345,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                compare = response.hits.total;
 	            }
 	            if (allValues.length < compare) {
-	                this.client.scroll({
+	                that.client.scroll({
 	                    scrollId: response._scroll_id,
 	                    scroll: '60s'
 	                }, getMoreUntilDone);
@@ -368,12 +373,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	    if (!sum) {
 	        sum = 500;
 	    }
+	
+	    var _query = {
+	        query: query
+	    };
+	
 	    var options = {
 	        index: this.index,
 	        type: this.type,
 	        scroll: '60s',
 	        size: size || 50,
-	        body: query,
+	        body: _query,
 	        fields: field,
 	        search_type: 'scan'
 	    };
@@ -400,7 +410,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            console.log(compare);
 	            if (allValues.length < compare) {
 	                console.log(allValues.length);
-	                EsClient.scroll({
+	                that.client.scroll({
 	                    scrollId: response._scroll_id,
 	                    scroll: '60s'
 	                }, getMoreUntilDone);
@@ -442,20 +452,21 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	module.exports = function (pageSize, sortByField, query, page_index, aggs) {
 	
-	    var syntax = {
+	    var _query = {
 	        query: query
 	    };
+	
 	    if (aggs) {
-	        syntax.aggs = aggs;
+	        _query.aggs = aggs;
 	    }
 	
-	    console.log(JSON.stringify(syntax, null, 4));
+	    console.log(JSON.stringify(_query, null, 4));
 	    console.log('-------------------------------');
 	
 	    var options = {
 	        index: this.index,
 	        type: this.type,
-	        body: syntax,
+	        body: _query,
 	        size: pageSize || 0,
 	        from: page_index ? page_index * pageSize : 0
 	    };
@@ -589,12 +600,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	        }
 	    };
 	
+	    if (query) {
+	        _query.query = query;
+	    }
+	
 	    var options = {
 	        index: this.index,
 	        type: this.type,
 	        scroll: '60s',
 	        size: size || 1000,
-	        body: query || _query,
+	        body: _query,
 	        search_type: 'scan'
 	    };
 	
