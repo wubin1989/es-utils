@@ -1,9 +1,14 @@
 'use strict';
 
-module.exports = function(field, size, sum, query){
+module.exports = function(field, size, sum, query) {
         if (!sum) {
             sum = 500;
         }
+
+        const query = {
+            query: query
+        }
+
         let options = {
             index: this.index,
             type: this.type,
@@ -22,11 +27,11 @@ module.exports = function(field, size, sum, query){
                     return reject(err);
                 };
                 response.hits.hits.forEach(function(hit) {
-                    if(typeof field === 'string'){
+                    if (typeof field === 'string') {
                         allValues.push(hit.fields ? hit.fields[field][0] : '');
-                    }else{
+                    } else {
                         allValues.push(hit.fields ? hit.fields : '');
-                    } 
+                    }
                 });
 
                 let compare = sum;

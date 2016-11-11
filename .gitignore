@@ -3,3 +3,4 @@ count.js
 node_modules
 util.js
 test
+.DS_Store

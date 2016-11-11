@@ -2,20 +2,21 @@
 
 module.exports = function(pageSize, sortByField, query, page_index, aggs){
 
-    let syntax = {
+    const query = {
         query: query,
-    };
-    if (aggs) {
-        syntax.aggs = aggs;
     }
 
-    console.log(JSON.stringify(syntax, null, 4));
-    console.log('-------------------------------');
+    if (aggs) {
+        query.aggs = aggs;
+    }
+
+    console.log(JSON.stringify(query, null, 4))
+    console.log('-------------------------------')
     
     let options = {
         index: this.index,
         type: this.type,
-        body: syntax,
+        body: query,
         size: pageSize || 0,
         from: page_index ? page_index * pageSize : 0,
     };

@@ -4,6 +4,11 @@ module.exports = function(fields, size, sum, sortByField, query, wantedField) {
     if (!sum) {
         sum = 500;
     }
+
+    const query = {
+        query: query
+    }
+
     let options = {
         index: this.index,
         type: this.type,
@@ -57,7 +62,7 @@ module.exports = function(fields, size, sum, sortByField, query, wantedField) {
                 compare = response.hits.total;
             }
             if (allValues.length < compare) {
-                this.client.scroll({
+                that.client.scroll({
                     scrollId: response._scroll_id,
                     scroll: '60s',
                 }, getMoreUntilDone);

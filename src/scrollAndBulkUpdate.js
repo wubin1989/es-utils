@@ -9,6 +9,10 @@ module.exports = function(field, size, value, query, sum) {
         }
     }
 
+    const query = {
+        query: query
+    }
+
     const options = {
         index: this.index,
         type: this.type,

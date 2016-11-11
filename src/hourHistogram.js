@@ -17,7 +17,7 @@ module.exports = function(fields, pageSize, sortByField, dateField, query, start
                             field: dateField,
                             interval: 'hour',
                             format: 'yyyy-M-d H:mm',
-                            //time_zone: '+08:00',
+                            time_zone: '+08:00',
                             min_doc_count: 0,
                             extended_bounds: {
                                 min: start_date.getTime(),
