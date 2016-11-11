@@ -65,8 +65,8 @@ class EsUtil {
 		return _scrollAndBulkUpdate()
 	}
 
-	scrollAndAppendFile(field, size, value, query, sum, file) {
-		const _scrollAndAppendFile = require('./scrollAndAppendFile').bind(this, field, size, value, query, sum, file)
+	scrollAndAppendFile(size, query, sum, file) {
+		const _scrollAndAppendFile = require('./scrollAndAppendFile').bind(this, size, query, sum, file)
 		return _scrollAndAppendFile()
 	}
 }

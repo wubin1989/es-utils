@@ -154,8 +154,8 @@ return /******/ (function(modules) { // webpackBootstrap
 			}
 		}, {
 			key: 'scrollAndAppendFile',
-			value: function scrollAndAppendFile(field, size, value, query, sum, file) {
-				var _scrollAndAppendFile = __webpack_require__(17).bind(this, field, size, value, query, sum, file);
+			value: function scrollAndAppendFile(size, query, sum, file) {
+				var _scrollAndAppendFile = __webpack_require__(17).bind(this, size, query, sum, file);
 				return _scrollAndAppendFile();
 			}
 		}]);
@@ -725,7 +725,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 	
-	module.exports = function (field, size, value, query, sum, file) {
+	module.exports = function (size, query, sum, file) {
 	    var _ = __webpack_require__(4);
 	    var appendFile = __webpack_require__(18).appendFile;
 	
