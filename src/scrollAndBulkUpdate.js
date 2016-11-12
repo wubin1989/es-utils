@@ -13,7 +13,7 @@ module.exports = function(field, size, value, query, sum, replace) {
         _query.query = query
     }
 
-    console.log(JSON.stringify(_query, null ,4))
+    console.log(JSON.stringify(_query, null, 4))
 
     const options = {
         index: this.index,
@@ -68,9 +68,7 @@ module.exports = function(field, size, value, query, sum, replace) {
                     compare = sum
                 }
 
-                console.log(`response.hits.total is ${response.hits.total}`);
-
-                console.log(`${more} has been updated successfully, current progress is ${(count/compare).toFixed(2)*100}%`);
+                console.log(`[${value.toString()}]: ${more} has been updated successfully, current progress is ${compare ? (count/compare).toFixed(2)*100 : 100}%`);
 
                 if (count < compare) {
                     that.client.scroll({
