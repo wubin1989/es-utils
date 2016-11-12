@@ -601,6 +601,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	module.exports = function (field, size, value, query, sum, replace) {
 	    var _ = __webpack_require__(4);
+	    var valueCopy = _.cloneDeep(value);
 	
 	    var _query = {
 	        "query": {
@@ -687,7 +688,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                                    compare = sum;
 	                                }
 	
-	                                console.log('[' + value.toString() + ']: ' + more + ' has been updated successfully, current progress is ' + (compare ? (count / compare).toFixed(2) * 100 : 100) + '%');
+	                                console.log('[' + valueCopy.toString() + ']: ' + more + ' has been updated successfully, current progress is ' + (compare ? (count / compare).toFixed(2) * 100 : 100) + '%');
 	
 	                                if (!(count < compare)) {
 	                                    _context.next = 18;

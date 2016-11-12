@@ -2,6 +2,7 @@
 
 module.exports = function(field, size, value, query, sum, replace) {
     const _ = require('lodash')
+    const valueCopy = _.cloneDeep(value)
 
     const _query = {
         "query": {
@@ -68,7 +69,7 @@ module.exports = function(field, size, value, query, sum, replace) {
                     compare = sum
                 }
 
-                console.log(`[${value.toString()}]: ${more} has been updated successfully, current progress is ${compare ? (count/compare).toFixed(2)*100 : 100}%`);
+                console.log(`[${valueCopy.toString()}]: ${more} has been updated successfully, current progress is ${compare ? (count/compare).toFixed(2)*100 : 100}%`);
 
                 if (count < compare) {
                     that.client.scroll({
