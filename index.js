@@ -148,8 +148,8 @@ return /******/ (function(modules) { // webpackBootstrap
 			}
 		}, {
 			key: 'scrollAndBulkUpdate',
-			value: function scrollAndBulkUpdate(field, size, value, query, sum, replace) {
-				var _scrollAndBulkUpdate = __webpack_require__(16).bind(this, field, size, value, query, sum, replace);
+			value: function scrollAndBulkUpdate(kv, size, query, sum) {
+				var _scrollAndBulkUpdate = __webpack_require__(16).bind(this, kv, size, query, sum);
 				return _scrollAndBulkUpdate();
 			}
 		}, {
@@ -593,15 +593,25 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 	
-	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+	/*
+	    eg.:
+	        kv = ["tags", "userid"]
+	        kv = {
+	            tags:{
+	                value: ["apple"],
+	                replace: false
+	            }
+	            userid: "123456"
+	        }
+	*/
 	
-	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 	
 	function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 	
-	module.exports = function (field, size, value, query, sum, replace) {
+	module.exports = function (kv, size, query, sum) {
 	    var _ = __webpack_require__(4);
-	    var valueCopy = _.cloneDeep(value);
+	    var kvCopy = _.cloneDeep(kv);
 	
 	    var _query = {
 	        "query": {
@@ -651,15 +661,41 @@ return /******/ (function(modules) { // webpackBootstrap
 	                                more = response.hits.hits.length;
 	                                docs = _.map(response.hits.hits, function (hit) {
 	                                    var id = hit._id;
-	                                    var doc = _defineProperty({}, field, value || hit._source[field]);
-	                                    if (value && !replace) {
-	                                        if (value.constructor.name === "Object" && hit._source[field].constructor.name === "Object") {
-	                                            value = _.merge(value, hit._source[field]);
-	                                        } else if (value.constructor.name === "Array" && hit._source[field].constructor.name === "Array") {
-	                                            value = [].concat(_toConsumableArray(new Set(hit._source[field].concat(value))));
+	                                    var doc = {};
+	
+	                                    if (kvCopy.constructor.name === "Array") {
+	                                        _.forEach(kvCopy, function (k) {
+	                                            if (k.constructor.name === "String") {
+	                                                var key = k.trim();
+	                                                doc[key] = hit._source[key];
+	                                            } else {
+	                                                throw new Error("your provided field name is not string!");
+	                                            }
+	                                        });
+	                                    } else if (kvCopy.constructor.name === "Object") {
+	                                        _.forOwn(kvCopy, function (v, k) {
+	                                            var _value = _.cloneDeep(v);
+	                                            if (v.constructor.name === "Object") {
+	                                                if (v.replace === false) {
+	                                                    _value = v.value;
+	                                                    if (_value.constructor.name === "Object" && hit._source[k].constructor.name === "Object") {
+	                                                        _value = _.merge(_value, hit._source[k]);
+	                                                    } else if (_value.constructor.name === "Array" && hit._source[k].constructor.name === "Array") {
+	                                                        _value = [].concat(_toConsumableArray(new Set(hit._source[k].concat(_value))));
+	                                                    }
+	                                                }
+	                                            }
+	                                            doc[k] = _value;
+	                                        });
+	                                    } else {
+	                                        if (kvCopy.constructor.name === "String") {
+	                                            var key = kvCopy.trim();
+	                                            doc[key] = hit._source[key];
+	                                        } else {
+	                                            throw new Error("your provided field name is not string!");
 	                                        }
-	                                        doc[field] = value;
 	                                    }
+	
 	                                    return {
 	                                        id: id,
 	                                        doc: doc
@@ -688,7 +724,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                                    compare = sum;
 	                                }
 	
-	                                console.log('[' + valueCopy.toString() + ']: ' + more + ' has been updated successfully, current progress is ' + (compare ? (count / compare).toFixed(2) * 100 : 100) + '%');
+	                                console.log(more + ' has been updated successfully, current progress is ' + (compare ? (count / compare).toFixed(2) * 100 : 100) + '%');
 	
 	                                if (!(count < compare)) {
 	                                    _context.next = 18;

@@ -1,8 +1,19 @@
 'use strict';
 
-module.exports = function(field, size, value, query, sum, replace) {
+/*
+    eg.:
+        kv = ["tags", "userid"]
+        kv = {
+            tags:{
+                value: ["apple"],
+                replace: false
+            }
+            userid: "123456"
+        }
+*/
+module.exports = function(kv, size, query, sum) {
     const _ = require('lodash')
-    const valueCopy = _.cloneDeep(value)
+    const kvCopy = _.cloneDeep(kv)
 
     const _query = {
         "query": {
@@ -40,17 +51,41 @@ module.exports = function(field, size, value, query, sum, replace) {
                 const more = response.hits.hits.length
                 const docs = _.map(response.hits.hits, (hit) => {
                     const id = hit._id
-                    const doc = {
-                        [field]: value || hit._source[field]
-                    }
-                    if (value && !replace) {
-                        if (value.constructor.name === "Object" && hit._source[field].constructor.name === "Object") {
-                            value = _.merge(value, hit._source[field])
-                        } else if (value.constructor.name === "Array" && hit._source[field].constructor.name === "Array") {
-                            value = [...new Set(hit._source[field].concat(value))]
+                    const doc = {}
+
+                    if (kvCopy.constructor.name === "Array") {
+                        _.forEach(kvCopy, (k) => {
+                            if (k.constructor.name === "String") {
+                                const key = k.trim()
+                                doc[key] = hit._source[key]
+                            } else {
+                                throw new Error("your provided field name is not string!")
+                            }
+                        })
+                    } else if (kvCopy.constructor.name === "Object") {
+                        _.forOwn(kvCopy, (v, k) => {
+                            let _value = _.cloneDeep(v)
+                            if (v.constructor.name === "Object") {
+                                if (v.replace === false) {
+                                    _value = v.value
+                                    if (_value.constructor.name === "Object" && hit._source[k].constructor.name === "Object") {
+                                        _value = _.merge(_value, hit._source[k])
+                                    } else if (_value.constructor.name === "Array" && hit._source[k].constructor.name === "Array") {
+                                        _value = [...new Set(hit._source[k].concat(_value))]
+                                    }
+                                }
+                            }
+                            doc[k] = _value
+                        })
+                    } else {
+                        if (kvCopy.constructor.name === "String") {
+                            const key = kvCopy.trim()
+                            doc[key] = hit._source[key]
+                        } else {
+                            throw new Error("your provided field name is not string!")
                         }
-                        doc[field] = value
                     }
+
                     return {
                         id: id,
                         doc: doc
@@ -69,7 +104,7 @@ module.exports = function(field, size, value, query, sum, replace) {
                     compare = sum
                 }
 
-                console.log(`[${valueCopy.toString()}]: ${more} has been updated successfully, current progress is ${compare ? (count/compare).toFixed(2)*100 : 100}%`);
+                console.log(`${more} has been updated successfully, current progress is ${compare ? (count/compare).toFixed(2)*100 : 100}%`)
 
                 if (count < compare) {
                     that.client.scroll({
