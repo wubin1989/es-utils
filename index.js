@@ -593,8 +593,6 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 	
-	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
-	
 	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 	
 	function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
@@ -650,12 +648,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	                                    var id = hit._id;
 	                                    var doc = _defineProperty({}, field, value || hit._source[field]);
 	                                    if (value && !replace) {
-	                                        if (hit._source[field].constructor.name === "Object" && value.constructor.name === "Object") {
+	                                        if (value.constructor.name === "Object" && hit._source[field].constructor.name === "Object") {
 	                                            value = _.merge(value, hit._source[field]);
-	                                        } else if (hit._source[field].constructor.name === "Array" && value.constructor.name === "Array") {
-	                                            var _hit$_source$field;
-	
-	                                            value = (_hit$_source$field = hit._source[field]).push.apply(_hit$_source$field, _toConsumableArray(value));
+	                                        } else if (value.constructor.name === "Array" && hit._source[field].constructor.name === "Array") {
+	                                            value = hit._source[field].concat(value);
 	                                        }
 	                                        doc[field] = value;
 	                                    }

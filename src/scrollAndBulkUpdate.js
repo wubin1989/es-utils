@@ -41,10 +41,10 @@ module.exports = function(field, size, value, query, sum, replace) {
                         [field]: value || hit._source[field]
                     }
                     if (value && !replace) {
-                        if (hit._source[field].constructor.name === "Object" && value.constructor.name === "Object") {
+                        if (value.constructor.name === "Object" && hit._source[field].constructor.name === "Object") {
                             value = _.merge(value, hit._source[field])
-                        } else if (hit._source[field].constructor.name === "Array" && value.constructor.name === "Array") {
-                            value = hit._source[field].push(...value)
+                        } else if (value.constructor.name === "Array" && hit._source[field].constructor.name === "Array") {
+                            value = hit._source[field].concat(value)
                         }
                         doc[field] = value
                     }
