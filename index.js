@@ -1,13 +1,13 @@
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
-		module.exports = factory(require("babel-polyfill"), require("elasticsearch"), require("lodash"), require("moment"), require("fs_util"));
+		module.exports = factory(require("elasticsearch"), require("lodash"), require("moment"), require("fs_util"));
 	else if(typeof define === 'function' && define.amd)
-		define(["babel-polyfill", "elasticsearch", "lodash", "moment", "fs_util"], factory);
+		define(["elasticsearch", "lodash", "moment", "fs_util"], factory);
 	else {
-		var a = typeof exports === 'object' ? factory(require("babel-polyfill"), require("elasticsearch"), require("lodash"), require("moment"), require("fs_util")) : factory(root["babel-polyfill"], root["elasticsearch"], root["lodash"], root["moment"], root["fs_util"]);
+		var a = typeof exports === 'object' ? factory(require("elasticsearch"), require("lodash"), require("moment"), require("fs_util")) : factory(root["elasticsearch"], root["lodash"], root["moment"], root["fs_util"]);
 		for(var i in a) (typeof exports === 'object' ? exports : root)[i] = a[i];
 	}
-})(this, function(__WEBPACK_EXTERNAL_MODULE_1__, __WEBPACK_EXTERNAL_MODULE_3__, __WEBPACK_EXTERNAL_MODULE_4__, __WEBPACK_EXTERNAL_MODULE_6__, __WEBPACK_EXTERNAL_MODULE_18__) {
+})(this, function(__WEBPACK_EXTERNAL_MODULE_2__, __WEBPACK_EXTERNAL_MODULE_3__, __WEBPACK_EXTERNAL_MODULE_5__, __WEBPACK_EXTERNAL_MODULE_17__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -54,18 +54,11 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
-	__webpack_require__(1);
-	module.exports = __webpack_require__(2);
+	module.exports = __webpack_require__(1);
 
 
 /***/ },
 /* 1 */
-/***/ function(module, exports) {
-
-	module.exports = __WEBPACK_EXTERNAL_MODULE_1__;
-
-/***/ },
-/* 2 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -74,8 +67,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
-	var elasticsearch = __webpack_require__(3);
-	var _ = __webpack_require__(4);
+	var elasticsearch = __webpack_require__(2);
+	var _ = __webpack_require__(3);
 	
 	var EsUtil = function () {
 		function EsUtil(config, index, type) {
@@ -89,73 +82,73 @@ return /******/ (function(modules) { // webpackBootstrap
 		_createClass(EsUtil, [{
 			key: 'dateHistogram',
 			value: function dateHistogram(fields, pageSize, sortByField, dateField, query, start_date, end_date) {
-				var _dateHistogram = __webpack_require__(5).bind(this, fields, pageSize, sortByField, dateField, query, start_date, end_date);
+				var _dateHistogram = __webpack_require__(4).bind(this, fields, pageSize, sortByField, dateField, query, start_date, end_date);
 				return _dateHistogram();
 			}
 		}, {
 			key: 'hourHistogram',
 			value: function hourHistogram(fields, pageSize, sortByField, dateField, query, start_date, end_date) {
-				var _hourHistogram = __webpack_require__(7).bind(this, fields, pageSize, sortByField, dateField, query, start_date, end_date);
+				var _hourHistogram = __webpack_require__(6).bind(this, fields, pageSize, sortByField, dateField, query, start_date, end_date);
 				return _hourHistogram();
 			}
 		}, {
 			key: 'scroll',
 			value: function scroll(fields, size, sum, sortByField, query, wantedField) {
-				var _scroll = __webpack_require__(8).bind(this, fields, size, sum, sortByField, query, wantedField);
+				var _scroll = __webpack_require__(7).bind(this, fields, size, sum, sortByField, query, wantedField);
 				return _scroll();
 			}
 		}, {
 			key: 'scroll_agg',
 			value: function scroll_agg(field, size, sum, query) {
-				var _scroll_agg = __webpack_require__(9).bind(this, field, size, sum, query);
+				var _scroll_agg = __webpack_require__(8).bind(this, field, size, sum, query);
 				return _scroll_agg();
 			}
 		}, {
 			key: 'search',
 			value: function search(pageSize, sortByField, query, page_index, aggs) {
-				var _search = __webpack_require__(10).bind(this, pageSize, sortByField, query, page_index, aggs);
+				var _search = __webpack_require__(9).bind(this, pageSize, sortByField, query, page_index, aggs);
 				return _search();
 			}
 		}, {
 			key: 'createIndex',
 			value: function createIndex(mapping) {
-				var _createIndex = __webpack_require__(11).bind(this, mapping);
+				var _createIndex = __webpack_require__(10).bind(this, mapping);
 				return _createIndex();
 			}
 		}, {
 			key: 'getMapping',
 			value: function getMapping() {
-				var _getMapping = __webpack_require__(12).bind(this);
+				var _getMapping = __webpack_require__(11).bind(this);
 				return _getMapping();
 			}
 		}, {
 			key: 'putMapping',
 			value: function putMapping(body) {
-				var _putMapping = __webpack_require__(13).bind(this, body);
+				var _putMapping = __webpack_require__(12).bind(this, body);
 				return _putMapping();
 			}
 		}, {
 			key: 'updateDoc',
 			value: function updateDoc(body) {
-				var _updateDoc = __webpack_require__(14).bind(this, body);
+				var _updateDoc = __webpack_require__(13).bind(this, body);
 				return _updateDoc();
 			}
 		}, {
 			key: 'bulkUpdateDocs',
 			value: function bulkUpdateDocs(docs) {
-				var _bulkUpdateDocs = __webpack_require__(15).bind(this, docs);
+				var _bulkUpdateDocs = __webpack_require__(14).bind(this, docs);
 				return _bulkUpdateDocs();
 			}
 		}, {
 			key: 'scrollAndBulkUpdate',
 			value: function scrollAndBulkUpdate(field, size, value, query, sum, replace) {
-				var _scrollAndBulkUpdate = __webpack_require__(16).bind(this, field, size, value, query, sum, replace);
+				var _scrollAndBulkUpdate = __webpack_require__(15).bind(this, field, size, value, query, sum, replace);
 				return _scrollAndBulkUpdate();
 			}
 		}, {
 			key: 'scrollAndAppendFile',
 			value: function scrollAndAppendFile(size, query, sum, file) {
-				var _scrollAndAppendFile = __webpack_require__(17).bind(this, size, query, sum, file);
+				var _scrollAndAppendFile = __webpack_require__(16).bind(this, size, query, sum, file);
 				return _scrollAndAppendFile();
 			}
 		}]);
@@ -166,6 +159,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = EsUtil;
 
 /***/ },
+/* 2 */
+/***/ function(module, exports) {
+
+	module.exports = __WEBPACK_EXTERNAL_MODULE_2__;
+
+/***/ },
 /* 3 */
 /***/ function(module, exports) {
 
@@ -173,17 +172,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 4 */
-/***/ function(module, exports) {
-
-	module.exports = __WEBPACK_EXTERNAL_MODULE_4__;
-
-/***/ },
-/* 5 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var moment = __webpack_require__(6);
+	var moment = __webpack_require__(5);
 	
 	module.exports = function (fields, pageSize, sortByField, dateField, query, start_date, end_date) {
 	    if (!fields) {
@@ -228,18 +221,18 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 6 */
+/* 5 */
 /***/ function(module, exports) {
 
-	module.exports = __WEBPACK_EXTERNAL_MODULE_6__;
+	module.exports = __WEBPACK_EXTERNAL_MODULE_5__;
 
 /***/ },
-/* 7 */
+/* 6 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var moment = __webpack_require__(6);
+	var moment = __webpack_require__(5);
 	
 	module.exports = function (fields, pageSize, sortByField, dateField, query, start_date, end_date) {
 	    if (!fields) {
@@ -284,7 +277,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 8 */
+/* 7 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -370,7 +363,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 9 */
+/* 8 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -451,7 +444,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	//
 
 /***/ },
-/* 10 */
+/* 9 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -485,7 +478,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 11 */
+/* 10 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -509,7 +502,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 12 */
+/* 11 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -519,6 +512,24 @@ return /******/ (function(modules) { // webpackBootstrap
 			index: this.index,
 			type: this.type
 		});
+	};
+
+/***/ },
+/* 12 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	module.exports = function (body) {
+	
+	    var options = {
+	        index: this.index,
+	        type: this.type,
+	        body: body,
+	        updateAllTypes: false
+	    };
+	
+	    return this.client.indices.putMapping(options);
 	};
 
 /***/ },
@@ -541,30 +552,12 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 14 */
-/***/ function(module, exports) {
-
-	'use strict';
-	
-	module.exports = function (body) {
-	
-	    var options = {
-	        index: this.index,
-	        type: this.type,
-	        body: body,
-	        updateAllTypes: false
-	    };
-	
-	    return this.client.indices.putMapping(options);
-	};
-
-/***/ },
-/* 15 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	module.exports = function (docs) {
-		var _ = __webpack_require__(4);
+		var _ = __webpack_require__(3);
 		var that = this;
 		var body = _.flatten(_.map(docs, function (item) {
 			var id = item.id;
@@ -588,7 +581,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 16 */
+/* 15 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -600,7 +593,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 	
 	module.exports = function (field, size, value, query, sum, replace) {
-	    var _ = __webpack_require__(4);
+	    var _ = __webpack_require__(3);
 	
 	    var _query = {
 	        "query": {
@@ -732,14 +725,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 17 */
+/* 16 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	module.exports = function (size, query, sum, file) {
-	    var _ = __webpack_require__(4);
-	    var appendFile = __webpack_require__(18).appendFile;
+	    var _ = __webpack_require__(3);
+	    var appendFile = __webpack_require__(17).appendFile;
 	
 	    var _query = {
 	        "query": {
@@ -808,10 +801,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 18 */
+/* 17 */
 /***/ function(module, exports) {
 
-	module.exports = __WEBPACK_EXTERNAL_MODULE_18__;
+	module.exports = __WEBPACK_EXTERNAL_MODULE_17__;
 
 /***/ }
 /******/ ])

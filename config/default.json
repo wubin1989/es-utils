@@ -1,0 +1,11 @@
+{
+	"es": {
+		"host": [{
+			"host": "localhost",
+			"port": 9200,
+			"auth": ""
+		}],
+		"requestTimeout": 300000000,
+		"log": "error"
+	}
+}
