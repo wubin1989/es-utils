@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = function(field, size, value, query, sum) {
+module.exports = function(field, size, value, query, sum, replace) {
     const _ = require('lodash')
 
     const _query = {
@@ -39,6 +39,14 @@ module.exports = function(field, size, value, query, sum) {
                     const id = hit._id
                     const doc = {
                         [field]: value || hit._source[field]
+                    }
+                    if (value && !replace) {
+                        if (hit._source[field].constructor.name === "Object" && value.constructor.name === "Object") {
+                            value = _.merge(value, hit._source[field])
+                        } else if (hit._source[field].constructor.name === "Array" && value.constructor.name === "Array") {
+                            value = hit._source[field].push(...value)
+                        }
+                        doc[field] = value
                     }
                     return {
                         id: id,
