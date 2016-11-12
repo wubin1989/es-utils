@@ -46,7 +46,7 @@ module.exports = function(field, size, value, query, sum, replace) {
                         if (value.constructor.name === "Object" && hit._source[field].constructor.name === "Object") {
                             value = _.merge(value, hit._source[field])
                         } else if (value.constructor.name === "Array" && hit._source[field].constructor.name === "Array") {
-                            value = hit._source[field].concat(value)
+                            value = [...new Set(hit._source[field].concat(value))]
                         }
                         doc[field] = value
                     }
