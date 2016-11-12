@@ -60,7 +60,7 @@ class EsUtil {
 		return _bulkUpdateDocs()
 	}
 
-	scrollAndBulkUpdate(field, size, value, query, sum) {
+	scrollAndBulkUpdate(field, size, value, query, sum, replace) {
 		const _scrollAndBulkUpdate = require('./scrollAndBulkUpdate').bind(this, field, size, value, query, sum, replace)
 		return _scrollAndBulkUpdate()
 	}
