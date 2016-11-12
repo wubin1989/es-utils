@@ -1,6 +1,6 @@
 {
   "name": "es_utils",
-  "version": "0.2.5",
+  "version": "0.2.6",
   "description": "util library for elasticsearch js",
   "main": "index.js",
   "scripts": {
