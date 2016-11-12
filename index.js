@@ -149,7 +149,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		}, {
 			key: 'scrollAndBulkUpdate',
 			value: function scrollAndBulkUpdate(field, size, value, query, sum) {
-				var _scrollAndBulkUpdate = __webpack_require__(16).bind(this, field, size, value, query, sum);
+				var _scrollAndBulkUpdate = __webpack_require__(16).bind(this, field, size, value, query, sum, replace);
 				return _scrollAndBulkUpdate();
 			}
 		}, {
