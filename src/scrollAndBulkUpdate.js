@@ -13,6 +13,8 @@ module.exports = function(field, size, value, query, sum, replace) {
         _query.query = query
     }
 
+    console.log(JSON.stringify(_query, null ,4))
+
     const options = {
         index: this.index,
         type: this.type,
@@ -65,6 +67,8 @@ module.exports = function(field, size, value, query, sum, replace) {
                 if (sum && (response.hits.total > sum)) {
                     compare = sum
                 }
+
+                console.log(`response.hits.total is ${response.hits.total}`);
 
                 console.log(`${more} has been updated successfully, current progress is ${(count/compare).toFixed(2)*100}%`);
 

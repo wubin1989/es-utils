@@ -610,6 +610,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	        _query.query = query;
 	    }
 	
+	    console.log(JSON.stringify(_query, null, 4));
+	
 	    var options = {
 	        index: this.index,
 	        type: this.type,
@@ -683,10 +685,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	                                    compare = sum;
 	                                }
 	
+	                                console.log('response.hits.total is ' + response.hits.total);
+	
 	                                console.log(more + ' has been updated successfully, current progress is ' + (count / compare).toFixed(2) * 100 + '%');
 	
 	                                if (!(count < compare)) {
-	                                    _context.next = 18;
+	                                    _context.next = 19;
 	                                    break;
 	                                }
 	
@@ -694,28 +698,28 @@ return /******/ (function(modules) { // webpackBootstrap
 	                                    scrollId: response._scroll_id,
 	                                    scroll: '60s'
 	                                }, getMoreUntilDone);
-	                                _context.next = 19;
+	                                _context.next = 20;
 	                                break;
-	
-	                            case 18:
-	                                return _context.abrupt('return', resolve('scroll and update finished'));
 	
 	                            case 19:
-	                                _context.next = 24;
+	                                return _context.abrupt('return', resolve('scroll and update finished'));
+	
+	                            case 20:
+	                                _context.next = 25;
 	                                break;
 	
-	                            case 21:
-	                                _context.prev = 21;
+	                            case 22:
+	                                _context.prev = 22;
 	                                _context.t0 = _context['catch'](3);
 	
 	                                console.log(_context.t0);
 	
-	                            case 24:
+	                            case 25:
 	                            case 'end':
 	                                return _context.stop();
 	                        }
 	                    }
-	                }, _callee, this, [[3, 21]]);
+	                }, _callee, this, [[3, 22]]);
 	            }));
 	
 	            function getMoreUntilDone(_x, _x2) {
