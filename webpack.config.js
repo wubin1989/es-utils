@@ -1,5 +1,5 @@
 module.exports = {
-  entry: ['./src/EsUtil.js'],
+  entry: ['babel-polyfill', './src/EsUtil.js'],
   output: {
     filename: 'index.js',
     libraryTarget: 'umd',
