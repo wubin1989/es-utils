@@ -69,6 +69,11 @@ class EsUtil {
 		const _scrollAndAppendFile = require('./scrollAndAppendFile').bind(this, size, query, sum, file)
 		return _scrollAndAppendFile()
 	}
+
+	searchById(id) {
+		const _searchById = require('./searchById').bind(this, id)
+		return _searchById()
+	}
 }
 
 module.exports = EsUtil

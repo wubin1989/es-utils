@@ -158,6 +158,12 @@ return /******/ (function(modules) { // webpackBootstrap
 				var _scrollAndAppendFile = __webpack_require__(17).bind(this, size, query, sum, file);
 				return _scrollAndAppendFile();
 			}
+		}, {
+			key: 'searchById',
+			value: function searchById(id) {
+				var _searchById = __webpack_require__(19).bind(this, id);
+				return _searchById();
+			}
 		}]);
 	
 		return EsUtil;
@@ -887,6 +893,23 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports) {
 
 	module.exports = __WEBPACK_EXTERNAL_MODULE_18__;
+
+/***/ },
+/* 19 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	module.exports = function (id) {
+	
+	    var options = {
+	        index: this.index,
+	        type: this.type,
+	        id: id
+	    };
+	
+	    return this.client.get(options);
+	};
 
 /***/ }
 /******/ ])
