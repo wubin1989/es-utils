@@ -905,8 +905,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	    var options = {
 	        index: this.index,
 	        type: this.type,
-	        id: id
+	        id: id,
+	        refresh: true
 	    };
+	
+	    console.log(options);
 	
 	    return this.client.get(options);
 	};
