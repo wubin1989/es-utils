@@ -611,6 +611,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	module.exports = function (kv, size, query, sum) {
 	    var _ = __webpack_require__(4);
+	    var moment = __webpack_require__(6);
+	
 	    var kvCopy = _.cloneDeep(kv);
 	
 	    var _query = {
@@ -639,10 +641,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	    var that = this;
 	
 	    return new Promise(function (resolve, reject) {
+	        var start = moment();
+	        var startCopy = _.cloneDeep(start);
 	
 	        that.client.search(options, function () {
 	            var _ref = _asyncToGenerator(regeneratorRuntime.mark(function _callee(err, response) {
-	                var more, docs, bulkUpdateResult, compare;
+	                var more, docs, bulkUpdateResult, now, diff, totalDiff, raw_speed, speed, compare, doc_remain, time_remain;
 	                return regeneratorRuntime.wrap(function _callee$(_context) {
 	                    while (1) {
 	                        switch (_context.prev = _context.next) {
@@ -714,6 +718,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	                                bulkUpdateResult = _context.sent;
 	
 	                            case 10:
+	                                now = moment();
+	                                diff = moment.utc(moment.duration(now.diff(start)).asMilliseconds()).format("HH:mm:ss.SSS");
+	                                totalDiff = moment.utc(moment.duration(now.diff(startCopy)).asMilliseconds()).format("HH:mm:ss.SSS");
+	                                raw_speed = more ? (now - start) / more : '--';
+	                                speed = raw_speed !== '--' ? (raw_speed / 1000).toFixed(2) : '--';
+	
 	
 	                                count += more;
 	
@@ -724,10 +734,20 @@ return /******/ (function(modules) { // webpackBootstrap
 	                                    compare = sum;
 	                                }
 	
-	                                console.log(more + ' has been updated successfully, current progress is ' + (compare ? (count / compare).toFixed(2) * 100 : 100) + '%');
+	                                doc_remain = compare - count;
+	
+	                                if (doc_remain < 0) {
+	                                    doc_remain = 0;
+	                                }
+	                                time_remain = raw_speed !== '--' ? moment.utc(moment.duration(raw_speed * doc_remain).asMilliseconds()).format("HH:mm:ss.SSS") : '--';
+	
+	
+	                                console.log('Finished: ' + more + '\tRatio: ' + (compare ? (count / compare).toFixed(2) * 100 : 100) + '%\tTimeCost: ' + diff + '\tSpeed: ' + speed + 's/doc\tTimeRemaining: ' + time_remain + '\tTotalTimeCost: ' + totalDiff);
+	
+	                                start = _.cloneDeep(now);
 	
 	                                if (!(count < compare)) {
-	                                    _context.next = 18;
+	                                    _context.next = 27;
 	                                    break;
 	                                }
 	
@@ -735,28 +755,28 @@ return /******/ (function(modules) { // webpackBootstrap
 	                                    scrollId: response._scroll_id,
 	                                    scroll: '60s'
 	                                }, getMoreUntilDone);
-	                                _context.next = 19;
+	                                _context.next = 28;
 	                                break;
 	
-	                            case 18:
+	                            case 27:
 	                                return _context.abrupt('return', resolve('scroll and update finished'));
 	
-	                            case 19:
-	                                _context.next = 24;
+	                            case 28:
+	                                _context.next = 33;
 	                                break;
 	
-	                            case 21:
-	                                _context.prev = 21;
+	                            case 30:
+	                                _context.prev = 30;
 	                                _context.t0 = _context['catch'](3);
 	
 	                                console.log(_context.t0);
 	
-	                            case 24:
+	                            case 33:
 	                            case 'end':
 	                                return _context.stop();
 	                        }
 	                    }
-	                }, _callee, this, [[3, 21]]);
+	                }, _callee, this, [[3, 30]]);
 	            }));
 	
 	            function getMoreUntilDone(_x, _x2) {

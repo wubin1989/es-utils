@@ -13,6 +13,8 @@
 */
 module.exports = function(kv, size, query, sum) {
     const _ = require('lodash')
+    const moment = require('moment')
+
     const kvCopy = _.cloneDeep(kv)
 
     const _query = {
@@ -41,6 +43,8 @@ module.exports = function(kv, size, query, sum) {
     const that = this
 
     return new Promise((resolve, reject) => {
+        let start = moment()
+        const startCopy = _.cloneDeep(start)
 
         that.client.search(options, async function getMoreUntilDone(err, response) {
             if (err) {
@@ -96,6 +100,12 @@ module.exports = function(kv, size, query, sum) {
                     const bulkUpdateResult = await that.bulkUpdateDocs(docs)
                 }
 
+                const now = moment()
+                const diff = moment.utc(moment.duration(now.diff(start)).asMilliseconds()).format("HH:mm:ss.SSS")
+                const totalDiff = moment.utc(moment.duration(now.diff(startCopy)).asMilliseconds()).format("HH:mm:ss.SSS")
+                const raw_speed = more ? (now - start) / more : '--'
+                const speed = (raw_speed !== '--') ? (raw_speed / 1000).toFixed(2) : '--'
+
                 count += more
 
                 let compare = response.hits.total
@@ -104,7 +114,15 @@ module.exports = function(kv, size, query, sum) {
                     compare = sum
                 }
 
-                console.log(`${more} has been updated successfully, current progress is ${compare ? (count/compare).toFixed(2)*100 : 100}%`)
+                let doc_remain = compare - count
+                if (doc_remain < 0) {
+                    doc_remain = 0
+                }
+                const time_remain = (raw_speed !== '--') ? moment.utc(moment.duration(raw_speed * doc_remain).asMilliseconds()).format("HH:mm:ss.SSS") : '--'
+
+                console.log(`Finished: ${more}\tRatio: ${compare ? (count/compare).toFixed(2)*100 : 100}%\tTimeCost: ${diff}\tSpeed: ${speed}s/doc\tTimeRemaining: ${time_remain}\tTotalTimeCost: ${totalDiff}`)
+
+                start = _.cloneDeep(now)
 
                 if (count < compare) {
                     that.client.scroll({
