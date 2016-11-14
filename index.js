@@ -722,7 +722,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                                diff = moment.utc(moment.duration(now.diff(start)).asMilliseconds()).format("HH:mm:ss.SSS");
 	                                totalDiff = moment.utc(moment.duration(now.diff(startCopy)).asMilliseconds()).format("HH:mm:ss.SSS");
 	                                raw_speed = more ? (now - start) / more : '--';
-	                                speed = raw_speed !== '--' ? (raw_speed / 1000).toFixed(2) : '--';
+	                                speed = (more / ((now - start) / 1000)).toFixed(2);
 	
 	
 	                                count += more;
@@ -742,7 +742,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                                time_remain = raw_speed !== '--' ? moment.utc(moment.duration(raw_speed * doc_remain).asMilliseconds()).format("HH:mm:ss.SSS") : '--';
 	
 	
-	                                console.log('Finished: ' + count + '\tRatio: ' + (compare ? (count / compare).toFixed(2) * 100 : 100) + '%\tTimeCost: ' + diff + '\tSpeed: ' + speed + 's/doc\tTimeRemaining: ' + time_remain + '\tTotalTimeCost: ' + totalDiff);
+	                                console.log('Finished: ' + count + '\tRatio: ' + (compare ? (count / compare).toFixed(2) * 100 : 100) + '%\tTimeCost: ' + diff + '\tSpeed: ' + speed + 'doc/s\tTimeRemaining: ' + time_remain + '\tTotalTimeCost: ' + totalDiff);
 	
 	                                start = _.cloneDeep(now);
 	
@@ -849,7 +849,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            var diff = moment.utc(moment.duration(now.diff(start)).asMilliseconds()).format("HH:mm:ss.SSS");
 	            var totalDiff = moment.utc(moment.duration(now.diff(startCopy)).asMilliseconds()).format("HH:mm:ss.SSS");
 	            var raw_speed = more ? (now - start) / more : '--';
-	            var speed = raw_speed !== '--' ? (raw_speed / 1000).toFixed(2) : '--';
+	            var speed = (more / ((now - start) / 1000)).toFixed(2);
 	
 	            count += more;
 	
@@ -866,7 +866,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	            var time_remain = raw_speed !== '--' ? moment.utc(moment.duration(raw_speed * doc_remain).asMilliseconds()).format("HH:mm:ss.SSS") : '--';
 	
-	            console.log('Finished: ' + count + '\tRatio: ' + (compare ? (count / compare).toFixed(2) * 100 : 100) + '%\tTimeCost: ' + diff + '\tSpeed: ' + speed + 's/doc\tTimeRemaining: ' + time_remain + '\tTotalTimeCost: ' + totalDiff);
+	            console.log('Finished: ' + count + '\tRatio: ' + (compare ? (count / compare).toFixed(2) * 100 : 100) + '%\tTimeCost: ' + diff + '\tSpeed: ' + speed + 'doc/s\tTimeRemaining: ' + time_remain + '\tTotalTimeCost: ' + totalDiff);
 	
 	            start = _.cloneDeep(now);
 	
