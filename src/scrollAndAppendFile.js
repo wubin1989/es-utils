@@ -2,6 +2,7 @@
 
 module.exports = function(size, query, sum, file) {
     const _ = require('lodash')
+    const moment = require('moment')
     const appendFile = require('fs_util').appendFile
 
     const _query = {
@@ -28,6 +29,8 @@ module.exports = function(size, query, sum, file) {
     const that = this
 
     return new Promise((resolve, reject) => {
+        let start = moment()
+        const startCopy = _.cloneDeep(start)
 
         that.client.search(options, function getMoreUntilDone(err, response) {
             if (err) {
@@ -48,6 +51,12 @@ module.exports = function(size, query, sum, file) {
                 }
             }
 
+            const now = moment()
+            const diff = moment.utc(moment.duration(now.diff(start)).asMilliseconds()).format("HH:mm:ss.SSS")
+            const totalDiff = moment.utc(moment.duration(now.diff(startCopy)).asMilliseconds()).format("HH:mm:ss.SSS")
+            const raw_speed = more ? (now - start) / more : '--'
+            const speed = (raw_speed !== '--') ? (raw_speed / 1000).toFixed(2) : '--'
+
             count += more
 
             let compare = response.hits.total
@@ -56,7 +65,16 @@ module.exports = function(size, query, sum, file) {
                 compare = sum
             }
 
-            console.log(`${more} has been append successfully, current progress is ${(count/compare).toFixed(2)*100}%`);
+            let doc_remain = compare - count
+            if (doc_remain < 0) {
+                doc_remain = 0
+            }
+
+            const time_remain = (raw_speed !== '--') ? moment.utc(moment.duration(raw_speed * doc_remain).asMilliseconds()).format("HH:mm:ss.SSS") : '--'
+
+            console.log(`Finished: ${count}\tRatio: ${compare ? (count/compare).toFixed(2)*100 : 100}%\tTimeCost: ${diff}\tSpeed: ${speed}s/doc\tTimeRemaining: ${time_remain}\tTotalTimeCost: ${totalDiff}`)
+
+            start = _.cloneDeep(now)
 
             if (count < compare) {
                 that.client.scroll({

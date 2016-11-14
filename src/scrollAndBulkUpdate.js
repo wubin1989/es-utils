@@ -120,7 +120,7 @@ module.exports = function(kv, size, query, sum) {
                 }
                 const time_remain = (raw_speed !== '--') ? moment.utc(moment.duration(raw_speed * doc_remain).asMilliseconds()).format("HH:mm:ss.SSS") : '--'
 
-                console.log(`Finished: ${more}\tRatio: ${compare ? (count/compare).toFixed(2)*100 : 100}%\tTimeCost: ${diff}\tSpeed: ${speed}s/doc\tTimeRemaining: ${time_remain}\tTotalTimeCost: ${totalDiff}`)
+                console.log(`Finished: ${count}\tRatio: ${compare ? (count/compare).toFixed(2)*100 : 100}%\tTimeCost: ${diff}\tSpeed: ${speed}s/doc\tTimeRemaining: ${time_remain}\tTotalTimeCost: ${totalDiff}`)
 
                 start = _.cloneDeep(now)
 

@@ -742,7 +742,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                                time_remain = raw_speed !== '--' ? moment.utc(moment.duration(raw_speed * doc_remain).asMilliseconds()).format("HH:mm:ss.SSS") : '--';
 	
 	
-	                                console.log('Finished: ' + more + '\tRatio: ' + (compare ? (count / compare).toFixed(2) * 100 : 100) + '%\tTimeCost: ' + diff + '\tSpeed: ' + speed + 's/doc\tTimeRemaining: ' + time_remain + '\tTotalTimeCost: ' + totalDiff);
+	                                console.log('Finished: ' + count + '\tRatio: ' + (compare ? (count / compare).toFixed(2) * 100 : 100) + '%\tTimeCost: ' + diff + '\tSpeed: ' + speed + 's/doc\tTimeRemaining: ' + time_remain + '\tTotalTimeCost: ' + totalDiff);
 	
 	                                start = _.cloneDeep(now);
 	
@@ -796,6 +796,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	module.exports = function (size, query, sum, file) {
 	    var _ = __webpack_require__(4);
+	    var moment = __webpack_require__(6);
 	    var appendFile = __webpack_require__(18).appendFile;
 	
 	    var _query = {
@@ -822,6 +823,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	    var that = this;
 	
 	    return new Promise(function (resolve, reject) {
+	        var start = moment();
+	        var startCopy = _.cloneDeep(start);
 	
 	        that.client.search(options, function getMoreUntilDone(err, response) {
 	            if (err) {
@@ -842,6 +845,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	                }
 	            }
 	
+	            var now = moment();
+	            var diff = moment.utc(moment.duration(now.diff(start)).asMilliseconds()).format("HH:mm:ss.SSS");
+	            var totalDiff = moment.utc(moment.duration(now.diff(startCopy)).asMilliseconds()).format("HH:mm:ss.SSS");
+	            var raw_speed = more ? (now - start) / more : '--';
+	            var speed = raw_speed !== '--' ? (raw_speed / 1000).toFixed(2) : '--';
+	
 	            count += more;
 	
 	            var compare = response.hits.total;
@@ -850,7 +859,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	                compare = sum;
 	            }
 	
-	            console.log(more + ' has been append successfully, current progress is ' + (count / compare).toFixed(2) * 100 + '%');
+	            var doc_remain = compare - count;
+	            if (doc_remain < 0) {
+	                doc_remain = 0;
+	            }
+	
+	            var time_remain = raw_speed !== '--' ? moment.utc(moment.duration(raw_speed * doc_remain).asMilliseconds()).format("HH:mm:ss.SSS") : '--';
+	
+	            console.log('Finished: ' + count + '\tRatio: ' + (compare ? (count / compare).toFixed(2) * 100 : 100) + '%\tTimeCost: ' + diff + '\tSpeed: ' + speed + 's/doc\tTimeRemaining: ' + time_remain + '\tTotalTimeCost: ' + totalDiff);
+	
+	            start = _.cloneDeep(now);
 	
 	            if (count < compare) {
 	                that.client.scroll({
