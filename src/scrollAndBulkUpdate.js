@@ -57,6 +57,7 @@ module.exports = function(kv, size, query, sum) {
                     const id = hit._id
                     const doc = {}
 
+
                     if (kvCopy.constructor.name === "Array") {
                         _.forEach(kvCopy, (k) => {
                             if (k.constructor.name === "String") {
@@ -71,11 +72,14 @@ module.exports = function(kv, size, query, sum) {
                             let _value = _.cloneDeep(v)
                             if (v.constructor.name === "Object") {
                                 if (v.replace === false) {
+                                    const source_value = _.cloneDeep(hit._source[k])
                                     _value = v.value
-                                    if (_value.constructor.name === "Object" && hit._source[k].constructor.name === "Object") {
-                                        _value = _.merge(_value, hit._source[k])
-                                    } else if (_value.constructor.name === "Array" && hit._source[k].constructor.name === "Array") {
-                                        _value = [...new Set(hit._source[k].concat(_value))]
+                                    if (source_value) {
+                                        if (_value.constructor.name === "Object" && source_value.constructor.name === "Object") {
+                                            _value = _.merge(_value, hit._source[k])
+                                        } else if (_value.constructor.name === "Array" && source_value.constructor.name === "Array") {
+                                            _value = [...new Set(hit._source[k].concat(_value))]
+                                        }
                                     }
                                 }
                             }

@@ -766,11 +766,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	                                            var _value = _.cloneDeep(v);
 	                                            if (v.constructor.name === "Object") {
 	                                                if (v.replace === false) {
+	                                                    var source_value = _.cloneDeep(hit._source[k]);
 	                                                    _value = v.value;
-	                                                    if (_value.constructor.name === "Object" && hit._source[k].constructor.name === "Object") {
-	                                                        _value = _.merge(_value, hit._source[k]);
-	                                                    } else if (_value.constructor.name === "Array" && hit._source[k].constructor.name === "Array") {
-	                                                        _value = [].concat(_toConsumableArray(new Set(hit._source[k].concat(_value))));
+	                                                    if (source_value) {
+	                                                        if (_value.constructor.name === "Object" && source_value.constructor.name === "Object") {
+	                                                            _value = _.merge(_value, hit._source[k]);
+	                                                        } else if (_value.constructor.name === "Array" && source_value.constructor.name === "Array") {
+	                                                            _value = [].concat(_toConsumableArray(new Set(hit._source[k].concat(_value))));
+	                                                        }
 	                                                    }
 	                                                }
 	                                            }
