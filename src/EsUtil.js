@@ -50,6 +50,16 @@ class EsUtil {
 		return _putMapping()
 	}
 
+	getSetting() {
+		const _getSetting = require('./getSetting').bind(this)
+		return _getSetting()
+	}
+
+	putSetting(body) {
+		const _putSetting = require('./putSetting').bind(this, body)
+		return _putSetting()
+	}
+
 	updateDoc(body) {
 		const _updateDoc = require('./updateDoc').bind(this, body)
 		return _updateDoc()
