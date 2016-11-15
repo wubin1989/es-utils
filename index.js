@@ -497,13 +497,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	'use strict';
 	
 	module.exports = function (mapping) {
+		var _this = this;
+	
 		return this.client.indices.exists({
 			index: this.index,
 			local: true
 		}).then(function (resp) {
 			if (!resp) {
-				return EsClient.indices.create({
-					index: index,
+				return _this.client.indices.create({
+					index: _this.index,
 					body: {
 						mappings: mapping
 					}
