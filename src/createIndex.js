@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = function(mapping) {
+module.exports = function(body) {
 	return this.client.indices.exists({
 			index: this.index,
 			local: true
@@ -9,9 +9,7 @@ module.exports = function(mapping) {
 			if (!resp) {
 				return this.client.indices.create({
 					index: this.index,
-					body: {
-						mappings: mapping
-					}
+					body: body,
 				})
 			} else {
 				throw new Error('the index: ' + index + 'has already exists!!!')

@@ -35,8 +35,8 @@ class EsUtil {
 		return _search()
 	}
 
-	createIndex(mapping) {
-		const _createIndex = require('./createIndex').bind(this, mapping)
+	createIndex(body) {
+		const _createIndex = require('./createIndex').bind(this, body)
 		return _createIndex()
 	}
 

@@ -118,8 +118,8 @@ return /******/ (function(modules) { // webpackBootstrap
 			}
 		}, {
 			key: 'createIndex',
-			value: function createIndex(mapping) {
-				var _createIndex = __webpack_require__(11).bind(this, mapping);
+			value: function createIndex(body) {
+				var _createIndex = __webpack_require__(11).bind(this, body);
 				return _createIndex();
 			}
 		}, {
@@ -508,7 +508,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 	
-	module.exports = function (mapping) {
+	module.exports = function (body) {
 		var _this = this;
 	
 		return this.client.indices.exists({
@@ -518,9 +518,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			if (!resp) {
 				return _this.client.indices.create({
 					index: _this.index,
-					body: {
-						mappings: mapping
-					}
+					body: body
 				});
 			} else {
 				throw new Error('the index: ' + index + 'has already exists!!!');
