@@ -521,7 +521,7 @@ return /******/ (function(modules) { // webpackBootstrap
 					body: body
 				});
 			} else {
-				throw new Error('the index: ' + index + 'has already exists!!!');
+				throw new Error('the index: ' + _this.index + 'has already exists!!!');
 			}
 		});
 	};
