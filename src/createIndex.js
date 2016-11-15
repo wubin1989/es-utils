@@ -12,7 +12,7 @@ module.exports = function(body) {
 					body: body,
 				})
 			} else {
-				throw new Error('the index: ' + this.index + 'has already exists!!!')
+				throw new Error('the index: ' + this.index + ' has already exists!!!')
 			}
 		})
 }

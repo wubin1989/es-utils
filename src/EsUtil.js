@@ -60,14 +60,19 @@ class EsUtil {
 		return _putSetting()
 	}
 
-	updateDoc(body) {
-		const _updateDoc = require('./updateDoc').bind(this, body)
+	update(body) {
+		const _updateDoc = require('./update').bind(this, body)
 		return _updateDoc()
 	}
 
-	bulkUpdateDocs(docs) {
-		const _bulkUpdateDocs = require('./bulkUpdateDocs').bind(this, docs)
+	bulkUpdate(docs) {
+		const _bulkUpdateDocs = require('./bulkUpdate').bind(this, docs)
 		return _bulkUpdateDocs()
+	}
+
+	bulkIndex(docs) {
+		const _bulkIndex = require('./bulkIndex').bind(this, docs)
+		return _bulkIndex()
 	}
 
 	scrollAndBulkUpdate(kv, size, query, sum) {
@@ -83,6 +88,11 @@ class EsUtil {
 	searchById(id) {
 		const _searchById = require('./searchById').bind(this, id)
 		return _searchById()
+	}
+
+	mgetByIds(ids) {
+		const _mgetByIds = require('./searchById').bind(this, ids)
+		return _mgetByIds()
 	}
 }
 

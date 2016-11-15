@@ -97,7 +97,7 @@ module.exports = function(kv, size, query, sum) {
                 })
 
                 if (docs.length) {
-                    const bulkUpdateResult = await that.bulkUpdateDocs(docs)
+                    const bulkUpdateResult = await that.bulkUpdate(docs)
                 }
 
                 const now = moment()

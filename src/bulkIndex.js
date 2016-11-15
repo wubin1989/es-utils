@@ -2,24 +2,21 @@
 
 module.exports = function(docs) {
 	const _ = require('lodash')
-	const that = this
 	const body = _.flatten(_.map(docs, (item) => {
 		const id = item.id
 		const doc = item.doc
 		return [{
-			update: {
-				_index: that.index,
-				_type: that.type,
+			index: id ? {
 				_id: id
-			}
-		}, {
-			doc: doc,
-			"detect_noop": false,
-		}]
+			} : {}
+		}, doc]
 	}))
-
-	return that.client.bulk({
+	const options = {
+		index: this.index,
+		type: this.type,
 		body: body,
 		refresh: true,
-	})
+	}
+
+	return this.client.bulk(options)
 }

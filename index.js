@@ -7,7 +7,7 @@
 		var a = typeof exports === 'object' ? factory(require("babel-polyfill"), require("elasticsearch"), require("lodash"), require("moment"), require("fs_util")) : factory(root["babel-polyfill"], root["elasticsearch"], root["lodash"], root["moment"], root["fs_util"]);
 		for(var i in a) (typeof exports === 'object' ? exports : root)[i] = a[i];
 	}
-})(this, function(__WEBPACK_EXTERNAL_MODULE_1__, __WEBPACK_EXTERNAL_MODULE_3__, __WEBPACK_EXTERNAL_MODULE_4__, __WEBPACK_EXTERNAL_MODULE_6__, __WEBPACK_EXTERNAL_MODULE_20__) {
+})(this, function(__WEBPACK_EXTERNAL_MODULE_1__, __WEBPACK_EXTERNAL_MODULE_3__, __WEBPACK_EXTERNAL_MODULE_4__, __WEBPACK_EXTERNAL_MODULE_6__, __WEBPACK_EXTERNAL_MODULE_21__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -147,34 +147,46 @@ return /******/ (function(modules) { // webpackBootstrap
 				return _putSetting();
 			}
 		}, {
-			key: 'updateDoc',
-			value: function updateDoc(body) {
+			key: 'update',
+			value: function update(body) {
 				var _updateDoc = __webpack_require__(16).bind(this, body);
 				return _updateDoc();
 			}
 		}, {
-			key: 'bulkUpdateDocs',
-			value: function bulkUpdateDocs(docs) {
+			key: 'bulkUpdate',
+			value: function bulkUpdate(docs) {
 				var _bulkUpdateDocs = __webpack_require__(17).bind(this, docs);
 				return _bulkUpdateDocs();
 			}
 		}, {
+			key: 'bulkIndex',
+			value: function bulkIndex(docs) {
+				var _bulkIndex = __webpack_require__(18).bind(this, docs);
+				return _bulkIndex();
+			}
+		}, {
 			key: 'scrollAndBulkUpdate',
 			value: function scrollAndBulkUpdate(kv, size, query, sum) {
-				var _scrollAndBulkUpdate = __webpack_require__(18).bind(this, kv, size, query, sum);
+				var _scrollAndBulkUpdate = __webpack_require__(19).bind(this, kv, size, query, sum);
 				return _scrollAndBulkUpdate();
 			}
 		}, {
 			key: 'scrollAndAppendFile',
 			value: function scrollAndAppendFile(size, query, sum, file) {
-				var _scrollAndAppendFile = __webpack_require__(19).bind(this, size, query, sum, file);
+				var _scrollAndAppendFile = __webpack_require__(20).bind(this, size, query, sum, file);
 				return _scrollAndAppendFile();
 			}
 		}, {
 			key: 'searchById',
 			value: function searchById(id) {
-				var _searchById = __webpack_require__(21).bind(this, id);
+				var _searchById = __webpack_require__(22).bind(this, id);
 				return _searchById();
+			}
+		}, {
+			key: 'mgetByIds',
+			value: function mgetByIds(ids) {
+				var _mgetByIds = __webpack_require__(22).bind(this, ids);
+				return _mgetByIds();
 			}
 		}]);
 	
@@ -521,7 +533,7 @@ return /******/ (function(modules) { // webpackBootstrap
 					body: body
 				});
 			} else {
-				throw new Error('the index: ' + _this.index + 'has already exists!!!');
+				throw new Error('the index: ' + _this.index + ' has already exists!!!');
 			}
 		});
 	};
@@ -611,14 +623,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	module.exports = function (docs) {
 		var _ = __webpack_require__(4);
-		var that = this;
 		var body = _.flatten(_.map(docs, function (item) {
 			var id = item.id;
 			var doc = item.doc;
 			return [{
 				update: {
-					_index: that.index,
-					_type: that.type,
 					_id: id
 				}
 			}, {
@@ -626,15 +635,45 @@ return /******/ (function(modules) { // webpackBootstrap
 				"detect_noop": false
 			}];
 		}));
-	
-		return that.client.bulk({
+		var options = {
+			index: this.index,
+			type: this.type,
 			body: body,
 			refresh: true
-		});
+		};
+	
+		return this.client.bulk(options);
 	};
 
 /***/ },
 /* 18 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	module.exports = function (docs) {
+		var _ = __webpack_require__(4);
+		var body = _.flatten(_.map(docs, function (item) {
+			var id = item.id;
+			var doc = item.doc;
+			return [{
+				index: id ? {
+					_id: id
+				} : {}
+			}, doc];
+		}));
+		var options = {
+			index: this.index,
+			type: this.type,
+			body: body,
+			refresh: true
+		};
+	
+		return this.client.bulk(options);
+	};
+
+/***/ },
+/* 19 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -758,7 +797,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                                }
 	
 	                                _context.next = 9;
-	                                return that.bulkUpdateDocs(docs);
+	                                return that.bulkUpdate(docs);
 	
 	                            case 9:
 	                                bulkUpdateResult = _context.sent;
@@ -835,7 +874,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 19 */
+/* 20 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -843,7 +882,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = function (size, query, sum, file) {
 	    var _ = __webpack_require__(4);
 	    var moment = __webpack_require__(6);
-	    var appendFile = __webpack_require__(20).appendFile;
+	    var appendFile = __webpack_require__(21).appendFile;
 	
 	    var _query = {
 	        "query": {
@@ -929,13 +968,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 20 */
+/* 21 */
 /***/ function(module, exports) {
 
-	module.exports = __WEBPACK_EXTERNAL_MODULE_20__;
+	module.exports = __WEBPACK_EXTERNAL_MODULE_21__;
 
 /***/ },
-/* 21 */
+/* 22 */
 /***/ function(module, exports) {
 
 	'use strict';
