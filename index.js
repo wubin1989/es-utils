@@ -7,7 +7,7 @@
 		var a = typeof exports === 'object' ? factory(require("babel-polyfill"), require("elasticsearch"), require("lodash"), require("moment"), require("fs_util")) : factory(root["babel-polyfill"], root["elasticsearch"], root["lodash"], root["moment"], root["fs_util"]);
 		for(var i in a) (typeof exports === 'object' ? exports : root)[i] = a[i];
 	}
-})(this, function(__WEBPACK_EXTERNAL_MODULE_1__, __WEBPACK_EXTERNAL_MODULE_3__, __WEBPACK_EXTERNAL_MODULE_4__, __WEBPACK_EXTERNAL_MODULE_6__, __WEBPACK_EXTERNAL_MODULE_18__) {
+})(this, function(__WEBPACK_EXTERNAL_MODULE_1__, __WEBPACK_EXTERNAL_MODULE_3__, __WEBPACK_EXTERNAL_MODULE_4__, __WEBPACK_EXTERNAL_MODULE_6__, __WEBPACK_EXTERNAL_MODULE_20__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -135,33 +135,45 @@ return /******/ (function(modules) { // webpackBootstrap
 				return _putMapping();
 			}
 		}, {
+			key: 'getSetting',
+			value: function getSetting() {
+				var _getSetting = __webpack_require__(14).bind(this);
+				return _getSetting();
+			}
+		}, {
+			key: 'putSetting',
+			value: function putSetting(body) {
+				var _putSetting = __webpack_require__(15).bind(this, body);
+				return _putSetting();
+			}
+		}, {
 			key: 'updateDoc',
 			value: function updateDoc(body) {
-				var _updateDoc = __webpack_require__(14).bind(this, body);
+				var _updateDoc = __webpack_require__(16).bind(this, body);
 				return _updateDoc();
 			}
 		}, {
 			key: 'bulkUpdateDocs',
 			value: function bulkUpdateDocs(docs) {
-				var _bulkUpdateDocs = __webpack_require__(15).bind(this, docs);
+				var _bulkUpdateDocs = __webpack_require__(17).bind(this, docs);
 				return _bulkUpdateDocs();
 			}
 		}, {
 			key: 'scrollAndBulkUpdate',
 			value: function scrollAndBulkUpdate(kv, size, query, sum) {
-				var _scrollAndBulkUpdate = __webpack_require__(16).bind(this, kv, size, query, sum);
+				var _scrollAndBulkUpdate = __webpack_require__(18).bind(this, kv, size, query, sum);
 				return _scrollAndBulkUpdate();
 			}
 		}, {
 			key: 'scrollAndAppendFile',
 			value: function scrollAndAppendFile(size, query, sum, file) {
-				var _scrollAndAppendFile = __webpack_require__(17).bind(this, size, query, sum, file);
+				var _scrollAndAppendFile = __webpack_require__(19).bind(this, size, query, sum, file);
 				return _scrollAndAppendFile();
 			}
 		}, {
 			key: 'searchById',
 			value: function searchById(id) {
-				var _searchById = __webpack_require__(19).bind(this, id);
+				var _searchById = __webpack_require__(21).bind(this, id);
 				return _searchById();
 			}
 		}]);
@@ -553,6 +565,34 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 	
+	module.exports = function () {
+		return this.client.indices.getSettings({
+			index: this.index
+		});
+	};
+
+/***/ },
+/* 15 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	module.exports = function (body) {
+	
+		var options = {
+			index: this.index,
+			body: body
+		};
+	
+		return this.client.indices.putSettings(options);
+	};
+
+/***/ },
+/* 16 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
 	module.exports = function (body) {
 	
 	    var options = {
@@ -566,7 +606,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 15 */
+/* 17 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -596,7 +636,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 16 */
+/* 18 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -797,7 +837,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 17 */
+/* 19 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -805,7 +845,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = function (size, query, sum, file) {
 	    var _ = __webpack_require__(4);
 	    var moment = __webpack_require__(6);
-	    var appendFile = __webpack_require__(18).appendFile;
+	    var appendFile = __webpack_require__(20).appendFile;
 	
 	    var _query = {
 	        "query": {
@@ -891,13 +931,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 18 */
+/* 20 */
 /***/ function(module, exports) {
 
-	module.exports = __WEBPACK_EXTERNAL_MODULE_18__;
+	module.exports = __WEBPACK_EXTERNAL_MODULE_20__;
 
 /***/ },
-/* 19 */
+/* 21 */
 /***/ function(module, exports) {
 
 	'use strict';
