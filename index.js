@@ -185,7 +185,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		}, {
 			key: 'mgetByIds',
 			value: function mgetByIds(ids) {
-				var _mgetByIds = __webpack_require__(22).bind(this, ids);
+				var _mgetByIds = __webpack_require__(23).bind(this, ids);
 				return _mgetByIds();
 			}
 		}]);
@@ -991,6 +991,26 @@ return /******/ (function(modules) { // webpackBootstrap
 	    console.log(options);
 	
 	    return this.client.get(options);
+	};
+
+/***/ },
+/* 23 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	module.exports = function (ids) {
+	
+	    var options = {
+	        index: this.index,
+	        type: this.type,
+	        body: {
+	            ids: ids
+	        },
+	        refresh: true
+	    };
+	
+	    return this.client.mget(options);
 	};
 
 /***/ }

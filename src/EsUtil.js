@@ -91,7 +91,7 @@ class EsUtil {
 	}
 
 	mgetByIds(ids) {
-		const _mgetByIds = require('./searchById').bind(this, ids)
+		const _mgetByIds = require('./mgetByIds').bind(this, ids)
 		return _mgetByIds()
 	}
 }
