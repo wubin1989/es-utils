@@ -188,6 +188,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	            var _mgetByIds = __webpack_require__(23).bind(this, ids);
 	            return _mgetByIds();
 	        }
+	    }, {
+	        key: "count",
+	        value: function count(query) {
+	            var _count = __webpack_require__(24).bind(this, query);
+	            return _count();
+	        }
 	    }]);
 	
 	    return EsUtil;
@@ -1072,6 +1078,29 @@ return /******/ (function(modules) { // webpackBootstrap
 	    };
 	
 	    return this.client.mget(options);
+	};
+
+/***/ },
+/* 24 */
+/***/ function(module, exports) {
+
+	"use strict";
+	
+	module.exports = function (query) {
+		var _query = {
+			"query": {
+				"match_all": {}
+			}
+		};
+		if (query) {
+			_query.query = query;
+		}
+		var options = {
+			index: this.index,
+			type: this.type,
+			body: _query
+		};
+		return this.client.count(options);
 	};
 
 /***/ }

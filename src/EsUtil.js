@@ -94,6 +94,11 @@ class EsUtil {
         const _mgetByIds = require("./mgetByIds").bind(this, ids)
         return _mgetByIds()
     }
+
+    count(query) {
+        const _count = require("./count").bind(this, query)
+        return _count()
+    }
 }
 
 module.exports = EsUtil
