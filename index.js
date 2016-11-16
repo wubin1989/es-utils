@@ -172,8 +172,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	        }
 	    }, {
 	        key: "scrollAndAppendFile",
-	        value: function scrollAndAppendFile(size, query, sum, file) {
-	            var _scrollAndAppendFile = __webpack_require__(20).bind(this, size, query, sum, file);
+	        value: function scrollAndAppendFile(size, query, field, sum, file) {
+	            var _scrollAndAppendFile = __webpack_require__(20).bind(this, size, query, field, sum, file);
 	            return _scrollAndAppendFile();
 	        }
 	    }, {
