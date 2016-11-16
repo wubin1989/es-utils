@@ -68,7 +68,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 2 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
@@ -78,119 +78,119 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _ = __webpack_require__(4);
 	
 	var EsUtil = function () {
-		function EsUtil(config, index, type) {
-			_classCallCheck(this, EsUtil);
+	    function EsUtil(config, index, type) {
+	        _classCallCheck(this, EsUtil);
 	
-			this.client = new elasticsearch.Client(_.cloneDeep(config));
-			this.index = index;
-			this.type = type;
-		}
+	        this.client = new elasticsearch.Client(_.cloneDeep(config));
+	        this.index = index;
+	        this.type = type;
+	    }
 	
-		_createClass(EsUtil, [{
-			key: 'dateHistogram',
-			value: function dateHistogram(fields, pageSize, sortByField, dateField, query, start_date, end_date) {
-				var _dateHistogram = __webpack_require__(5).bind(this, fields, pageSize, sortByField, dateField, query, start_date, end_date);
-				return _dateHistogram();
-			}
-		}, {
-			key: 'hourHistogram',
-			value: function hourHistogram(fields, pageSize, sortByField, dateField, query, start_date, end_date) {
-				var _hourHistogram = __webpack_require__(7).bind(this, fields, pageSize, sortByField, dateField, query, start_date, end_date);
-				return _hourHistogram();
-			}
-		}, {
-			key: 'scroll',
-			value: function scroll(fields, size, sum, sortByField, query, wantedField) {
-				var _scroll = __webpack_require__(8).bind(this, fields, size, sum, sortByField, query, wantedField);
-				return _scroll();
-			}
-		}, {
-			key: 'scroll_agg',
-			value: function scroll_agg(field, size, sum, query) {
-				var _scroll_agg = __webpack_require__(9).bind(this, field, size, sum, query);
-				return _scroll_agg();
-			}
-		}, {
-			key: 'search',
-			value: function search(pageSize, sortByField, query, page_index, aggs) {
-				var _search = __webpack_require__(10).bind(this, pageSize, sortByField, query, page_index, aggs);
-				return _search();
-			}
-		}, {
-			key: 'createIndex',
-			value: function createIndex(body) {
-				var _createIndex = __webpack_require__(11).bind(this, body);
-				return _createIndex();
-			}
-		}, {
-			key: 'getMapping',
-			value: function getMapping() {
-				var _getMapping = __webpack_require__(12).bind(this);
-				return _getMapping();
-			}
-		}, {
-			key: 'putMapping',
-			value: function putMapping(body) {
-				var _putMapping = __webpack_require__(13).bind(this, body);
-				return _putMapping();
-			}
-		}, {
-			key: 'getSetting',
-			value: function getSetting() {
-				var _getSetting = __webpack_require__(14).bind(this);
-				return _getSetting();
-			}
-		}, {
-			key: 'putSetting',
-			value: function putSetting(body) {
-				var _putSetting = __webpack_require__(15).bind(this, body);
-				return _putSetting();
-			}
-		}, {
-			key: 'update',
-			value: function update(body) {
-				var _updateDoc = __webpack_require__(16).bind(this, body);
-				return _updateDoc();
-			}
-		}, {
-			key: 'bulkUpdate',
-			value: function bulkUpdate(docs) {
-				var _bulkUpdateDocs = __webpack_require__(17).bind(this, docs);
-				return _bulkUpdateDocs();
-			}
-		}, {
-			key: 'bulkIndex',
-			value: function bulkIndex(docs) {
-				var _bulkIndex = __webpack_require__(18).bind(this, docs);
-				return _bulkIndex();
-			}
-		}, {
-			key: 'scrollAndBulkUpdate',
-			value: function scrollAndBulkUpdate(kv, size, query, sum) {
-				var _scrollAndBulkUpdate = __webpack_require__(19).bind(this, kv, size, query, sum);
-				return _scrollAndBulkUpdate();
-			}
-		}, {
-			key: 'scrollAndAppendFile',
-			value: function scrollAndAppendFile(size, query, sum, file) {
-				var _scrollAndAppendFile = __webpack_require__(20).bind(this, size, query, sum, file);
-				return _scrollAndAppendFile();
-			}
-		}, {
-			key: 'searchById',
-			value: function searchById(id) {
-				var _searchById = __webpack_require__(22).bind(this, id);
-				return _searchById();
-			}
-		}, {
-			key: 'mgetByIds',
-			value: function mgetByIds(ids) {
-				var _mgetByIds = __webpack_require__(23).bind(this, ids);
-				return _mgetByIds();
-			}
-		}]);
+	    _createClass(EsUtil, [{
+	        key: "dateHistogram",
+	        value: function dateHistogram(fields, pageSize, sortByField, dateField, query, start_date, end_date) {
+	            var _dateHistogram = __webpack_require__(5).bind(this, fields, pageSize, sortByField, dateField, query, start_date, end_date);
+	            return _dateHistogram();
+	        }
+	    }, {
+	        key: "hourHistogram",
+	        value: function hourHistogram(fields, pageSize, sortByField, dateField, query, start_date, end_date) {
+	            var _hourHistogram = __webpack_require__(7).bind(this, fields, pageSize, sortByField, dateField, query, start_date, end_date);
+	            return _hourHistogram();
+	        }
+	    }, {
+	        key: "scroll",
+	        value: function scroll(fields, size, sum, sortByField, query, wantedField) {
+	            var _scroll = __webpack_require__(8).bind(this, fields, size, sum, sortByField, query, wantedField);
+	            return _scroll();
+	        }
+	    }, {
+	        key: "scroll_agg",
+	        value: function scroll_agg(field, size, sum, query) {
+	            var _scroll_agg = __webpack_require__(9).bind(this, field, size, sum, query);
+	            return _scroll_agg();
+	        }
+	    }, {
+	        key: "search",
+	        value: function search(pageSize, sortByField, query, page_index, aggs) {
+	            var _search = __webpack_require__(10).bind(this, pageSize, sortByField, query, page_index, aggs);
+	            return _search();
+	        }
+	    }, {
+	        key: "createIndex",
+	        value: function createIndex(body) {
+	            var _createIndex = __webpack_require__(11).bind(this, body);
+	            return _createIndex();
+	        }
+	    }, {
+	        key: "getMapping",
+	        value: function getMapping() {
+	            var _getMapping = __webpack_require__(12).bind(this);
+	            return _getMapping();
+	        }
+	    }, {
+	        key: "putMapping",
+	        value: function putMapping(body) {
+	            var _putMapping = __webpack_require__(13).bind(this, body);
+	            return _putMapping();
+	        }
+	    }, {
+	        key: "getSetting",
+	        value: function getSetting() {
+	            var _getSetting = __webpack_require__(14).bind(this);
+	            return _getSetting();
+	        }
+	    }, {
+	        key: "putSetting",
+	        value: function putSetting(body) {
+	            var _putSetting = __webpack_require__(15).bind(this, body);
+	            return _putSetting();
+	        }
+	    }, {
+	        key: "update",
+	        value: function update(body) {
+	            var _updateDoc = __webpack_require__(16).bind(this, body);
+	            return _updateDoc();
+	        }
+	    }, {
+	        key: "bulkUpdate",
+	        value: function bulkUpdate(docs) {
+	            var _bulkUpdateDocs = __webpack_require__(17).bind(this, docs);
+	            return _bulkUpdateDocs();
+	        }
+	    }, {
+	        key: "bulkIndex",
+	        value: function bulkIndex(docs) {
+	            var _bulkIndex = __webpack_require__(18).bind(this, docs);
+	            return _bulkIndex();
+	        }
+	    }, {
+	        key: "scrollAndBulkUpdate",
+	        value: function scrollAndBulkUpdate(kv, size, query, sum) {
+	            var _scrollAndBulkUpdate = __webpack_require__(19).bind(this, kv, size, query, sum);
+	            return _scrollAndBulkUpdate();
+	        }
+	    }, {
+	        key: "scrollAndAppendFile",
+	        value: function scrollAndAppendFile(size, query, sum, file) {
+	            var _scrollAndAppendFile = __webpack_require__(20).bind(this, size, query, sum, file);
+	            return _scrollAndAppendFile();
+	        }
+	    }, {
+	        key: "searchById",
+	        value: function searchById(id) {
+	            var _searchById = __webpack_require__(22).bind(this, id);
+	            return _searchById();
+	        }
+	    }, {
+	        key: "mgetByIds",
+	        value: function mgetByIds(ids) {
+	            var _mgetByIds = __webpack_require__(23).bind(this, ids);
+	            return _mgetByIds();
+	        }
+	    }]);
 	
-		return EsUtil;
+	    return EsUtil;
 	}();
 	
 	module.exports = EsUtil;
@@ -211,7 +211,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 5 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 	
 	var moment = __webpack_require__(6);
 	
@@ -228,20 +228,20 @@ return /******/ (function(modules) { // webpackBootstrap
 	                volumn: {
 	                    date_histogram: {
 	                        field: dateField,
-	                        interval: 'day',
-	                        format: 'yyyy-M-d',
-	                        time_zone: '+08:00',
+	                        interval: "day",
+	                        format: "yyyy-M-d",
+	                        time_zone: "+08:00",
 	                        min_doc_count: 0,
 	                        extended_bounds: {
 	                            min: start_date.getTime(),
-	                            max: moment(end_date).subtract(1, 'days').toDate().getTime()
+	                            max: moment(end_date).subtract(1, "days").toDate().getTime()
 	                        }
 	                    },
 	                    aggs: function (fields) {
 	                        var obj = {};
 	                        for (var i = 0; i < fields.length; i++) {
 	                            var field = fields[i];
-	                            obj[field + '_sum'] = {
+	                            obj[field + "_sum"] = {
 	                                sum: {
 	                                    field: field
 	                                }
@@ -253,7 +253,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            }
 	        },
 	        size: pageSize,
-	        sort: sortByField + ':desc'
+	        sort: sortByField + ":desc"
 	    });
 	};
 
@@ -267,7 +267,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 7 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 	
 	var moment = __webpack_require__(6);
 	
@@ -284,20 +284,20 @@ return /******/ (function(modules) { // webpackBootstrap
 	                volumn: {
 	                    date_histogram: {
 	                        field: dateField,
-	                        interval: 'hour',
-	                        format: 'yyyy-M-d H:mm',
-	                        time_zone: '+08:00',
+	                        interval: "hour",
+	                        format: "yyyy-M-d H:mm",
+	                        time_zone: "+08:00",
 	                        min_doc_count: 0,
 	                        extended_bounds: {
 	                            min: start_date.getTime(),
-	                            max: moment(end_date).subtract(1, 'hours').toDate().getTime()
+	                            max: moment(end_date).subtract(1, "hours").toDate().getTime()
 	                        }
 	                    },
 	                    aggs: function (fields) {
 	                        var obj = {};
 	                        for (var i = 0; i < fields.length; i++) {
 	                            var field = fields[i];
-	                            obj[field + '_sum'] = {
+	                            obj[field + "_sum"] = {
 	                                sum: {
 	                                    field: field
 	                                }
@@ -309,7 +309,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            }
 	        },
 	        size: pageSize || 0,
-	        sort: (sortByField || '_score') + ':desc'
+	        sort: (sortByField || "_score") + ":desc"
 	    });
 	};
 
@@ -317,7 +317,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 8 */
 /***/ function(module, exports) {
 
-	'use strict';
+	"use strict";
 	
 	module.exports = function (fields, size, sum, sortByField, query, wantedField) {
 	    if (!sum) {
@@ -331,20 +331,20 @@ return /******/ (function(modules) { // webpackBootstrap
 	    var options = {
 	        index: this.index,
 	        type: this.type,
-	        scroll: '60s',
+	        scroll: "60s",
 	        size: size || 50,
 	        body: _query,
-	        search_type: 'scan'
+	        search_type: "scan"
 	    };
 	
 	    if (fields) {
 	        options.fields = fields;
 	    }
 	    if (sortByField) {
-	        options.sort = sortByField + ':desc';
+	        options.sort = sortByField + ":desc";
 	    }
 	    if (!wantedField) {
-	        wantedField = 'fields';
+	        wantedField = "fields";
 	    }
 	
 	    var allValues = [];
@@ -353,7 +353,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        that.client.search(options, function getMoreUntilDone(err, response) {
 	            if (err) {
 	                return reject(err);
-	            };
+	            }
 	            response.hits.hits.forEach(function (hit) {
 	                if (!fields) {
 	                    allValues.push(hit);
@@ -383,7 +383,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            if (allValues.length < compare) {
 	                that.client.scroll({
 	                    scrollId: response._scroll_id,
-	                    scroll: '60s'
+	                    scroll: "60s"
 	                }, getMoreUntilDone);
 	            } else {
 	                var resolved = allValues;
@@ -403,7 +403,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 9 */
 /***/ function(module, exports) {
 
-	'use strict';
+	"use strict";
 	
 	module.exports = function (field, size, sum, query) {
 	    if (!sum) {
@@ -417,11 +417,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	    var options = {
 	        index: this.index,
 	        type: this.type,
-	        scroll: '60s',
+	        scroll: "60s",
 	        size: size || 50,
 	        body: _query,
 	        fields: field,
-	        search_type: 'scan'
+	        search_type: "scan"
 	    };
 	
 	    var allValues = [];
@@ -430,12 +430,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	        that.client.search(options, function getMoreUntilDone(err, response) {
 	            if (err) {
 	                return reject(err);
-	            };
+	            }
 	            response.hits.hits.forEach(function (hit) {
-	                if (typeof field === 'string') {
-	                    allValues.push(hit.fields ? hit.fields[field][0] : '');
+	                if (typeof field === "string") {
+	                    allValues.push(hit.fields ? hit.fields[field][0] : "");
 	                } else {
-	                    allValues.push(hit.fields ? hit.fields : '');
+	                    allValues.push(hit.fields ? hit.fields : "");
 	                }
 	            });
 	
@@ -448,10 +448,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	                console.log(allValues.length);
 	                that.client.scroll({
 	                    scrollId: response._scroll_id,
-	                    scroll: '60s'
+	                    scroll: "60s"
 	                }, getMoreUntilDone);
 	            } else {
-	                console.log('OK');
+	                console.log("OK");
 	                var resolved = allValues;
 	                return resolve(resolved);
 	            }
@@ -484,7 +484,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 10 */
 /***/ function(module, exports) {
 
-	'use strict';
+	"use strict";
 	
 	module.exports = function (pageSize, sortByField, query, page_index, aggs) {
 	
@@ -497,7 +497,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 	
 	    console.log(JSON.stringify(_query, null, 4));
-	    console.log('-------------------------------');
+	    console.log("-------------------------------");
 	
 	    var options = {
 	        index: this.index,
@@ -508,7 +508,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    };
 	
 	    if (sortByField) {
-	        options.sort = sortByField + ':desc';
+	        options.sort = sortByField + ":desc";
 	    }
 	
 	    return this.client.search(options);
@@ -518,44 +518,44 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 11 */
 /***/ function(module, exports) {
 
-	'use strict';
+	"use strict";
 	
 	module.exports = function (body) {
-		var _this = this;
+	    var _this = this;
 	
-		return this.client.indices.exists({
-			index: this.index,
-			local: true
-		}).then(function (resp) {
-			if (!resp) {
-				return _this.client.indices.create({
-					index: _this.index,
-					body: body
-				});
-			} else {
-				throw new Error('the index: ' + _this.index + ' has already exists!!!');
-			}
-		});
+	    return this.client.indices.exists({
+	        index: this.index,
+	        local: true
+	    }).then(function (resp) {
+	        if (!resp) {
+	            return _this.client.indices.create({
+	                index: _this.index,
+	                body: body
+	            });
+	        } else {
+	            throw new Error("the index: " + _this.index + " has already exists!!!");
+	        }
+	    });
 	};
 
 /***/ },
 /* 12 */
 /***/ function(module, exports) {
 
-	'use strict';
+	"use strict";
 	
 	module.exports = function () {
-		return this.client.indices.getMapping({
-			index: this.index,
-			type: this.type
-		});
+	    return this.client.indices.getMapping({
+	        index: this.index,
+	        type: this.type
+	    });
 	};
 
 /***/ },
 /* 13 */
 /***/ function(module, exports) {
 
-	'use strict';
+	"use strict";
 	
 	module.exports = function (body) {
 	
@@ -573,35 +573,35 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 14 */
 /***/ function(module, exports) {
 
-	'use strict';
+	"use strict";
 	
 	module.exports = function () {
-		return this.client.indices.getSettings({
-			index: this.index
-		});
+	    return this.client.indices.getSettings({
+	        index: this.index
+	    });
 	};
 
 /***/ },
 /* 15 */
 /***/ function(module, exports) {
 
-	'use strict';
+	"use strict";
 	
 	module.exports = function (body) {
 	
-		var options = {
-			index: this.index,
-			body: body
-		};
+	    var options = {
+	        index: this.index,
+	        body: body
+	    };
 	
-		return this.client.indices.putSettings(options);
+	    return this.client.indices.putSettings(options);
 	};
 
 /***/ },
 /* 16 */
 /***/ function(module, exports) {
 
-	'use strict';
+	"use strict";
 	
 	module.exports = function (body) {
 	
@@ -619,64 +619,64 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 17 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 	
 	module.exports = function (docs) {
-		var _ = __webpack_require__(4);
-		var body = _.flatten(_.map(docs, function (item) {
-			var id = item.id;
-			var doc = item.doc;
-			return [{
-				update: {
-					_id: id
-				}
-			}, {
-				doc: doc,
-				"detect_noop": false
-			}];
-		}));
-		var options = {
-			index: this.index,
-			type: this.type,
-			body: body,
-			refresh: true
-		};
+	    var _ = __webpack_require__(4);
+	    var body = _.flatten(_.map(docs, function (item) {
+	        var id = item.id;
+	        var doc = item.doc;
+	        return [{
+	            update: {
+	                _id: id
+	            }
+	        }, {
+	            doc: doc,
+	            "detect_noop": false
+	        }];
+	    }));
+	    var options = {
+	        index: this.index,
+	        type: this.type,
+	        body: body,
+	        refresh: true
+	    };
 	
-		return this.client.bulk(options);
+	    return this.client.bulk(options);
 	};
 
 /***/ },
 /* 18 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 	
 	module.exports = function (docs) {
-		var _ = __webpack_require__(4);
-		var body = _.flatten(_.map(docs, function (item) {
-			var id = item.id;
-			var doc = item.doc;
-			return [{
-				index: id ? {
-					_id: id
-				} : {}
-			}, doc];
-		}));
-		var options = {
-			index: this.index,
-			type: this.type,
-			body: body,
-			refresh: true
-		};
+	    var _ = __webpack_require__(4);
+	    var body = _.flatten(_.map(docs, function (item) {
+	        var id = item.id;
+	        var doc = item.doc;
+	        return [{
+	            index: id ? {
+	                _id: id
+	            } : {}
+	        }, doc];
+	    }));
+	    var options = {
+	        index: this.index,
+	        type: this.type,
+	        body: body,
+	        refresh: true
+	    };
 	
-		return this.client.bulk(options);
+	    return this.client.bulk(options);
 	};
 
 /***/ },
 /* 19 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 	
 	/*
 	    eg.:
@@ -715,10 +715,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	    var options = {
 	        index: this.index,
 	        type: this.type,
-	        scroll: '60s',
+	        scroll: "60s",
 	        size: size || 1000,
 	        body: _query,
-	        search_type: 'scan'
+	        search_type: "scan"
 	    };
 	
 	    var count = 0;
@@ -741,12 +741,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	                                    break;
 	                                }
 	
-	                                return _context.abrupt('return', reject(err));
+	                                return _context.abrupt("return", reject(err));
 	
 	                            case 2:
-	                                ;
-	
-	                                _context.prev = 3;
+	                                _context.prev = 2;
 	                                more = response.hits.hits.length;
 	                                docs = _.map(response.hits.hits, function (hit) {
 	                                    var id = hit._id;
@@ -799,17 +797,21 @@ return /******/ (function(modules) { // webpackBootstrap
 	                                    break;
 	                                }
 	
-	                                _context.next = 9;
+	                                _context.next = 8;
 	                                return that.bulkUpdate(docs);
 	
-	                            case 9:
+	                            case 8:
 	                                bulkUpdateResult = _context.sent;
+	
+	                                if (bulkUpdateResult.errors) {
+	                                    console.log("bulk update operation encounter some errors, please check the response: " + JSON.stringify(bulkUpdateResult, null, 4));
+	                                }
 	
 	                            case 10:
 	                                now = moment();
 	                                diff = moment.utc(moment.duration(now.diff(start)).asMilliseconds()).format("HH:mm:ss.SSS");
 	                                totalDiff = moment.utc(moment.duration(now.diff(startCopy)).asMilliseconds()).format("HH:mm:ss.SSS");
-	                                raw_speed = more ? (now - start) / more : '--';
+	                                raw_speed = more ? (now - start) / more : "--";
 	                                speed = (more / ((now - start) / 1000)).toFixed(2);
 	
 	
@@ -827,10 +829,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	                                if (doc_remain < 0) {
 	                                    doc_remain = 0;
 	                                }
-	                                time_remain = raw_speed !== '--' ? moment.utc(moment.duration(raw_speed * doc_remain).asMilliseconds()).format("HH:mm:ss.SSS") : '--';
+	                                time_remain = raw_speed !== "--" ? moment.utc(moment.duration(raw_speed * doc_remain).asMilliseconds()).format("HH:mm:ss.SSS") : "--";
 	
 	
-	                                console.log('Finished: ' + count + '\tRatio: ' + (compare ? (count / compare).toFixed(2) * 100 : 100) + '%\tTimeCost: ' + diff + '\tSpeed: ' + speed + 'doc/s\tTimeRemaining: ' + time_remain + '\tTotalTimeCost: ' + totalDiff);
+	                                console.log("Finished: " + count + "\tRatio: " + (compare ? (count / compare).toFixed(2) * 100 : 100) + "%\tTimeCost: " + diff + "\tSpeed: " + speed + "doc/s\tTimeRemaining: " + time_remain + "\tTotalTimeCost: " + totalDiff);
 	
 	                                start = _.cloneDeep(now);
 	
@@ -841,13 +843,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	                                that.client.scroll({
 	                                    scrollId: response._scroll_id,
-	                                    scroll: '60s'
+	                                    scroll: "60s"
 	                                }, getMoreUntilDone);
 	                                _context.next = 28;
 	                                break;
 	
 	                            case 27:
-	                                return _context.abrupt('return', resolve('scroll and update finished'));
+	                                return _context.abrupt("return", resolve("scroll and update finished"));
 	
 	                            case 28:
 	                                _context.next = 33;
@@ -855,16 +857,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	                            case 30:
 	                                _context.prev = 30;
-	                                _context.t0 = _context['catch'](3);
+	                                _context.t0 = _context["catch"](2);
 	
 	                                console.log(_context.t0);
 	
 	                            case 33:
-	                            case 'end':
+	                            case "end":
 	                                return _context.stop();
 	                        }
 	                    }
-	                }, _callee, this, [[3, 30]]);
+	                }, _callee, this, [[2, 30]]);
 	            }));
 	
 	            function getMoreUntilDone(_x, _x2) {
@@ -880,9 +882,9 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 20 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 	
-	module.exports = function (size, query, sum, file) {
+	module.exports = function (size, query, field, sum, file) {
 	    var _ = __webpack_require__(4);
 	    var moment = __webpack_require__(6);
 	    var appendFile = __webpack_require__(21).appendFile;
@@ -900,11 +902,21 @@ return /******/ (function(modules) { // webpackBootstrap
 	    var options = {
 	        index: this.index,
 	        type: this.type,
-	        scroll: '60s',
+	        scroll: "60s",
 	        size: size || 1000,
 	        body: _query,
-	        search_type: 'scan'
+	        search_type: "scan"
 	    };
+	
+	    if (field) {
+	        if (field.constructor.name === "String") {
+	            options._source = [field];
+	        } else if (field.constructor.name === "Array") {
+	            options._source = field;
+	        } else {
+	            throw new Error("Invalid field parameter provided! Only string or array acceptable!");
+	        }
+	    }
 	
 	    var count = 0;
 	
@@ -921,7 +933,22 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	            var more = response.hits.hits.length;
 	            var data = _.reduce(response.hits.hits, function (sum, hit) {
-	                sum += hit._source.content_full + '\n';
+	                if (options._source) {
+	                    (function () {
+	                        var fields = _.cloneDeep(options._source);
+	                        var len = fields.length;
+	                        _.forEach(fields, function (f, i) {
+	                            sum += hit._source[f] || " ";
+	                            if (i < len - 1) {
+	                                sum += "\t";
+	                            } else {
+	                                sum += "\n";
+	                            }
+	                        });
+	                    })();
+	                } else {
+	                    sum += JSON.stringify(hit._source) + "\n";
+	                }
 	                return sum;
 	            }, "");
 	
@@ -936,7 +963,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            var now = moment();
 	            var diff = moment.utc(moment.duration(now.diff(start)).asMilliseconds()).format("HH:mm:ss.SSS");
 	            var totalDiff = moment.utc(moment.duration(now.diff(startCopy)).asMilliseconds()).format("HH:mm:ss.SSS");
-	            var raw_speed = more ? (now - start) / more : '--';
+	            var raw_speed = more ? (now - start) / more : "--";
 	            var speed = (more / ((now - start) / 1000)).toFixed(2);
 	
 	            count += more;
@@ -952,19 +979,19 @@ return /******/ (function(modules) { // webpackBootstrap
 	                doc_remain = 0;
 	            }
 	
-	            var time_remain = raw_speed !== '--' ? moment.utc(moment.duration(raw_speed * doc_remain).asMilliseconds()).format("HH:mm:ss.SSS") : '--';
+	            var time_remain = raw_speed !== "--" ? moment.utc(moment.duration(raw_speed * doc_remain).asMilliseconds()).format("HH:mm:ss.SSS") : "--";
 	
-	            console.log('Finished: ' + count + '\tRatio: ' + (compare ? (count / compare).toFixed(2) * 100 : 100) + '%\tTimeCost: ' + diff + '\tSpeed: ' + speed + 'doc/s\tTimeRemaining: ' + time_remain + '\tTotalTimeCost: ' + totalDiff);
+	            console.log("Finished: " + count + "\tRatio: " + (compare ? (count / compare).toFixed(2) * 100 : 100) + "%\tTimeCost: " + diff + "\tSpeed: " + speed + "doc/s\tTimeRemaining: " + time_remain + "\tTotalTimeCost: " + totalDiff);
 	
 	            start = _.cloneDeep(now);
 	
 	            if (count < compare) {
 	                that.client.scroll({
 	                    scrollId: response._scroll_id,
-	                    scroll: '60s'
+	                    scroll: "60s"
 	                }, getMoreUntilDone);
 	            } else {
-	                return resolve('append file finished');
+	                return resolve("append file finished");
 	            }
 	        });
 	    });
@@ -980,7 +1007,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 22 */
 /***/ function(module, exports) {
 
-	'use strict';
+	"use strict";
 	
 	module.exports = function (id) {
 	
@@ -1000,7 +1027,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 23 */
 /***/ function(module, exports) {
 
-	'use strict';
+	"use strict";
 	
 	module.exports = function (ids) {
 	
