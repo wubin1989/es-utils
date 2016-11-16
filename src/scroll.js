@@ -1,8 +1,8 @@
-'use strict';
+"use strict"
 
 module.exports = function(fields, size, sum, sortByField, query, wantedField) {
     if (!sum) {
-        sum = 500;
+        sum = 500
     }
 
     const _query = {
@@ -12,70 +12,70 @@ module.exports = function(fields, size, sum, sortByField, query, wantedField) {
     let options = {
         index: this.index,
         type: this.type,
-        scroll: '60s',
+        scroll: "60s",
         size: size || 50,
         body: _query,
-        search_type: 'scan',
-    };
+        search_type: "scan",
+    }
 
     if (fields) {
-        options.fields = fields;
+        options.fields = fields
     }
     if (sortByField) {
-        options.sort = sortByField + ':desc';
+        options.sort = sortByField + ":desc"
     }
     if (!wantedField) {
-        wantedField = 'fields';
+        wantedField = "fields"
     }
 
-    let allValues = [];
+    let allValues = []
     const that = this
     return new Promise((resolve, reject) => {
         that.client.search(options, function getMoreUntilDone(err, response) {
             if (err) {
-                return reject(err);
-            };
+                return reject(err)
+            }
             response.hits.hits.forEach(function(hit) {
                 if (!fields) {
-                    allValues.push(hit);
+                    allValues.push(hit)
                 } else {
                     if (!Array.isArray(wantedField)) {
-                        let value = hit[wantedField];
+                        let value = hit[wantedField]
                         if (value) {
-                            allValues.push(value);
+                            allValues.push(value)
                         } else {
-                            console.log(value);
-                            console.log(hit);
+                            console.log(value)
+                            console.log(hit)
                         }
                     } else {
-                        let value = {};
+                        let value = {}
                         for (let i = 0; i < wantedField.length; i++) {
-                            value[wantedField[i]] = hit[wantedField[i]] || {};
+                            value[wantedField[i]] = hit[wantedField[i]] || {}
                         }
-                        allValues.push(value);
+                        allValues.push(value)
                     }
                 }
-            });
+            })
 
-            let compare = sum;
+            let compare = sum
             if (response.hits.total < sum) {
-                compare = response.hits.total;
+                compare = response.hits.total
             }
             if (allValues.length < compare) {
                 that.client.scroll({
                     scrollId: response._scroll_id,
-                    scroll: '60s',
-                }, getMoreUntilDone);
+                    scroll: "60s",
+                }, getMoreUntilDone)
             } else {
-                let resolved = allValues;
+                let resolved = allValues
                 if (sortByField) {
                     resolved = {
                         sortBy: sortByField,
                         data: allValues,
-                    };
+                    }
                 }
-                return resolve(resolved);
+                return resolve(resolved)
             }
         })
-    });
+    })
 }

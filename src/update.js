@@ -1,4 +1,4 @@
-'use strict';
+"use strict"
 
 module.exports = function(body){
     
@@ -7,7 +7,7 @@ module.exports = function(body){
         type: this.type,
         body: body,
         updateAllTypes: false,
-    };
+    }
 
     return this.client.indices.putMapping(options)
 }

@@ -1,4 +1,4 @@
-'use strict';
+"use strict"
 
 /*
     eg.:
@@ -12,8 +12,8 @@
         }
 */
 module.exports = function(kv, size, query, sum) {
-    const _ = require('lodash')
-    const moment = require('moment')
+    const _ = require("lodash")
+    const moment = require("moment")
 
     const kvCopy = _.cloneDeep(kv)
 
@@ -32,11 +32,11 @@ module.exports = function(kv, size, query, sum) {
     const options = {
         index: this.index,
         type: this.type,
-        scroll: '60s',
+        scroll: "60s",
         size: size || 1000,
         body: _query,
-        search_type: 'scan',
-    };
+        search_type: "scan",
+    }
 
     let count = 0
 
@@ -48,8 +48,8 @@ module.exports = function(kv, size, query, sum) {
 
         that.client.search(options, async function getMoreUntilDone(err, response) {
             if (err) {
-                return reject(err);
-            };
+                return reject(err)
+            }
 
             try {
                 const more = response.hits.hits.length
@@ -102,12 +102,15 @@ module.exports = function(kv, size, query, sum) {
 
                 if (docs.length) {
                     const bulkUpdateResult = await that.bulkUpdate(docs)
+                    if (bulkUpdateResult.errors) {
+                        console.log("bulk update operation encounter some errors, please check the response: " + JSON.stringify(bulkUpdateResult, null, 4))
+                    }
                 }
 
                 const now = moment()
                 const diff = moment.utc(moment.duration(now.diff(start)).asMilliseconds()).format("HH:mm:ss.SSS")
                 const totalDiff = moment.utc(moment.duration(now.diff(startCopy)).asMilliseconds()).format("HH:mm:ss.SSS")
-                const raw_speed = more ? (now - start) / more : '--'
+                const raw_speed = more ? (now - start) / more : "--"
                 const speed = (more / ((now - start) / 1000)).toFixed(2)
 
                 count += more
@@ -122,7 +125,7 @@ module.exports = function(kv, size, query, sum) {
                 if (doc_remain < 0) {
                     doc_remain = 0
                 }
-                const time_remain = (raw_speed !== '--') ? moment.utc(moment.duration(raw_speed * doc_remain).asMilliseconds()).format("HH:mm:ss.SSS") : '--'
+                const time_remain = (raw_speed !== "--") ? moment.utc(moment.duration(raw_speed * doc_remain).asMilliseconds()).format("HH:mm:ss.SSS") : "--"
 
                 console.log(`Finished: ${count}\tRatio: ${compare ? (count/compare).toFixed(2)*100 : 100}%\tTimeCost: ${diff}\tSpeed: ${speed}doc/s\tTimeRemaining: ${time_remain}\tTotalTimeCost: ${totalDiff}`)
 
@@ -131,14 +134,14 @@ module.exports = function(kv, size, query, sum) {
                 if (count < compare) {
                     that.client.scroll({
                         scrollId: response._scroll_id,
-                        scroll: '60s',
-                    }, getMoreUntilDone);
+                        scroll: "60s",
+                    }, getMoreUntilDone)
                 } else {
-                    return resolve('scroll and update finished');
+                    return resolve("scroll and update finished")
                 }
             } catch (err) {
-                console.log(err);
+                console.log(err)
             }
         })
-    });
+    })
 }

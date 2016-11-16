@@ -1,4 +1,4 @@
-'use strict';
+"use strict"
 
 module.exports = function(pageSize, sortByField, query, page_index, aggs){
 
@@ -7,11 +7,11 @@ module.exports = function(pageSize, sortByField, query, page_index, aggs){
     }
 
     if (aggs) {
-        _query.aggs = aggs;
+        _query.aggs = aggs
     }
 
     console.log(JSON.stringify(_query, null, 4))
-    console.log('-------------------------------')
+    console.log("-------------------------------")
     
     let options = {
         index: this.index,
@@ -19,13 +19,13 @@ module.exports = function(pageSize, sortByField, query, page_index, aggs){
         body: _query,
         size: pageSize || 0,
         from: page_index ? page_index * pageSize : 0,
-    };
+    }
 
 
     if (sortByField) {
-        options.sort = sortByField + ':desc';
+        options.sort = sortByField + ":desc"
     }
 
     return this.client
-        .search(options);
+        .search(options)
 }
