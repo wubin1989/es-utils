@@ -4,6 +4,7 @@ module.exports = function(size, query, field, sum, file) {
     const _ = require("lodash")
     const moment = require("moment")
     const appendFile = require("fs_util").appendFile
+    const checkExists = require("fs_util").checkExists
 
     const _query = {
         "query": {
@@ -38,6 +39,8 @@ module.exports = function(size, query, field, sum, file) {
 
     const that = this
 
+    const ensureFile = checkExists(file)
+
     return new Promise((resolve, reject) => {
         let start = moment()
         const startCopy = _.cloneDeep(start)
@@ -68,7 +71,9 @@ module.exports = function(size, query, field, sum, file) {
 
             if (data) {
                 try {
-                    appendFile(file, data)
+                    if (ensureFile) {
+                        appendFile(file, data)
+                    }
                 } catch (err) {
                     return reject(err)
                 }

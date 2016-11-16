@@ -925,6 +925,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    var _ = __webpack_require__(4);
 	    var moment = __webpack_require__(6);
 	    var appendFile = __webpack_require__(21).appendFile;
+	    var checkExists = __webpack_require__(21).checkExists;
 	
 	    var _query = {
 	        "query": {
@@ -959,6 +960,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	    var that = this;
 	
+	    var ensureFile = checkExists(file);
+	
 	    return new Promise(function (resolve, reject) {
 	        var start = moment();
 	        var startCopy = _.cloneDeep(start);
@@ -991,7 +994,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	            if (data) {
 	                try {
-	                    appendFile(file, data);
+	                    if (ensureFile) {
+	                        appendFile(file, data);
+	                    }
 	                } catch (err) {
 	                    return reject(err);
 	                }
