@@ -6,11 +6,19 @@ module.exports = function(fields, pageSize, sortByField, dateField, query, start
     if(!fields){
         fields = []
     }
+    const _query = {
+        "query": {
+            "match_all": {}
+        }
+    }
+    if (query) {
+        _query.query = query
+    }
     return this.client.search({
         index: this.index,
         type: this.type,
         body: {
-            query: query,
+            query: _query,
             aggs: {
                 volumn: {
                     date_histogram: {

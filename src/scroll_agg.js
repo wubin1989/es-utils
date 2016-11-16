@@ -6,10 +6,15 @@ module.exports = function(field, size, sum, query) {
     }
 
     const _query = {
-        query: query
+        "query": {
+            "match_all": {}
+        }
+    }
+    if (query) {
+        _query.query = query
     }
 
-    let options = {
+    const options = {
         index: this.index,
         type: this.type,
         scroll: "60s",

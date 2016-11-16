@@ -3,7 +3,12 @@
 module.exports = function(pageSize, sortByField, query, page_index, aggs){
 
     const _query = {
-        query: query,
+        "query": {
+            "match_all": {}
+        }
+    }
+    if (query) {
+        _query.query = query
     }
 
     if (aggs) {

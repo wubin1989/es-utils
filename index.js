@@ -219,11 +219,19 @@ return /******/ (function(modules) { // webpackBootstrap
 	    if (!fields) {
 	        fields = [];
 	    }
+	    var _query = {
+	        "query": {
+	            "match_all": {}
+	        }
+	    };
+	    if (query) {
+	        _query.query = query;
+	    }
 	    return this.client.search({
 	        index: this.index,
 	        type: this.type,
 	        body: {
-	            query: query,
+	            query: _query,
 	            aggs: {
 	                volumn: {
 	                    date_histogram: {
@@ -275,11 +283,19 @@ return /******/ (function(modules) { // webpackBootstrap
 	    if (!fields) {
 	        fields = [];
 	    }
+	    var _query = {
+	        "query": {
+	            "match_all": {}
+	        }
+	    };
+	    if (query) {
+	        _query.query = query;
+	    }
 	    return this.client.search({
 	        index: this.index,
 	        type: this.type,
 	        body: {
-	            query: query,
+	            query: _query,
 	            aggs: {
 	                volumn: {
 	                    date_histogram: {
@@ -325,8 +341,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 	
 	    var _query = {
-	        query: query
+	        "query": {
+	            "match_all": {}
+	        }
 	    };
+	    if (query) {
+	        _query.query = query;
+	    }
 	
 	    var options = {
 	        index: this.index,
@@ -411,8 +432,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 	
 	    var _query = {
-	        query: query
+	        "query": {
+	            "match_all": {}
+	        }
 	    };
+	    if (query) {
+	        _query.query = query;
+	    }
 	
 	    var options = {
 	        index: this.index,
@@ -489,8 +515,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = function (pageSize, sortByField, query, page_index, aggs) {
 	
 	    var _query = {
-	        query: query
+	        "query": {
+	            "match_all": {}
+	        }
 	    };
+	    if (query) {
+	        _query.query = query;
+	    }
 	
 	    if (aggs) {
 	        _query.aggs = aggs;
