@@ -20,14 +20,9 @@ class EsUtil {
         return _hourHistogram()
     }
 
-    scroll(fields, size, sum, sortByField, query, wantedField) {
-        const _scroll = require("./scroll").bind(this, fields, size, sum, sortByField, query, wantedField)
+    scroll(source, size, sum, sortByField, query) {
+        const _scroll = require("./scroll").bind(this, source, size, sum, sortByField, query)
         return _scroll()
-    }
-
-    scroll_agg(field, size, sum, query) {
-        const _scroll_agg = require("./scroll_agg").bind(this, field, size, sum, query)
-        return _scroll_agg()
     }
 
     search(pageSize, sortByField, query, page_index, aggs) {

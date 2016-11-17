@@ -7,7 +7,7 @@
 		var a = typeof exports === 'object' ? factory(require("babel-polyfill"), require("elasticsearch"), require("lodash"), require("moment"), require("fs_util")) : factory(root["babel-polyfill"], root["elasticsearch"], root["lodash"], root["moment"], root["fs_util"]);
 		for(var i in a) (typeof exports === 'object' ? exports : root)[i] = a[i];
 	}
-})(this, function(__WEBPACK_EXTERNAL_MODULE_1__, __WEBPACK_EXTERNAL_MODULE_3__, __WEBPACK_EXTERNAL_MODULE_4__, __WEBPACK_EXTERNAL_MODULE_6__, __WEBPACK_EXTERNAL_MODULE_21__) {
+})(this, function(__WEBPACK_EXTERNAL_MODULE_1__, __WEBPACK_EXTERNAL_MODULE_3__, __WEBPACK_EXTERNAL_MODULE_4__, __WEBPACK_EXTERNAL_MODULE_6__, __WEBPACK_EXTERNAL_MODULE_20__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -100,98 +100,92 @@ return /******/ (function(modules) { // webpackBootstrap
 	        }
 	    }, {
 	        key: "scroll",
-	        value: function scroll(fields, size, sum, sortByField, query, wantedField) {
-	            var _scroll = __webpack_require__(8).bind(this, fields, size, sum, sortByField, query, wantedField);
+	        value: function scroll(source, size, sum, sortByField, query) {
+	            var _scroll = __webpack_require__(8).bind(this, source, size, sum, sortByField, query);
 	            return _scroll();
-	        }
-	    }, {
-	        key: "scroll_agg",
-	        value: function scroll_agg(field, size, sum, query) {
-	            var _scroll_agg = __webpack_require__(9).bind(this, field, size, sum, query);
-	            return _scroll_agg();
 	        }
 	    }, {
 	        key: "search",
 	        value: function search(pageSize, sortByField, query, page_index, aggs) {
-	            var _search = __webpack_require__(10).bind(this, pageSize, sortByField, query, page_index, aggs);
+	            var _search = __webpack_require__(9).bind(this, pageSize, sortByField, query, page_index, aggs);
 	            return _search();
 	        }
 	    }, {
 	        key: "createIndex",
 	        value: function createIndex(body) {
-	            var _createIndex = __webpack_require__(11).bind(this, body);
+	            var _createIndex = __webpack_require__(10).bind(this, body);
 	            return _createIndex();
 	        }
 	    }, {
 	        key: "getMapping",
 	        value: function getMapping() {
-	            var _getMapping = __webpack_require__(12).bind(this);
+	            var _getMapping = __webpack_require__(11).bind(this);
 	            return _getMapping();
 	        }
 	    }, {
 	        key: "putMapping",
 	        value: function putMapping(body) {
-	            var _putMapping = __webpack_require__(13).bind(this, body);
+	            var _putMapping = __webpack_require__(12).bind(this, body);
 	            return _putMapping();
 	        }
 	    }, {
 	        key: "getSetting",
 	        value: function getSetting() {
-	            var _getSetting = __webpack_require__(14).bind(this);
+	            var _getSetting = __webpack_require__(13).bind(this);
 	            return _getSetting();
 	        }
 	    }, {
 	        key: "putSetting",
 	        value: function putSetting(body) {
-	            var _putSetting = __webpack_require__(15).bind(this, body);
+	            var _putSetting = __webpack_require__(14).bind(this, body);
 	            return _putSetting();
 	        }
 	    }, {
 	        key: "update",
 	        value: function update(body) {
-	            var _updateDoc = __webpack_require__(16).bind(this, body);
+	            var _updateDoc = __webpack_require__(15).bind(this, body);
 	            return _updateDoc();
 	        }
 	    }, {
 	        key: "bulkUpdate",
 	        value: function bulkUpdate(docs) {
-	            var _bulkUpdateDocs = __webpack_require__(17).bind(this, docs);
+	            var _bulkUpdateDocs = __webpack_require__(16).bind(this, docs);
 	            return _bulkUpdateDocs();
 	        }
 	    }, {
 	        key: "bulkIndex",
 	        value: function bulkIndex(docs) {
-	            var _bulkIndex = __webpack_require__(18).bind(this, docs);
+	            var _bulkIndex = __webpack_require__(17).bind(this, docs);
 	            return _bulkIndex();
 	        }
 	    }, {
 	        key: "scrollAndBulkUpdate",
 	        value: function scrollAndBulkUpdate(kv, size, query, sum) {
-	            var _scrollAndBulkUpdate = __webpack_require__(19).bind(this, kv, size, query, sum);
+	            var _scrollAndBulkUpdate = __webpack_require__(18).bind(this, kv, size, query, sum);
 	            return _scrollAndBulkUpdate();
 	        }
 	    }, {
 	        key: "scrollAndAppendFile",
 	        value: function scrollAndAppendFile(size, query, field, sum, file) {
-	            var _scrollAndAppendFile = __webpack_require__(20).bind(this, size, query, field, sum, file);
+	            var _scrollAndAppendFile = __webpack_require__(19).bind(this, size, query, field, sum, file);
 	            return _scrollAndAppendFile();
 	        }
 	    }, {
 	        key: "searchById",
 	        value: function searchById(id) {
-	            var _searchById = __webpack_require__(22).bind(this, id);
+	            var _searchById = __webpack_require__(21).bind(this, id);
 	            return _searchById();
 	        }
 	    }, {
 	        key: "mgetByIds",
 	        value: function mgetByIds(ids) {
-	            var _mgetByIds = __webpack_require__(23).bind(this, ids);
+	            var _mgetByIds = __webpack_require__(22).bind(this, ids);
 	            return _mgetByIds();
 	        }
 	    }, {
 	        key: "count",
 	        value: function count(query) {
-	            var _count = __webpack_require__(24).bind(this, query);
+	            var _count = __webpack_require__(23).bind(this, query);
 	            return _count();
 	        }
 	    }]);
@@ -341,7 +335,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	"use strict";
 	
-	module.exports = function (fields, size, sum, sortByField, query, wantedField) {
+	module.exports = function (source, size, sum, sortByField, query) {
 	    if (!sum) {
 	        sum = 500;
 	    }
@@ -364,14 +358,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	        search_type: "scan"
 	    };
 	
-	    if (fields) {
-	        options.fields = fields;
+	    if (Array.isArray(source) && source.length === 0) {
+	        source = null;
+	    }
+	    if (source || source === false) {
+	        options._source = source;
 	    }
 	    if (sortByField) {
 	        options.sort = sortByField + ":desc";
-	    }
-	    if (!wantedField) {
-	        wantedField = "fields";
 	    }
 	
 	    var allValues = [];
@@ -382,25 +376,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                return reject(err);
 	            }
 	            response.hits.hits.forEach(function (hit) {
-	                if (!fields) {
-	                    allValues.push(hit);
-	                } else {
-	                    if (!Array.isArray(wantedField)) {
-	                        var value = hit[wantedField];
-	                        if (value) {
-	                            allValues.push(value);
-	                        } else {
-	                            console.log(value);
-	                            console.log(hit);
-	                        }
-	                    } else {
-	                        var _value = {};
-	                        for (var i = 0; i < wantedField.length; i++) {
-	                            _value[wantedField[i]] = hit[wantedField[i]] || {};
-	                        }
-	                        allValues.push(_value);
-	                    }
-	                }
+	                allValues.push(hit);
 	            });
 	
 	            var compare = sum;
@@ -428,92 +404,6 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 9 */
-/***/ function(module, exports) {
-
-	"use strict";
-	
-	module.exports = function (field, size, sum, query) {
-	    if (!sum) {
-	        sum = 500;
-	    }
-	
-	    var _query = {
-	        "query": {
-	            "match_all": {}
-	        }
-	    };
-	    if (query) {
-	        _query.query = query;
-	    }
-	
-	    var options = {
-	        index: this.index,
-	        type: this.type,
-	        scroll: "60s",
-	        size: size || 50,
-	        body: _query,
-	        fields: field,
-	        search_type: "scan"
-	    };
-	
-	    var allValues = [];
-	    var that = this;
-	    return new Promise(function (resolve, reject) {
-	        that.client.search(options, function getMoreUntilDone(err, response) {
-	            if (err) {
-	                return reject(err);
-	            }
-	            response.hits.hits.forEach(function (hit) {
-	                if (typeof field === "string") {
-	                    allValues.push(hit.fields ? hit.fields[field][0] : "");
-	                } else {
-	                    allValues.push(hit.fields ? hit.fields : "");
-	                }
-	            });
-	
-	            var compare = sum;
-	            if (response.hits.total < sum) {
-	                compare = response.hits.total;
-	            }
-	            console.log(compare);
-	            if (allValues.length < compare) {
-	                console.log(allValues.length);
-	                that.client.scroll({
-	                    scrollId: response._scroll_id,
-	                    scroll: "60s"
-	                }, getMoreUntilDone);
-	            } else {
-	                console.log("OK");
-	                var resolved = allValues;
-	                return resolve(resolved);
-	            }
-	        });
-	    });
-	};
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-
-/***/ },
-/* 10 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -552,7 +442,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 11 */
+/* 10 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -576,7 +466,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 12 */
+/* 11 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -589,7 +479,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 13 */
+/* 12 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -607,7 +497,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 14 */
+/* 13 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -619,7 +509,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 15 */
+/* 14 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -635,7 +525,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 16 */
+/* 15 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -653,7 +543,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 17 */
+/* 16 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -683,7 +573,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 18 */
+/* 17 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -710,7 +600,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 19 */
+/* 18 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -916,7 +806,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 20 */
+/* 19 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -924,8 +814,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = function (size, query, field, sum, file) {
 	    var _ = __webpack_require__(4);
 	    var moment = __webpack_require__(6);
-	    var appendFile = __webpack_require__(21).appendFile;
-	    var checkExists = __webpack_require__(21).checkExists;
+	    var appendFile = __webpack_require__(20).appendFile;
+	    var checkExists = __webpack_require__(20).checkExists;
 	
 	    var _query = {
 	        "query": {
@@ -1040,13 +930,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 21 */
+/* 20 */
 /***/ function(module, exports) {
 
-	module.exports = __WEBPACK_EXTERNAL_MODULE_21__;
+	module.exports = __WEBPACK_EXTERNAL_MODULE_20__;
 
 /***/ },
-/* 22 */
+/* 21 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -1066,7 +956,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 23 */
+/* 22 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -1086,7 +976,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 24 */
+/* 23 */
 /***/ function(module, exports) {
 
 	"use strict";
