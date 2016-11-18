@@ -336,9 +336,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	"use strict";
 	
 	module.exports = function (source, size, sum, sortByField, query) {
-	    if (!sum) {
-	        sum = 500;
-	    }
 	
 	    var _query = {
 	        "query": {
@@ -379,9 +376,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	                allValues.push(hit);
 	            });
 	
-	            var compare = sum;
-	            if (response.hits.total < sum) {
-	                compare = response.hits.total;
+	            var compare = response.hits.total;
+	            if (sum && compare > sum) {
+	                compare = sum;
 	            }
 	            if (allValues.length < compare) {
 	                that.client.scroll({

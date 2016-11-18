@@ -1,9 +1,6 @@
 "use strict"
 
 module.exports = function(source, size, sum, sortByField, query) {
-    if (!sum) {
-        sum = 500
-    }
 
     const _query = {
         "query": {
@@ -44,9 +41,9 @@ module.exports = function(source, size, sum, sortByField, query) {
                 allValues.push(hit)
             })
 
-            let compare = sum
-            if (response.hits.total < sum) {
-                compare = response.hits.total
+            let compare = response.hits.total
+            if (sum && compare > sum) {
+                compare = sum
             }
             if (allValues.length < compare) {
                 that.client.scroll({
