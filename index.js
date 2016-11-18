@@ -335,7 +335,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	"use strict";
 	
-	module.exports = function (source, size, sum, sortByField, query) {
+	module.exports = function (source, size, query, sum, sortByField) {
 	
 	    var _query = {
 	        "query": {
