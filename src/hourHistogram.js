@@ -1,9 +1,9 @@
 "use strict"
 
-const moment = require("moment")
+import * as moment from "moment"
 
-module.exports = function(fields, pageSize, sortByField, dateField, query, start_date, end_date){
-    if(!fields){
+export default function(fields, pageSize, sortByField, dateField, query, start_date, end_date) {
+    if (!fields) {
         fields = []
     }
     const _query = {
@@ -32,9 +32,9 @@ module.exports = function(fields, pageSize, sortByField, dateField, query, start
                             max: moment(end_date).subtract(1, "hours").toDate().getTime()
                         }
                     },
-                    aggs: ((fields)=>{
+                    aggs: ((fields) => {
                         let obj = {}
-                        for (let i=0; i<fields.length;i++) {
+                        for (let i = 0; i < fields.length; i++) {
                             let field = fields[i]
                             obj[field + "_sum"] = {
                                 sum: {

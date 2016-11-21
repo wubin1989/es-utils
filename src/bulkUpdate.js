@@ -1,6 +1,6 @@
 "use strict"
 
-module.exports = function(docs) {
+export default function(docs) {
     const _ = require("lodash")
     const body = _.flatten(_.map(docs, (item) => {
         const id = item.id

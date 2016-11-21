@@ -1,11 +1,11 @@
 "use strict"
 
-module.exports = function(body) {
+export default function(body) {
 
-    const options = {
-        index: this.index,
-        body: body,
-    }
+	const options = {
+		index: this.index,
+		body: body,
+	}
 
-    return this.client.indices.putSettings(options)
+	return this.client.indices.putSettings(options)
 }

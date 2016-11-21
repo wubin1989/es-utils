@@ -1,6 +1,6 @@
 "use strict"
 
-module.exports = function(pageSize, sortByField, query, page_index, aggs){
+export default function(pageSize, sortByField, query, page_index, aggs) {
 
     const _query = {
         "query": {
@@ -17,7 +17,7 @@ module.exports = function(pageSize, sortByField, query, page_index, aggs){
 
     console.log(JSON.stringify(_query, null, 4))
     console.log("-------------------------------")
-    
+
     let options = {
         index: this.index,
         type: this.type,

@@ -1,6 +1,6 @@
 "use strict"
 
-module.exports = function(body){
+export default function(body){
     
     const options = {
         index: this.index,

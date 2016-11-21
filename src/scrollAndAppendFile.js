@@ -1,6 +1,6 @@
 "use strict"
 
-module.exports = function(size, query, field, sum, file) {
+export default function(size, query, field, sum, file) {
     const _ = require("lodash")
     const moment = require("moment")
     const appendFile = require("fs_util").appendFile

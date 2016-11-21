@@ -11,7 +11,7 @@
             userid: "123456"
         }
 */
-module.exports = function(kv, size, query, sum) {
+export default function(kv, size, query, sum) {
     const _ = require("lodash")
     const moment = require("moment")
 

@@ -72,10 +72,87 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	var _elasticsearch = __webpack_require__(3);
 	
-	var elasticsearch = __webpack_require__(3);
-	var _ = __webpack_require__(4);
+	var elasticsearch = _interopRequireWildcard(_elasticsearch);
+	
+	var _lodash = __webpack_require__(4);
+	
+	var _ = _interopRequireWildcard(_lodash);
+	
+	var _dateHistogram3 = __webpack_require__(5);
+	
+	var _dateHistogram4 = _interopRequireDefault(_dateHistogram3);
+	
+	var _hourHistogram3 = __webpack_require__(7);
+	
+	var _hourHistogram4 = _interopRequireDefault(_hourHistogram3);
+	
+	var _scroll3 = __webpack_require__(8);
+	
+	var _scroll4 = _interopRequireDefault(_scroll3);
+	
+	var _search3 = __webpack_require__(9);
+	
+	var _search4 = _interopRequireDefault(_search3);
+	
+	var _createIndex3 = __webpack_require__(10);
+	
+	var _createIndex4 = _interopRequireDefault(_createIndex3);
+	
+	var _getMapping3 = __webpack_require__(11);
+	
+	var _getMapping4 = _interopRequireDefault(_getMapping3);
+	
+	var _putMapping3 = __webpack_require__(12);
+	
+	var _putMapping4 = _interopRequireDefault(_putMapping3);
+	
+	var _getSetting3 = __webpack_require__(13);
+	
+	var _getSetting4 = _interopRequireDefault(_getSetting3);
+	
+	var _putSetting3 = __webpack_require__(14);
+	
+	var _putSetting4 = _interopRequireDefault(_putSetting3);
+	
+	var _update2 = __webpack_require__(15);
+	
+	var _update3 = _interopRequireDefault(_update2);
+	
+	var _bulkUpdate2 = __webpack_require__(16);
+	
+	var _bulkUpdate3 = _interopRequireDefault(_bulkUpdate2);
+	
+	var _bulkIndex3 = __webpack_require__(17);
+	
+	var _bulkIndex4 = _interopRequireDefault(_bulkIndex3);
+	
+	var _scrollAndBulkUpdate3 = __webpack_require__(18);
+	
+	var _scrollAndBulkUpdate4 = _interopRequireDefault(_scrollAndBulkUpdate3);
+	
+	var _scrollAndAppendFile3 = __webpack_require__(19);
+	
+	var _scrollAndAppendFile4 = _interopRequireDefault(_scrollAndAppendFile3);
+	
+	var _searchById3 = __webpack_require__(21);
+	
+	var _searchById4 = _interopRequireDefault(_searchById3);
+	
+	var _mgetByIds3 = __webpack_require__(22);
+	
+	var _mgetByIds4 = _interopRequireDefault(_mgetByIds3);
+	
+	var _count3 = __webpack_require__(23);
+	
+	var _count4 = _interopRequireDefault(_count3);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
 	var EsUtil = function () {
 	    function EsUtil(config, index, type) {
@@ -89,103 +166,103 @@ return /******/ (function(modules) { // webpackBootstrap
 	    _createClass(EsUtil, [{
 	        key: "dateHistogram",
 	        value: function dateHistogram(fields, pageSize, sortByField, dateField, query, start_date, end_date) {
-	            var _dateHistogram = __webpack_require__(5).bind(this, fields, pageSize, sortByField, dateField, query, start_date, end_date);
+	            var _dateHistogram = _dateHistogram4.default.bind(this, fields, pageSize, sortByField, dateField, query, start_date, end_date);
 	            return _dateHistogram();
 	        }
 	    }, {
 	        key: "hourHistogram",
 	        value: function hourHistogram(fields, pageSize, sortByField, dateField, query, start_date, end_date) {
-	            var _hourHistogram = __webpack_require__(7).bind(this, fields, pageSize, sortByField, dateField, query, start_date, end_date);
+	            var _hourHistogram = _hourHistogram4.default.bind(this, fields, pageSize, sortByField, dateField, query, start_date, end_date);
 	            return _hourHistogram();
 	        }
 	    }, {
 	        key: "scroll",
 	        value: function scroll(source, size, sum, sortByField, query) {
-	            var _scroll = __webpack_require__(8).bind(this, source, size, sum, sortByField, query);
+	            var _scroll = _scroll4.default.bind(this, source, size, sum, sortByField, query);
 	            return _scroll();
 	        }
 	    }, {
 	        key: "search",
 	        value: function search(pageSize, sortByField, query, page_index, aggs) {
-	            var _search = __webpack_require__(9).bind(this, pageSize, sortByField, query, page_index, aggs);
+	            var _search = _search4.default.bind(this, pageSize, sortByField, query, page_index, aggs);
 	            return _search();
 	        }
 	    }, {
 	        key: "createIndex",
 	        value: function createIndex(body) {
-	            var _createIndex = __webpack_require__(10).bind(this, body);
+	            var _createIndex = _createIndex4.default.bind(this, body);
 	            return _createIndex();
 	        }
 	    }, {
 	        key: "getMapping",
 	        value: function getMapping() {
-	            var _getMapping = __webpack_require__(11).bind(this);
+	            var _getMapping = _getMapping4.default.bind(this);
 	            return _getMapping();
 	        }
 	    }, {
 	        key: "putMapping",
 	        value: function putMapping(body) {
-	            var _putMapping = __webpack_require__(12).bind(this, body);
+	            var _putMapping = _putMapping4.default.bind(this, body);
 	            return _putMapping();
 	        }
 	    }, {
 	        key: "getSetting",
 	        value: function getSetting() {
-	            var _getSetting = __webpack_require__(13).bind(this);
+	            var _getSetting = _getSetting4.default.bind(this);
 	            return _getSetting();
 	        }
 	    }, {
 	        key: "putSetting",
 	        value: function putSetting(body) {
-	            var _putSetting = __webpack_require__(14).bind(this, body);
+	            var _putSetting = _putSetting4.default.bind(this, body);
 	            return _putSetting();
 	        }
 	    }, {
 	        key: "update",
 	        value: function update(body) {
-	            var _updateDoc = __webpack_require__(15).bind(this, body);
+	            var _updateDoc = _update3.default.bind(this, body);
 	            return _updateDoc();
 	        }
 	    }, {
 	        key: "bulkUpdate",
 	        value: function bulkUpdate(docs) {
-	            var _bulkUpdateDocs = __webpack_require__(16).bind(this, docs);
+	            var _bulkUpdateDocs = _bulkUpdate3.default.bind(this, docs);
 	            return _bulkUpdateDocs();
 	        }
 	    }, {
 	        key: "bulkIndex",
 	        value: function bulkIndex(docs) {
-	            var _bulkIndex = __webpack_require__(17).bind(this, docs);
+	            var _bulkIndex = _bulkIndex4.default.bind(this, docs);
 	            return _bulkIndex();
 	        }
 	    }, {
 	        key: "scrollAndBulkUpdate",
 	        value: function scrollAndBulkUpdate(kv, size, query, sum) {
-	            var _scrollAndBulkUpdate = __webpack_require__(18).bind(this, kv, size, query, sum);
+	            var _scrollAndBulkUpdate = _scrollAndBulkUpdate4.default.bind(this, kv, size, query, sum);
 	            return _scrollAndBulkUpdate();
 	        }
 	    }, {
 	        key: "scrollAndAppendFile",
 	        value: function scrollAndAppendFile(size, query, field, sum, file) {
-	            var _scrollAndAppendFile = __webpack_require__(19).bind(this, size, query, field, sum, file);
+	            var _scrollAndAppendFile = _scrollAndAppendFile4.default.bind(this, size, query, field, sum, file);
 	            return _scrollAndAppendFile();
 	        }
 	    }, {
 	        key: "searchById",
 	        value: function searchById(id) {
-	            var _searchById = __webpack_require__(21).bind(this, id);
+	            var _searchById = _searchById4.default.bind(this, id);
 	            return _searchById();
 	        }
 	    }, {
 	        key: "mgetByIds",
 	        value: function mgetByIds(ids) {
-	            var _mgetByIds = __webpack_require__(22).bind(this, ids);
+	            var _mgetByIds = _mgetByIds4.default.bind(this, ids);
 	            return _mgetByIds();
 	        }
 	    }, {
 	        key: "count",
 	        value: function count(query) {
-	            var _count = __webpack_require__(23).bind(this, query);
+	            var _count = _count4.default.bind(this, query);
 	            return _count();
 	        }
 	    }]);
@@ -213,9 +290,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	"use strict";
 	
-	var moment = __webpack_require__(6);
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	
-	module.exports = function (fields, pageSize, sortByField, dateField, query, start_date, end_date) {
+	exports.default = function (fields, pageSize, sortByField, dateField, query, start_date, end_date) {
 	    if (!fields) {
 	        fields = [];
 	    }
@@ -264,6 +343,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	        sort: sortByField + ":desc"
 	    });
 	};
+	
+	var _moment = __webpack_require__(6);
+	
+	var moment = _interopRequireWildcard(_moment);
+	
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 /***/ },
 /* 6 */
@@ -277,9 +362,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	"use strict";
 	
-	var moment = __webpack_require__(6);
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	
-	module.exports = function (fields, pageSize, sortByField, dateField, query, start_date, end_date) {
+	exports.default = function (fields, pageSize, sortByField, dateField, query, start_date, end_date) {
 	    if (!fields) {
 	        fields = [];
 	    }
@@ -328,6 +415,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	        sort: (sortByField || "_score") + ":desc"
 	    });
 	};
+	
+	var _moment = __webpack_require__(6);
+	
+	var moment = _interopRequireWildcard(_moment);
+	
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 /***/ },
 /* 8 */
@@ -335,7 +428,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	"use strict";
 	
-	module.exports = function (source, size, query, sum, sortByField) {
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	exports.default = function (source, size, query, sum, sortByField) {
 	
 	    var _query = {
 	        "query": {
@@ -405,7 +502,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	"use strict";
 	
-	module.exports = function (pageSize, sortByField, query, page_index, aggs) {
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	exports.default = function (pageSize, sortByField, query, page_index, aggs) {
 	
 	    var _query = {
 	        "query": {
@@ -444,7 +545,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	"use strict";
 	
-	module.exports = function (body) {
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	exports.default = function (body) {
 	    var _this = this;
 	
 	    return this.client.indices.exists({
@@ -468,11 +573,15 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	"use strict";
 	
-	module.exports = function () {
-	    return this.client.indices.getMapping({
-	        index: this.index,
-	        type: this.type
-	    });
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	
+	exports.default = function () {
+		return this.client.indices.getMapping({
+			index: this.index,
+			type: this.type
+		});
 	};
 
 /***/ },
@@ -481,7 +590,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	"use strict";
 	
-	module.exports = function (body) {
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	exports.default = function (body) {
 	
 	    var options = {
 	        index: this.index,
@@ -499,10 +612,14 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	"use strict";
 	
-	module.exports = function () {
-	    return this.client.indices.getSettings({
-	        index: this.index
-	    });
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	
+	exports.default = function () {
+		return this.client.indices.getSettings({
+			index: this.index
+		});
 	};
 
 /***/ },
@@ -511,14 +628,18 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	"use strict";
 	
-	module.exports = function (body) {
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
 	
-	    var options = {
-	        index: this.index,
-	        body: body
-	    };
+	exports.default = function (body) {
 	
-	    return this.client.indices.putSettings(options);
+		var options = {
+			index: this.index,
+			body: body
+		};
+	
+		return this.client.indices.putSettings(options);
 	};
 
 /***/ },
@@ -527,16 +648,20 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	"use strict";
 	
-	module.exports = function (body) {
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
 	
-	    var options = {
-	        index: this.index,
-	        type: this.type,
-	        body: body,
-	        updateAllTypes: false
-	    };
+	exports.default = function (body) {
 	
-	    return this.client.indices.putMapping(options);
+		var options = {
+			index: this.index,
+			type: this.type,
+			body: body,
+			updateAllTypes: false
+		};
+	
+		return this.client.indices.putMapping(options);
 	};
 
 /***/ },
@@ -545,7 +670,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	"use strict";
 	
-	module.exports = function (docs) {
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	exports.default = function (docs) {
 	    var _ = __webpack_require__(4);
 	    var body = _.flatten(_.map(docs, function (item) {
 	        var id = item.id;
@@ -575,7 +704,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	"use strict";
 	
-	module.exports = function (docs) {
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	exports.default = function (docs) {
 	    var _ = __webpack_require__(4);
 	    var body = _.flatten(_.map(docs, function (item) {
 	        var id = item.id;
@@ -614,11 +747,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	        }
 	*/
 	
-	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	
-	function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
-	
-	module.exports = function (kv, size, query, sum) {
+	exports.default = function (kv, size, query, sum) {
 	    var _ = __webpack_require__(4);
 	    var moment = __webpack_require__(6);
 	
@@ -801,6 +934,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	        }());
 	    });
 	};
+	
+	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
+	function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
 /***/ },
 /* 19 */
@@ -808,7 +945,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	"use strict";
 	
-	module.exports = function (size, query, field, sum, file) {
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	exports.default = function (size, query, field, sum, file) {
 	    var _ = __webpack_require__(4);
 	    var moment = __webpack_require__(6);
 	    var appendFile = __webpack_require__(20).appendFile;
@@ -938,18 +1079,22 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	"use strict";
 	
-	module.exports = function (id) {
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
 	
-	    var options = {
-	        index: this.index,
-	        type: this.type,
-	        id: id,
-	        refresh: true
-	    };
+	exports.default = function (id) {
 	
-	    console.log(options);
+		var options = {
+			index: this.index,
+			type: this.type,
+			id: id,
+			refresh: true
+		};
 	
-	    return this.client.get(options);
+		console.log(options);
+	
+		return this.client.get(options);
 	};
 
 /***/ },
@@ -958,18 +1103,22 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	"use strict";
 	
-	module.exports = function (ids) {
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
 	
-	    var options = {
-	        index: this.index,
-	        type: this.type,
-	        body: {
-	            ids: ids
-	        },
-	        refresh: true
-	    };
+	exports.default = function (ids) {
 	
-	    return this.client.mget(options);
+		var options = {
+			index: this.index,
+			type: this.type,
+			body: {
+				ids: ids
+			},
+			refresh: true
+		};
+	
+		return this.client.mget(options);
 	};
 
 /***/ },
@@ -978,7 +1127,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	"use strict";
 	
-	module.exports = function (query) {
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	
+	exports.default = function (query) {
 		var _query = {
 			"query": {
 				"match_all": {}

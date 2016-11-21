@@ -1,6 +1,6 @@
 "use strict"
 
-module.exports = function(source, size, query, sum, sortByField) {
+export default function(source, size, query, sum, sortByField) {
 
     const _query = {
         "query": {
