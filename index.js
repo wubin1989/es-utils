@@ -448,8 +448,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        type: this.type,
 	        scroll: "60s",
 	        size: size || 50,
-	        body: _query,
-	        search_type: "scan"
+	        body: _query
 	    };
 	
 	    if (Array.isArray(source) && source.length === 0) {
@@ -459,7 +458,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	        options._source = source;
 	    }
 	    if (sortByField) {
-	        options.sort = sortByField + ":desc";
+	        options.sort = sortByField;
+	    } else {
+	        options.search_type = "scan";
 	    }
 	
 	    var allValues = [];

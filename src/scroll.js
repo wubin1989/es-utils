@@ -17,7 +17,6 @@ export default function(source, size, query, sum, sortByField) {
         scroll: "60s",
         size: size || 50,
         body: _query,
-        search_type: "scan",
     }
 
     if (Array.isArray(source) && source.length === 0) {
@@ -27,7 +26,9 @@ export default function(source, size, query, sum, sortByField) {
         options._source = source
     }
     if (sortByField) {
-        options.sort = sortByField + ":desc"
+        options.sort = sortByField
+    }else{
+        options.search_type = "scan"
     }
 
     const allValues = []
