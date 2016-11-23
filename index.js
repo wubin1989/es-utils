@@ -893,9 +893,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	                                console.log("Finished: " + count + "\tRatio: " + (compare ? (count / compare).toFixed(2) * 100 : 100) + "%\tTimeCost: " + diff + "\tSpeed: " + speed + "doc/s\tTimeRemaining: " + time_remain + "\tTotalTimeCost: " + totalDiff);
 	
 	                                start = _.cloneDeep(now);
+	                                docs = null;
 	
 	                                if (!(count < compare)) {
-	                                    _context.next = 27;
+	                                    _context.next = 28;
 	                                    break;
 	                                }
 	
@@ -903,28 +904,28 @@ return /******/ (function(modules) { // webpackBootstrap
 	                                    scrollId: response._scroll_id,
 	                                    scroll: "60s"
 	                                }, getMoreUntilDone);
-	                                _context.next = 28;
+	                                _context.next = 29;
 	                                break;
-	
-	                            case 27:
-	                                return _context.abrupt("return", resolve("scroll and update finished"));
 	
 	                            case 28:
-	                                _context.next = 33;
+	                                return _context.abrupt("return", resolve("scroll and update finished"));
+	
+	                            case 29:
+	                                _context.next = 34;
 	                                break;
 	
-	                            case 30:
-	                                _context.prev = 30;
+	                            case 31:
+	                                _context.prev = 31;
 	                                _context.t0 = _context["catch"](2);
 	
 	                                console.log(_context.t0);
 	
-	                            case 33:
+	                            case 34:
 	                            case "end":
 	                                return _context.stop();
 	                        }
 	                    }
-	                }, _callee, this, [[2, 30]]);
+	                }, _callee, this, [[2, 31]]);
 	            }));
 	
 	            function getMoreUntilDone(_x, _x2) {
@@ -1055,6 +1056,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            console.log("Finished: " + count + "\tRatio: " + (compare ? (count / compare).toFixed(2) * 100 : 100) + "%\tTimeCost: " + diff + "\tSpeed: " + speed + "doc/s\tTimeRemaining: " + time_remain + "\tTotalTimeCost: " + totalDiff);
 	
 	            start = _.cloneDeep(now);
+	            data = null;
 	
 	            if (count < compare) {
 	                that.client.scroll({

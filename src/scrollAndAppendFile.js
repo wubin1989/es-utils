@@ -51,7 +51,7 @@ export default function(size, query, field, sum, file) {
             }
 
             const more = response.hits.hits.length
-            const data = _.reduce(response.hits.hits, (sum, hit) => {
+            let data = _.reduce(response.hits.hits, (sum, hit) => {
                 if (options._source) {
                     const fields = _.cloneDeep(options._source)
                     const len = fields.length
@@ -103,6 +103,7 @@ export default function(size, query, field, sum, file) {
             console.log(`Finished: ${count}\tRatio: ${compare ? (count/compare).toFixed(2)*100 : 100}%\tTimeCost: ${diff}\tSpeed: ${speed}doc/s\tTimeRemaining: ${time_remain}\tTotalTimeCost: ${totalDiff}`)
 
             start = _.cloneDeep(now)
+            data = null
 
             if (count < compare) {
                 that.client.scroll({

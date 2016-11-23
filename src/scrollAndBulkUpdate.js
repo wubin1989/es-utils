@@ -53,7 +53,7 @@ export default function(kv, size, query, sum) {
 
             try {
                 const more = response.hits.hits.length
-                const docs = _.map(response.hits.hits, (hit) => {
+                let docs = _.map(response.hits.hits, (hit) => {
                     const id = hit._id
                     const doc = {}
 
@@ -130,6 +130,7 @@ export default function(kv, size, query, sum) {
                 console.log(`Finished: ${count}\tRatio: ${compare ? (count/compare).toFixed(2)*100 : 100}%\tTimeCost: ${diff}\tSpeed: ${speed}doc/s\tTimeRemaining: ${time_remain}\tTotalTimeCost: ${totalDiff}`)
 
                 start = _.cloneDeep(now)
+                docs = null
 
                 if (count < compare) {
                     that.client.scroll({
