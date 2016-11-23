@@ -47,11 +47,10 @@ export default function(kv, size, query, sum) {
         const startCopy = _.cloneDeep(start)
 
         that.client.search(options, async function getMoreUntilDone(err, response) {
-            if (err) {
-                return reject(err)
-            }
-
             try {
+                if (err) {
+                    throw new Error(err)
+                }
                 const more = response.hits.hits.length
                 let docs = _.map(response.hits.hits, (hit) => {
                     const id = hit._id
@@ -102,7 +101,6 @@ export default function(kv, size, query, sum) {
 
                 if (docs.length) {
                     const bulkUpdateResult = await that.bulkUpdate(docs)
-                    console.log(JSON.stringify(bulkUpdateResult, null, 4))
                     if (bulkUpdateResult.errors) {
                         console.log("bulk update operation encounter some errors, please check the response: " + JSON.stringify(bulkUpdateResult, null, 4))
                     }

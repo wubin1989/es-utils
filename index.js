@@ -794,15 +794,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	                    while (1) {
 	                        switch (_context.prev = _context.next) {
 	                            case 0:
+	                                _context.prev = 0;
+	
 	                                if (!err) {
-	                                    _context.next = 2;
+	                                    _context.next = 3;
 	                                    break;
 	                                }
 	
-	                                return _context.abrupt("return", reject(err));
+	                                throw new Error(err);
 	
-	                            case 2:
-	                                _context.prev = 2;
+	                            case 3:
 	                                more = response.hits.hits.length;
 	                                docs = _.map(response.hits.hits, function (hit) {
 	                                    var id = hit._id;
@@ -851,7 +852,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                                });
 	
 	                                if (!docs.length) {
-	                                    _context.next = 11;
+	                                    _context.next = 10;
 	                                    break;
 	                                }
 	
@@ -861,12 +862,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	                            case 8:
 	                                bulkUpdateResult = _context.sent;
 	
-	                                console.log(JSON.stringify(bulkUpdateResult, null, 4));
 	                                if (bulkUpdateResult.errors) {
 	                                    console.log("bulk update operation encounter some errors, please check the response: " + JSON.stringify(bulkUpdateResult, null, 4));
 	                                }
 	
-	                            case 11:
+	                            case 10:
 	                                now = moment();
 	                                diff = moment.utc(moment.duration(now.diff(start)).asMilliseconds()).format("HH:mm:ss.SSS");
 	                                totalDiff = moment.utc(moment.duration(now.diff(startCopy)).asMilliseconds()).format("HH:mm:ss.SSS");
@@ -897,7 +897,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                                docs = null;
 	
 	                                if (!(count < compare)) {
-	                                    _context.next = 29;
+	                                    _context.next = 28;
 	                                    break;
 	                                }
 	
@@ -905,28 +905,28 @@ return /******/ (function(modules) { // webpackBootstrap
 	                                    scrollId: response._scroll_id,
 	                                    scroll: "60s"
 	                                }, getMoreUntilDone);
-	                                _context.next = 30;
+	                                _context.next = 29;
 	                                break;
 	
-	                            case 29:
+	                            case 28:
 	                                return _context.abrupt("return", resolve("scroll and update finished"));
 	
-	                            case 30:
-	                                _context.next = 35;
+	                            case 29:
+	                                _context.next = 34;
 	                                break;
 	
-	                            case 32:
-	                                _context.prev = 32;
-	                                _context.t0 = _context["catch"](2);
+	                            case 31:
+	                                _context.prev = 31;
+	                                _context.t0 = _context["catch"](0);
 	
 	                                console.log(_context.t0);
 	
-	                            case 35:
+	                            case 34:
 	                            case "end":
 	                                return _context.stop();
 	                        }
 	                    }
-	                }, _callee, this, [[2, 32]]);
+	                }, _callee, this, [[0, 31]]);
 	            }));
 	
 	            function getMoreUntilDone(_x, _x2) {
