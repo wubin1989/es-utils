@@ -102,6 +102,7 @@ export default function(kv, size, query, sum) {
 
                 if (docs.length) {
                     const bulkUpdateResult = await that.bulkUpdate(docs)
+                    console.log(JSON.stringify(bulkUpdateResult, null, 4))
                     if (bulkUpdateResult.errors) {
                         console.log("bulk update operation encounter some errors, please check the response: " + JSON.stringify(bulkUpdateResult, null, 4))
                     }
