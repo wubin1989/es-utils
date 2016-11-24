@@ -1,6 +1,6 @@
 "use strict"
 
-import * as moment from "moment"
+import moment from 'moment/src/moment'
 
 export default function(fields, pageSize, sortByField, dateField, query, start_date, end_date) {
     if (!fields) {

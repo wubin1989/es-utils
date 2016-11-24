@@ -1,7 +1,7 @@
 "use strict"
 
 import * as _ from "lodash"
-import * as moment from "moment"
+import moment from 'moment/src/moment'
 
 export default function(current, previous, initial, more, count, compare) {
     const diff = moment.utc(moment.duration(current.diff(previous)).asMilliseconds()).format("HH:mm:ss.SSS")
