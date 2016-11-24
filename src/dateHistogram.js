@@ -1,6 +1,6 @@
 "use strict"
 
-import moment from 'moment/src/moment'
+const moment = require("moment")
 
 export default function(fields, pageSize, sortByField, dateField, query, start_date, end_date) {
     if (!fields) {

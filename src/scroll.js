@@ -1,11 +1,10 @@
 "use strict"
 
 import * as _ from "lodash"
-import moment from 'moment/src/moment'
 import logJobStatus from "./logJobStatus"
+const moment = require("moment")
 
 export default function(source, size, query, sum, sortByField) {
-
 
     const _query = {
         "query": {

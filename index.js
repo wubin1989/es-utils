@@ -1,10 +1,10 @@
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
-		module.exports = factory(require("babel-polyfill"), require("elasticsearch"), require("lodash"), require("moment/src/moment"), require("fs_util"));
+		module.exports = factory(require("babel-polyfill"), require("elasticsearch"), require("lodash"), require("moment"), require("fs_util"));
 	else if(typeof define === 'function' && define.amd)
-		define(["babel-polyfill", "elasticsearch", "lodash", "moment/src/moment", "fs_util"], factory);
+		define(["babel-polyfill", "elasticsearch", "lodash", "moment", "fs_util"], factory);
 	else {
-		var a = typeof exports === 'object' ? factory(require("babel-polyfill"), require("elasticsearch"), require("lodash"), require("moment/src/moment"), require("fs_util")) : factory(root["babel-polyfill"], root["elasticsearch"], root["lodash"], root["moment/src/moment"], root["fs_util"]);
+		var a = typeof exports === 'object' ? factory(require("babel-polyfill"), require("elasticsearch"), require("lodash"), require("moment"), require("fs_util")) : factory(root["babel-polyfill"], root["elasticsearch"], root["lodash"], root["moment"], root["fs_util"]);
 		for(var i in a) (typeof exports === 'object' ? exports : root)[i] = a[i];
 	}
 })(this, function(__WEBPACK_EXTERNAL_MODULE_1__, __WEBPACK_EXTERNAL_MODULE_3__, __WEBPACK_EXTERNAL_MODULE_4__, __WEBPACK_EXTERNAL_MODULE_6__, __WEBPACK_EXTERNAL_MODULE_21__) {
@@ -321,7 +321,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                        min_doc_count: 0,
 	                        extended_bounds: {
 	                            min: start_date.getTime(),
-	                            max: (0, _moment2.default)(end_date).subtract(1, "days").toDate().getTime()
+	                            max: moment(end_date).subtract(1, "days").toDate().getTime()
 	                        }
 	                    },
 	                    aggs: function (fields) {
@@ -344,11 +344,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    });
 	};
 	
-	var _moment = __webpack_require__(6);
-	
-	var _moment2 = _interopRequireDefault(_moment);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	var moment = __webpack_require__(6);
 
 /***/ },
 /* 6 */
@@ -393,7 +389,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                        min_doc_count: 0,
 	                        extended_bounds: {
 	                            min: start_date.getTime(),
-	                            max: (0, _moment2.default)(end_date).subtract(1, "hours").toDate().getTime()
+	                            max: moment(end_date).subtract(1, "hours").toDate().getTime()
 	                        }
 	                    },
 	                    aggs: function (fields) {
@@ -416,11 +412,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    });
 	};
 	
-	var _moment = __webpack_require__(6);
-	
-	var _moment2 = _interopRequireDefault(_moment);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	var moment = __webpack_require__(6);
 
 /***/ },
 /* 8 */
@@ -467,7 +459,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    var that = this;
 	    return new Promise(function (resolve, reject) {
 	
-	        var start = (0, _moment2.default)();
+	        var start = moment();
 	        var startCopy = _.cloneDeep(start);
 	
 	        that.client.search(options, function getMoreUntilDone(err, response) {
@@ -487,7 +479,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	            var count = allValues.length;
 	
-	            var now = (0, _moment2.default)();
+	            var now = moment();
 	            start = (0, _logJobStatus2.default)(now, start, startCopy, more, count, compare);
 	
 	            if (count < compare) {
@@ -513,17 +505,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _ = _interopRequireWildcard(_lodash);
 	
-	var _moment = __webpack_require__(6);
-	
-	var _moment2 = _interopRequireDefault(_moment);
-	
 	var _logJobStatus = __webpack_require__(9);
 	
 	var _logJobStatus2 = _interopRequireDefault(_logJobStatus);
-
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
+	
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+	
+	var moment = __webpack_require__(6);
 
 /***/ },
 /* 9 */
@@ -536,15 +526,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 	
 	exports.default = function (current, previous, initial, more, count, compare) {
-	    var diff = _moment2.default.utc(_moment2.default.duration(current.diff(previous)).asMilliseconds()).format("HH:mm:ss.SSS");
-	    var totalDiff = _moment2.default.utc(_moment2.default.duration(current.diff(initial)).asMilliseconds()).format("HH:mm:ss.SSS");
+	    var diff = moment.utc(moment.duration(current.diff(previous)).asMilliseconds()).format("HH:mm:ss.SSS");
+	    var totalDiff = moment.utc(moment.duration(current.diff(initial)).asMilliseconds()).format("HH:mm:ss.SSS");
 	    var raw_speed = more ? (current - previous) / more : "--";
 	    var speed = (more / ((current - previous) / 1000)).toFixed(2);
 	    var doc_remain = compare - count;
 	    if (doc_remain < 0) {
 	        doc_remain = 0;
 	    }
-	    var time_remain = raw_speed !== "--" ? _moment2.default.utc(_moment2.default.duration(raw_speed * doc_remain).asMilliseconds()).format("HH:mm:ss.SSS") : "--";
+	    var time_remain = raw_speed !== "--" ? moment.utc(moment.duration(raw_speed * doc_remain).asMilliseconds()).format("HH:mm:ss.SSS") : "--";
 	    console.log("Finished: " + count + "\tRatio: " + (compare ? (count / compare).toFixed(2) * 100 : 100) + "%\tTimeCost: " + diff + "\tSpeed: " + speed + "doc/s\tTimeRemaining: " + time_remain + "\tTotalTimeCost: " + totalDiff);
 	    return _.cloneDeep(current);
 	};
@@ -553,13 +543,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _ = _interopRequireWildcard(_lodash);
 	
-	var _moment = __webpack_require__(6);
-	
-	var _moment2 = _interopRequireDefault(_moment);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+	
+	var moment = __webpack_require__(6);
 
 /***/ },
 /* 10 */
@@ -844,7 +830,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    var that = this;
 	
 	    return new Promise(function (resolve) {
-	        var start = (0, _moment2.default)();
+	        var start = moment();
 	        var startCopy = _.cloneDeep(start);
 	
 	        that.client.search(options, function () {
@@ -937,7 +923,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                                    compare = sum;
 	                                }
 	
-	                                now = (0, _moment2.default)();
+	                                now = moment();
 	
 	                                start = (0, _logJobStatus2.default)(now, start, startCopy, more, count, compare);
 	                                docs = null;
@@ -988,10 +974,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _ = _interopRequireWildcard(_lodash);
 	
-	var _moment = __webpack_require__(6);
-	
-	var _moment2 = _interopRequireDefault(_moment);
-	
 	var _logJobStatus = __webpack_require__(9);
 	
 	var _logJobStatus2 = _interopRequireDefault(_logJobStatus);
@@ -1003,6 +985,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 	
 	function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
+	
+	var moment = __webpack_require__(6);
 	
 	/*
 	    eg.:
@@ -1066,7 +1050,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    var ensureFile = checkExists(file);
 	
 	    return new Promise(function (resolve, reject) {
-	        var start = (0, _moment2.default)();
+	        var start = moment();
 	        var startCopy = _.cloneDeep(start);
 	
 	        that.client.search(options, function getMoreUntilDone(err, response) {
@@ -1113,7 +1097,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                compare = sum;
 	            }
 	
-	            var now = (0, _moment2.default)();
+	            var now = moment();
 	            start = (0, _logJobStatus2.default)(now, start, startCopy, more, count, compare);
 	            data = null;
 	
@@ -1133,17 +1117,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _ = _interopRequireWildcard(_lodash);
 	
-	var _moment = __webpack_require__(6);
-	
-	var _moment2 = _interopRequireDefault(_moment);
-	
 	var _logJobStatus = __webpack_require__(9);
 	
 	var _logJobStatus2 = _interopRequireDefault(_logJobStatus);
-
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
+	
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+	
+	var moment = __webpack_require__(6);
 
 /***/ },
 /* 21 */

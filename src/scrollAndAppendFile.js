@@ -1,8 +1,8 @@
 "use strict"
 
 import * as _ from "lodash"
-import moment from 'moment/src/moment'
 import logJobStatus from "./logJobStatus"
+const moment = require("moment")
 
 export default function(size, query, field, sum, file) {
     const appendFile = require("fs_util").appendFile
