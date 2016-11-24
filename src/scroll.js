@@ -1,6 +1,11 @@
 "use strict"
 
+import * as _ from "lodash"
+import * as moment from "moment"
+import logJobStatus from "./logJobStatus"
+
 export default function(source, size, query, sum, sortByField) {
+
 
     const _query = {
         "query": {
@@ -27,17 +32,23 @@ export default function(source, size, query, sum, sortByField) {
     }
     if (sortByField) {
         options.sort = sortByField
-    }else{
+    } else {
         options.search_type = "scan"
     }
 
     const allValues = []
     const that = this
     return new Promise((resolve, reject) => {
+
+        let start = moment()
+        const startCopy = _.cloneDeep(start)
+
         that.client.search(options, function getMoreUntilDone(err, response) {
             if (err) {
                 return reject(err)
             }
+
+            const more = response.hits.hits.length
             response.hits.hits.forEach(function(hit) {
                 allValues.push(hit)
             })
@@ -46,7 +57,13 @@ export default function(source, size, query, sum, sortByField) {
             if (sum && compare > sum) {
                 compare = sum
             }
-            if (allValues.length < compare) {
+
+            const count = allValues.length
+
+            const now = moment()
+            start = logJobStatus(now, start, startCopy, more, count, compare)
+
+            if (count < compare) {
                 that.client.scroll({
                     scrollId: response._scroll_id,
                     scroll: "60s",

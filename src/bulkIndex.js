@@ -1,7 +1,8 @@
 "use strict"
 
+import * as _ from "lodash"
+
 export default function(docs) {
-    const _ = require("lodash")
     const body = _.flatten(_.map(docs, (item) => {
         const id = item.id
         const doc = item.doc

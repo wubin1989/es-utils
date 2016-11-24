@@ -2,9 +2,9 @@
 
 export default function(body) {
     return this.client.indices.exists({
-            index: this.index,
-            local: true
-        })
+        index: this.index,
+        local: true
+    })
         .then((resp) => {
             if (!resp) {
                 return this.client.indices.create({

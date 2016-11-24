@@ -7,7 +7,7 @@
 		var a = typeof exports === 'object' ? factory(require("babel-polyfill"), require("elasticsearch"), require("lodash"), require("moment"), require("fs_util")) : factory(root["babel-polyfill"], root["elasticsearch"], root["lodash"], root["moment"], root["fs_util"]);
 		for(var i in a) (typeof exports === 'object' ? exports : root)[i] = a[i];
 	}
-})(this, function(__WEBPACK_EXTERNAL_MODULE_1__, __WEBPACK_EXTERNAL_MODULE_3__, __WEBPACK_EXTERNAL_MODULE_4__, __WEBPACK_EXTERNAL_MODULE_6__, __WEBPACK_EXTERNAL_MODULE_20__) {
+})(this, function(__WEBPACK_EXTERNAL_MODULE_1__, __WEBPACK_EXTERNAL_MODULE_3__, __WEBPACK_EXTERNAL_MODULE_4__, __WEBPACK_EXTERNAL_MODULE_6__, __WEBPACK_EXTERNAL_MODULE_21__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -92,59 +92,59 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _scroll4 = _interopRequireDefault(_scroll3);
 	
-	var _search3 = __webpack_require__(9);
+	var _search3 = __webpack_require__(10);
 	
 	var _search4 = _interopRequireDefault(_search3);
 	
-	var _createIndex3 = __webpack_require__(10);
+	var _createIndex3 = __webpack_require__(11);
 	
 	var _createIndex4 = _interopRequireDefault(_createIndex3);
 	
-	var _getMapping3 = __webpack_require__(11);
+	var _getMapping3 = __webpack_require__(12);
 	
 	var _getMapping4 = _interopRequireDefault(_getMapping3);
 	
-	var _putMapping3 = __webpack_require__(12);
+	var _putMapping3 = __webpack_require__(13);
 	
 	var _putMapping4 = _interopRequireDefault(_putMapping3);
 	
-	var _getSetting3 = __webpack_require__(13);
+	var _getSetting3 = __webpack_require__(14);
 	
 	var _getSetting4 = _interopRequireDefault(_getSetting3);
 	
-	var _putSetting3 = __webpack_require__(14);
+	var _putSetting3 = __webpack_require__(15);
 	
 	var _putSetting4 = _interopRequireDefault(_putSetting3);
 	
-	var _update2 = __webpack_require__(15);
+	var _update2 = __webpack_require__(16);
 	
 	var _update3 = _interopRequireDefault(_update2);
 	
-	var _bulkUpdate2 = __webpack_require__(16);
+	var _bulkUpdate2 = __webpack_require__(17);
 	
 	var _bulkUpdate3 = _interopRequireDefault(_bulkUpdate2);
 	
-	var _bulkIndex3 = __webpack_require__(17);
+	var _bulkIndex3 = __webpack_require__(18);
 	
 	var _bulkIndex4 = _interopRequireDefault(_bulkIndex3);
 	
-	var _scrollAndBulkUpdate3 = __webpack_require__(18);
+	var _scrollAndBulkUpdate3 = __webpack_require__(19);
 	
 	var _scrollAndBulkUpdate4 = _interopRequireDefault(_scrollAndBulkUpdate3);
 	
-	var _scrollAndAppendFile3 = __webpack_require__(19);
+	var _scrollAndAppendFile3 = __webpack_require__(20);
 	
 	var _scrollAndAppendFile4 = _interopRequireDefault(_scrollAndAppendFile3);
 	
-	var _searchById3 = __webpack_require__(21);
+	var _searchById3 = __webpack_require__(22);
 	
 	var _searchById4 = _interopRequireDefault(_searchById3);
 	
-	var _mgetByIds3 = __webpack_require__(22);
+	var _mgetByIds3 = __webpack_require__(23);
 	
 	var _mgetByIds4 = _interopRequireDefault(_mgetByIds3);
 	
-	var _count3 = __webpack_require__(23);
+	var _count3 = __webpack_require__(24);
 	
 	var _count4 = _interopRequireDefault(_count3);
 	
@@ -424,7 +424,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 8 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 	
@@ -466,10 +466,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	    var allValues = [];
 	    var that = this;
 	    return new Promise(function (resolve, reject) {
+	
+	        var start = moment();
+	        var startCopy = _.cloneDeep(start);
+	
 	        that.client.search(options, function getMoreUntilDone(err, response) {
 	            if (err) {
 	                return reject(err);
 	            }
+	
+	            var more = response.hits.hits.length;
 	            response.hits.hits.forEach(function (hit) {
 	                allValues.push(hit);
 	            });
@@ -478,7 +484,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	            if (sum && compare > sum) {
 	                compare = sum;
 	            }
-	            if (allValues.length < compare) {
+	
+	            var count = allValues.length;
+	
+	            var now = moment();
+	            start = (0, _logJobStatus2.default)(now, start, startCopy, more, count, compare);
+	
+	            if (count < compare) {
 	                that.client.scroll({
 	                    scrollId: response._scroll_id,
 	                    scroll: "60s"
@@ -496,9 +508,59 @@ return /******/ (function(modules) { // webpackBootstrap
 	        });
 	    });
 	};
+	
+	var _lodash = __webpack_require__(4);
+	
+	var _ = _interopRequireWildcard(_lodash);
+	
+	var _moment = __webpack_require__(6);
+	
+	var moment = _interopRequireWildcard(_moment);
+	
+	var _logJobStatus = __webpack_require__(9);
+	
+	var _logJobStatus2 = _interopRequireDefault(_logJobStatus);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 /***/ },
 /* 9 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	exports.default = function (current, previous, initial, more, count, compare) {
+	    var diff = moment.utc(moment.duration(current.diff(previous)).asMilliseconds()).format("HH:mm:ss.SSS");
+	    var totalDiff = moment.utc(moment.duration(current.diff(initial)).asMilliseconds()).format("HH:mm:ss.SSS");
+	    var raw_speed = more ? (current - previous) / more : "--";
+	    var speed = (more / ((current - previous) / 1000)).toFixed(2);
+	    var doc_remain = compare - count;
+	    if (doc_remain < 0) {
+	        doc_remain = 0;
+	    }
+	    var time_remain = raw_speed !== "--" ? moment.utc(moment.duration(raw_speed * doc_remain).asMilliseconds()).format("HH:mm:ss.SSS") : "--";
+	    console.log("Finished: " + count + "\tRatio: " + (compare ? (count / compare).toFixed(2) * 100 : 100) + "%\tTimeCost: " + diff + "\tSpeed: " + speed + "doc/s\tTimeRemaining: " + time_remain + "\tTotalTimeCost: " + totalDiff);
+	    return _.cloneDeep(current);
+	};
+	
+	var _lodash = __webpack_require__(4);
+	
+	var _ = _interopRequireWildcard(_lodash);
+	
+	var _moment = __webpack_require__(6);
+	
+	var moment = _interopRequireWildcard(_moment);
+	
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+/***/ },
+/* 10 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -541,7 +603,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 10 */
+/* 11 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -569,24 +631,24 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 11 */
+/* 12 */
 /***/ function(module, exports) {
 
 	"use strict";
 	
 	Object.defineProperty(exports, "__esModule", {
-		value: true
+	    value: true
 	});
 	
 	exports.default = function () {
-		return this.client.indices.getMapping({
-			index: this.index,
-			type: this.type
-		});
+	    return this.client.indices.getMapping({
+	        index: this.index,
+	        type: this.type
+	    });
 	};
 
 /***/ },
-/* 12 */
+/* 13 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -608,39 +670,19 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 13 */
-/***/ function(module, exports) {
-
-	"use strict";
-	
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	
-	exports.default = function () {
-		return this.client.indices.getSettings({
-			index: this.index
-		});
-	};
-
-/***/ },
 /* 14 */
 /***/ function(module, exports) {
 
 	"use strict";
 	
 	Object.defineProperty(exports, "__esModule", {
-		value: true
+	    value: true
 	});
 	
-	exports.default = function (body) {
-	
-		var options = {
-			index: this.index,
-			body: body
-		};
-	
-		return this.client.indices.putSettings(options);
+	exports.default = function () {
+	    return this.client.indices.getSettings({
+	        index: this.index
+	    });
 	};
 
 /***/ },
@@ -650,23 +692,43 @@ return /******/ (function(modules) { // webpackBootstrap
 	"use strict";
 	
 	Object.defineProperty(exports, "__esModule", {
-		value: true
+	    value: true
 	});
 	
 	exports.default = function (body) {
 	
-		var options = {
-			index: this.index,
-			type: this.type,
-			body: body,
-			updateAllTypes: false
-		};
+	    var options = {
+	        index: this.index,
+	        body: body
+	    };
 	
-		return this.client.indices.putMapping(options);
+	    return this.client.indices.putSettings(options);
 	};
 
 /***/ },
 /* 16 */
+/***/ function(module, exports) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	exports.default = function (body) {
+	
+	    var options = {
+	        index: this.index,
+	        type: this.type,
+	        body: body,
+	        updateAllTypes: false
+	    };
+	
+	    return this.client.indices.putMapping(options);
+	};
+
+/***/ },
+/* 17 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -676,7 +738,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 	
 	exports.default = function (docs) {
-	    var _ = __webpack_require__(4);
 	    var body = _.flatten(_.map(docs, function (item) {
 	        var id = item.id;
 	        var doc = item.doc;
@@ -698,9 +759,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	    return this.client.bulk(options);
 	};
+	
+	var _lodash = __webpack_require__(4);
+	
+	var _ = _interopRequireWildcard(_lodash);
+	
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 /***/ },
-/* 17 */
+/* 18 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -710,7 +777,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 	
 	exports.default = function (docs) {
-	    var _ = __webpack_require__(4);
 	    var body = _.flatten(_.map(docs, function (item) {
 	        var id = item.id;
 	        var doc = item.doc;
@@ -729,32 +795,24 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	    return this.client.bulk(options);
 	};
+	
+	var _lodash = __webpack_require__(4);
+	
+	var _ = _interopRequireWildcard(_lodash);
+	
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 /***/ },
-/* 18 */
+/* 19 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	
-	/*
-	    eg.:
-	        kv = ["tags", "userid"]
-	        kv = {
-	            tags:{
-	                value: ["apple"],
-	                replace: false
-	            }
-	            userid: "123456"
-	        }
-	*/
 	
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
 	
 	exports.default = function (kv, size, query, sum) {
-	    var _ = __webpack_require__(4);
-	    var moment = __webpack_require__(6);
 	
 	    var kvCopy = _.cloneDeep(kv);
 	
@@ -783,13 +841,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	    var that = this;
 	
-	    return new Promise(function (resolve, reject) {
+	    return new Promise(function (resolve) {
 	        var start = moment();
 	        var startCopy = _.cloneDeep(start);
 	
 	        that.client.search(options, function () {
 	            var _ref = _asyncToGenerator(regeneratorRuntime.mark(function _callee(err, response) {
-	                var more, docs, bulkUpdateResult, now, diff, totalDiff, raw_speed, speed, compare, doc_remain, time_remain;
+	                var more, docs, bulkUpdateResult, compare, now;
 	                return regeneratorRuntime.wrap(function _callee$(_context) {
 	                    while (1) {
 	                        switch (_context.prev = _context.next) {
@@ -867,37 +925,23 @@ return /******/ (function(modules) { // webpackBootstrap
 	                                }
 	
 	                            case 10:
-	                                now = moment();
-	                                diff = moment.utc(moment.duration(now.diff(start)).asMilliseconds()).format("HH:mm:ss.SSS");
-	                                totalDiff = moment.utc(moment.duration(now.diff(startCopy)).asMilliseconds()).format("HH:mm:ss.SSS");
-	                                raw_speed = more ? (now - start) / more : "--";
-	                                speed = (more / ((now - start) / 1000)).toFixed(2);
-	
 	
 	                                count += more;
 	
 	                                compare = response.hits.total;
 	
 	
-	                                if (sum && response.hits.total > sum) {
+	                                if (sum && compare > sum) {
 	                                    compare = sum;
 	                                }
 	
-	                                doc_remain = compare - count;
+	                                now = moment();
 	
-	                                if (doc_remain < 0) {
-	                                    doc_remain = 0;
-	                                }
-	                                time_remain = raw_speed !== "--" ? moment.utc(moment.duration(raw_speed * doc_remain).asMilliseconds()).format("HH:mm:ss.SSS") : "--";
-	
-	
-	                                console.log("Finished: " + count + "\tRatio: " + (compare ? (count / compare).toFixed(2) * 100 : 100) + "%\tTimeCost: " + diff + "\tSpeed: " + speed + "doc/s\tTimeRemaining: " + time_remain + "\tTotalTimeCost: " + totalDiff);
-	
-	                                start = _.cloneDeep(now);
+	                                start = (0, _logJobStatus2.default)(now, start, startCopy, more, count, compare);
 	                                docs = null;
 	
 	                                if (!(count < compare)) {
-	                                    _context.next = 28;
+	                                    _context.next = 20;
 	                                    break;
 	                                }
 	
@@ -905,28 +949,28 @@ return /******/ (function(modules) { // webpackBootstrap
 	                                    scrollId: response._scroll_id,
 	                                    scroll: "60s"
 	                                }, getMoreUntilDone);
-	                                _context.next = 29;
+	                                _context.next = 21;
 	                                break;
 	
-	                            case 28:
+	                            case 20:
 	                                return _context.abrupt("return", resolve("scroll and update finished"));
 	
-	                            case 29:
-	                                _context.next = 34;
+	                            case 21:
+	                                _context.next = 26;
 	                                break;
 	
-	                            case 31:
-	                                _context.prev = 31;
+	                            case 23:
+	                                _context.prev = 23;
 	                                _context.t0 = _context["catch"](0);
 	
 	                                console.log(_context.t0);
 	
-	                            case 34:
+	                            case 26:
 	                            case "end":
 	                                return _context.stop();
 	                        }
 	                    }
-	                }, _callee, this, [[0, 31]]);
+	                }, _callee, this, [[0, 23]]);
 	            }));
 	
 	            function getMoreUntilDone(_x, _x2) {
@@ -938,12 +982,40 @@ return /******/ (function(modules) { // webpackBootstrap
 	    });
 	};
 	
+	var _lodash = __webpack_require__(4);
+	
+	var _ = _interopRequireWildcard(_lodash);
+	
+	var _moment = __webpack_require__(6);
+	
+	var moment = _interopRequireWildcard(_moment);
+	
+	var _logJobStatus = __webpack_require__(9);
+	
+	var _logJobStatus2 = _interopRequireDefault(_logJobStatus);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+	
 	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
-
+	
 	function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
+	
+	/*
+	    eg.:
+	        kv = ["tags", "userid"]
+	        kv = {
+	            tags:{
+	                value: ["apple"],
+	                replace: false
+	            }
+	            userid: "123456"
+	        }
+	*/
 
 /***/ },
-/* 19 */
+/* 20 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -953,10 +1025,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 	
 	exports.default = function (size, query, field, sum, file) {
-	    var _ = __webpack_require__(4);
-	    var moment = __webpack_require__(6);
-	    var appendFile = __webpack_require__(20).appendFile;
-	    var checkExists = __webpack_require__(20).checkExists;
+	    var appendFile = __webpack_require__(21).appendFile;
+	    var checkExists = __webpack_require__(21).checkExists;
 	
 	    var _query = {
 	        "query": {
@@ -1033,30 +1103,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	                }
 	            }
 	
-	            var now = moment();
-	            var diff = moment.utc(moment.duration(now.diff(start)).asMilliseconds()).format("HH:mm:ss.SSS");
-	            var totalDiff = moment.utc(moment.duration(now.diff(startCopy)).asMilliseconds()).format("HH:mm:ss.SSS");
-	            var raw_speed = more ? (now - start) / more : "--";
-	            var speed = (more / ((now - start) / 1000)).toFixed(2);
-	
 	            count += more;
 	
 	            var compare = response.hits.total;
 	
-	            if (sum && response.hits.total > sum) {
+	            if (sum && compare > sum) {
 	                compare = sum;
 	            }
 	
-	            var doc_remain = compare - count;
-	            if (doc_remain < 0) {
-	                doc_remain = 0;
-	            }
-	
-	            var time_remain = raw_speed !== "--" ? moment.utc(moment.duration(raw_speed * doc_remain).asMilliseconds()).format("HH:mm:ss.SSS") : "--";
-	
-	            console.log("Finished: " + count + "\tRatio: " + (compare ? (count / compare).toFixed(2) * 100 : 100) + "%\tTimeCost: " + diff + "\tSpeed: " + speed + "doc/s\tTimeRemaining: " + time_remain + "\tTotalTimeCost: " + totalDiff);
-	
-	            start = _.cloneDeep(now);
+	            var now = moment();
+	            start = (0, _logJobStatus2.default)(now, start, startCopy, more, count, compare);
 	            data = null;
 	
 	            if (count < compare) {
@@ -1070,36 +1126,28 @@ return /******/ (function(modules) { // webpackBootstrap
 	        });
 	    });
 	};
+	
+	var _lodash = __webpack_require__(4);
+	
+	var _ = _interopRequireWildcard(_lodash);
+	
+	var _moment = __webpack_require__(6);
+	
+	var moment = _interopRequireWildcard(_moment);
+	
+	var _logJobStatus = __webpack_require__(9);
+	
+	var _logJobStatus2 = _interopRequireDefault(_logJobStatus);
 
-/***/ },
-/* 20 */
-/***/ function(module, exports) {
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	module.exports = __WEBPACK_EXTERNAL_MODULE_20__;
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 /***/ },
 /* 21 */
 /***/ function(module, exports) {
 
-	"use strict";
-	
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	
-	exports.default = function (id) {
-	
-		var options = {
-			index: this.index,
-			type: this.type,
-			id: id,
-			refresh: true
-		};
-	
-		console.log(options);
-	
-		return this.client.get(options);
-	};
+	module.exports = __WEBPACK_EXTERNAL_MODULE_21__;
 
 /***/ },
 /* 22 */
@@ -1108,21 +1156,21 @@ return /******/ (function(modules) { // webpackBootstrap
 	"use strict";
 	
 	Object.defineProperty(exports, "__esModule", {
-		value: true
+	    value: true
 	});
 	
-	exports.default = function (ids) {
+	exports.default = function (id) {
 	
-		var options = {
-			index: this.index,
-			type: this.type,
-			body: {
-				ids: ids
-			},
-			refresh: true
-		};
+	    var options = {
+	        index: this.index,
+	        type: this.type,
+	        id: id,
+	        refresh: true
+	    };
 	
-		return this.client.mget(options);
+	    console.log(options);
+	
+	    return this.client.get(options);
 	};
 
 /***/ },
@@ -1132,24 +1180,48 @@ return /******/ (function(modules) { // webpackBootstrap
 	"use strict";
 	
 	Object.defineProperty(exports, "__esModule", {
-		value: true
+	    value: true
+	});
+	
+	exports.default = function (ids) {
+	
+	    var options = {
+	        index: this.index,
+	        type: this.type,
+	        body: {
+	            ids: ids
+	        },
+	        refresh: true
+	    };
+	
+	    return this.client.mget(options);
+	};
+
+/***/ },
+/* 24 */
+/***/ function(module, exports) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
 	});
 	
 	exports.default = function (query) {
-		var _query = {
-			"query": {
-				"match_all": {}
-			}
-		};
-		if (query) {
-			_query.query = query;
-		}
-		var options = {
-			index: this.index,
-			type: this.type,
-			body: _query
-		};
-		return this.client.count(options);
+	    var _query = {
+	        "query": {
+	            "match_all": {}
+	        }
+	    };
+	    if (query) {
+	        _query.query = query;
+	    }
+	    var options = {
+	        index: this.index,
+	        type: this.type,
+	        body: _query
+	    };
+	    return this.client.count(options);
 	};
 
 /***/ }

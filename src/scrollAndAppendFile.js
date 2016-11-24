@@ -1,8 +1,10 @@
 "use strict"
 
+import * as _ from "lodash"
+import * as moment from "moment"
+import logJobStatus from "./logJobStatus"
+
 export default function(size, query, field, sum, file) {
-    const _ = require("lodash")
-    const moment = require("moment")
     const appendFile = require("fs_util").appendFile
     const checkExists = require("fs_util").checkExists
 
@@ -79,30 +81,16 @@ export default function(size, query, field, sum, file) {
                 }
             }
 
-            const now = moment()
-            const diff = moment.utc(moment.duration(now.diff(start)).asMilliseconds()).format("HH:mm:ss.SSS")
-            const totalDiff = moment.utc(moment.duration(now.diff(startCopy)).asMilliseconds()).format("HH:mm:ss.SSS")
-            const raw_speed = more ? (now - start) / more : "--"
-            const speed = (more / ((now - start) / 1000)).toFixed(2)
-
             count += more
 
             let compare = response.hits.total
 
-            if (sum && (response.hits.total > sum)) {
+            if (sum && (compare > sum)) {
                 compare = sum
             }
 
-            let doc_remain = compare - count
-            if (doc_remain < 0) {
-                doc_remain = 0
-            }
-
-            const time_remain = (raw_speed !== "--") ? moment.utc(moment.duration(raw_speed * doc_remain).asMilliseconds()).format("HH:mm:ss.SSS") : "--"
-
-            console.log(`Finished: ${count}\tRatio: ${compare ? (count/compare).toFixed(2)*100 : 100}%\tTimeCost: ${diff}\tSpeed: ${speed}doc/s\tTimeRemaining: ${time_remain}\tTotalTimeCost: ${totalDiff}`)
-
-            start = _.cloneDeep(now)
+            const now = moment()
+            start = logJobStatus(now, start, startCopy, more, count, compare)
             data = null
 
             if (count < compare) {

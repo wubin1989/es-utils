@@ -1,5 +1,9 @@
 "use strict"
 
+import * as _ from "lodash"
+import * as moment from "moment"
+import logJobStatus from "./logJobStatus"
+
 /*
     eg.:
         kv = ["tags", "userid"]
@@ -12,8 +16,6 @@
         }
 */
 export default function(kv, size, query, sum) {
-    const _ = require("lodash")
-    const moment = require("moment")
 
     const kvCopy = _.cloneDeep(kv)
 
@@ -42,7 +44,7 @@ export default function(kv, size, query, sum) {
 
     const that = this
 
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
         let start = moment()
         const startCopy = _.cloneDeep(start)
 
@@ -55,7 +57,6 @@ export default function(kv, size, query, sum) {
                 let docs = _.map(response.hits.hits, (hit) => {
                     const id = hit._id
                     const doc = {}
-
 
                     if (kvCopy.constructor.name === "Array") {
                         _.forEach(kvCopy, (k) => {
@@ -106,29 +107,16 @@ export default function(kv, size, query, sum) {
                     }
                 }
 
-                const now = moment()
-                const diff = moment.utc(moment.duration(now.diff(start)).asMilliseconds()).format("HH:mm:ss.SSS")
-                const totalDiff = moment.utc(moment.duration(now.diff(startCopy)).asMilliseconds()).format("HH:mm:ss.SSS")
-                const raw_speed = more ? (now - start) / more : "--"
-                const speed = (more / ((now - start) / 1000)).toFixed(2)
-
                 count += more
 
                 let compare = response.hits.total
 
-                if (sum && (response.hits.total > sum)) {
+                if (sum && (compare > sum)) {
                     compare = sum
                 }
 
-                let doc_remain = compare - count
-                if (doc_remain < 0) {
-                    doc_remain = 0
-                }
-                const time_remain = (raw_speed !== "--") ? moment.utc(moment.duration(raw_speed * doc_remain).asMilliseconds()).format("HH:mm:ss.SSS") : "--"
-
-                console.log(`Finished: ${count}\tRatio: ${compare ? (count/compare).toFixed(2)*100 : 100}%\tTimeCost: ${diff}\tSpeed: ${speed}doc/s\tTimeRemaining: ${time_remain}\tTotalTimeCost: ${totalDiff}`)
-
-                start = _.cloneDeep(now)
+                const now = moment()
+                start = logJobStatus(now, start, startCopy, more, count, compare)
                 docs = null
 
                 if (count < compare) {

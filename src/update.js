@@ -2,12 +2,12 @@
 
 export default function(body) {
 
-	const options = {
-		index: this.index,
-		type: this.type,
-		body: body,
-		updateAllTypes: false,
-	}
+    const options = {
+        index: this.index,
+        type: this.type,
+        body: body,
+        updateAllTypes: false,
+    }
 
-	return this.client.indices.putMapping(options)
+    return this.client.indices.putMapping(options)
 }
