@@ -28,7 +28,7 @@ export default function(pageSize, sortByField, query, page_index, aggs) {
 
 
     if (sortByField) {
-        options.sort = sortByField + ":desc"
+        options.sort = sortByField
     }
 
     return this.client

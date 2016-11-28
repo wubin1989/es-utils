@@ -440,13 +440,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	        type: this.type,
 	        scroll: "60s",
 	        size: size || 50,
-	        body: _query
+	        body: _query,
+	        _source: true
 	    };
 	
-	    if (Array.isArray(source) && source.length === 0) {
-	        source = null;
-	    }
-	    if (source || source === false) {
+	    if (source && source.constructor.name === "String" || source && Array.isArray(source) && source.length !== 0 || source === false) {
 	        options._source = source;
 	    }
 	    if (sortByField) {
@@ -584,7 +582,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    };
 	
 	    if (sortByField) {
-	        options.sort = sortByField + ":desc";
+	        options.sort = sortByField;
 	    }
 	
 	    return this.client.search(options);
