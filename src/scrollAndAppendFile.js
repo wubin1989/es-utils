@@ -58,7 +58,7 @@ export default function(size, query, field, sum, file) {
                     const fields = _.cloneDeep(options._source)
                     const len = fields.length
                     _.forEach(fields, (f, i) => {
-                        sum += hit._source[f] || " "
+                        sum += hit._source[f] || hit[f] || " "
                         if (i < (len - 1)) {
                             sum += "\t"
                         } else {

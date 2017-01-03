@@ -1063,7 +1063,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                        var fields = _.cloneDeep(options._source);
 	                        var len = fields.length;
 	                        _.forEach(fields, function (f, i) {
-	                            sum += hit._source[f] || " ";
+	                            sum += hit._source[f] || hit[f] || " ";
 	                            if (i < len - 1) {
 	                                sum += "\t";
 	                            } else {
