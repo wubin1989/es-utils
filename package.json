@@ -3,6 +3,10 @@
   "version": "0.7.6",
   "description": "util library for elasticsearch js",
   "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:wubin1989/es-utils.git"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
