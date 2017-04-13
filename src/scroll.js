@@ -52,7 +52,7 @@ export default function(source, size, query, sum, sortByField) {
 
             let count = allValues.length
 
-            if (!more && count < compare) return reject(new Error('while count less than compare, scroll gets nothing'))
+            if (!more && count && count < compare) return reject(new Error('while count less than compare, scroll gets nothing'))
 
             response.hits.hits.forEach(function(hit) {
                 allValues.push(hit)
