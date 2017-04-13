@@ -461,14 +461,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	        var startCopy = _.cloneDeep(start);
 	
 	        that.client.search(options, function getMoreUntilDone(err, response) {
-	            if (err) {
-	                return reject(err);
-	            }
+	            if (err) return reject(err);
 	
 	            var more = response.hits.hits.length;
-	            response.hits.hits.forEach(function (hit) {
-	                allValues.push(hit);
-	            });
 	
 	            var compare = response.hits.total;
 	            if (sum && compare > sum) {
@@ -476,6 +471,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	            }
 	
 	            var count = allValues.length;
+	
+	            if (!more && count < compare) return reject(new Error('while count less than compare, scroll gets nothing'));
+	
+	            response.hits.hits.forEach(function (hit) {
+	                allValues.push(hit);
+	            });
+	
+	            count = allValues.length;
 	
 	            var now = moment();
 	            start = (0, _logJobStatus2.default)(now, start, startCopy, more, count, compare);
