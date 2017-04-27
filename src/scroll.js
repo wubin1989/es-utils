@@ -21,11 +21,11 @@ export default function(source, size, query, sum, sortByField) {
         scroll: "60s",
         size: size || 50,
         body: _query,
-        _source: true,
+        source: true,
     }
 
     if ((source && source.constructor.name === "String") || (source && Array.isArray(source) && source.length !== 0) || (source === false)) {
-        options._source = source
+        options.source = source
     }
     if (sortByField) {
         options.sort = sortByField
