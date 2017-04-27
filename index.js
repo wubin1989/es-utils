@@ -441,11 +441,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	        scroll: "60s",
 	        size: size || 50,
 	        body: _query,
-	        source: true
+	        _source: true
 	    };
 	
 	    if (source && source.constructor.name === "String" || source && Array.isArray(source) && source.length !== 0 || source === false) {
-	        options.source = source;
+	        options._source = source;
 	    }
 	    if (sortByField) {
 	        options.sort = sortByField;
