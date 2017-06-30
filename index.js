@@ -52,21 +52,21 @@ return /******/ (function(modules) { // webpackBootstrap
 /************************************************************************/
 /******/ ([
 /* 0 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	__webpack_require__(1);
 	module.exports = __webpack_require__(2);
 
 
-/***/ },
+/***/ }),
 /* 1 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	module.exports = __WEBPACK_EXTERNAL_MODULE_1__;
 
-/***/ },
+/***/ }),
 /* 2 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
 	
@@ -143,10 +143,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _mgetByIds3 = __webpack_require__(23);
 	
 	var _mgetByIds4 = _interopRequireDefault(_mgetByIds3);
-	
-	var _count3 = __webpack_require__(24);
-	
-	var _count4 = _interopRequireDefault(_count3);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -259,12 +255,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	            var _mgetByIds = _mgetByIds4.default.bind(this, ids);
 	            return _mgetByIds();
 	        }
-	    }, {
-	        key: "count",
-	        value: function count(query) {
-	            var _count = _count4.default.bind(this, query);
-	            return _count();
-	        }
 	    }]);
 	
 	    return EsUtil;
@@ -272,89 +262,88 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	module.exports = EsUtil;
 
-/***/ },
+/***/ }),
 /* 3 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	module.exports = __WEBPACK_EXTERNAL_MODULE_3__;
 
-/***/ },
+/***/ }),
 /* 4 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	module.exports = __WEBPACK_EXTERNAL_MODULE_4__;
 
-/***/ },
+/***/ }),
 /* 5 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
 	
 	Object.defineProperty(exports, "__esModule", {
-	    value: true
+	  value: true
 	});
 	
 	exports.default = function (fields, pageSize, sortByField, dateField, query, start_date, end_date) {
-	    if (!fields) {
-	        fields = [];
-	    }
-	    var _query = {
-	        "query": {
-	            "match_all": {}
-	        }
-	    };
-	    if (query) {
-	        _query.query = query;
-	    }
-	    return this.client.search({
-	        index: this.index,
-	        type: this.type,
-	        body: {
-	            query: _query,
-	            aggs: {
-	                volumn: {
-	                    date_histogram: {
-	                        field: dateField,
-	                        interval: "day",
-	                        format: "yyyy-M-d",
-	                        time_zone: "+08:00",
-	                        min_doc_count: 0,
-	                        extended_bounds: {
-	                            min: start_date.getTime(),
-	                            max: moment(end_date).subtract(1, "days").toDate().getTime()
-	                        }
-	                    },
-	                    aggs: function (fields) {
-	                        var obj = {};
-	                        for (var i = 0; i < fields.length; i++) {
-	                            var field = fields[i];
-	                            obj[field + "_sum"] = {
-	                                sum: {
-	                                    field: field
-	                                }
-	                            };
-	                        }
-	                        return obj;
-	                    }(fields)
-	                }
+	  if (!fields) {
+	    fields = [];
+	  }
+	  var _query = {
+	    "match_all": {}
+	  };
+	
+	  if (query) {
+	    _query = query;
+	  }
+	  return this.client.search({
+	    index: this.index,
+	    type: this.type,
+	    body: {
+	      query: _query,
+	      aggs: {
+	        volumn: {
+	          date_histogram: {
+	            field: dateField,
+	            interval: "day",
+	            format: "yyyy-M-d",
+	            time_zone: "+08:00",
+	            min_doc_count: 0,
+	            extended_bounds: {
+	              min: start_date.getTime(),
+	              max: moment(end_date).subtract(1, "days").toDate().getTime()
 	            }
-	        },
-	        size: pageSize,
-	        sort: sortByField + ":desc"
-	    });
+	          },
+	          aggs: function (fields) {
+	            var obj = {};
+	            for (var i = 0; i < fields.length; i++) {
+	              var field = fields[i];
+	              obj[field + "_sum"] = {
+	                sum: {
+	                  field: field
+	                }
+	              };
+	            }
+	            return obj;
+	          }(fields)
+	        }
+	      }
+	    },
+	    size: pageSize,
+	    sort: sortByField + ":desc"
+	  });
 	};
 	
 	var moment = __webpack_require__(6);
 
-/***/ },
+/***/ }),
 /* 6 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	module.exports = __WEBPACK_EXTERNAL_MODULE_6__;
 
-/***/ },
+/***/ }),
 /* 7 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
 	
@@ -414,9 +403,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var moment = __webpack_require__(6);
 
-/***/ },
+/***/ }),
 /* 8 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
 	
@@ -514,9 +503,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var moment = __webpack_require__(6);
 
-/***/ },
+/***/ }),
 /* 9 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
 	
@@ -546,9 +535,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var moment = __webpack_require__(6);
 
-/***/ },
+/***/ }),
 /* 10 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	"use strict";
 	
@@ -589,9 +578,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return this.client.search(options);
 	};
 
-/***/ },
+/***/ }),
 /* 11 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	"use strict";
 	
@@ -617,9 +606,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	    });
 	};
 
-/***/ },
+/***/ }),
 /* 12 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	"use strict";
 	
@@ -634,9 +623,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	    });
 	};
 
-/***/ },
+/***/ }),
 /* 13 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	"use strict";
 	
@@ -656,9 +645,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return this.client.indices.putMapping(options);
 	};
 
-/***/ },
+/***/ }),
 /* 14 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	"use strict";
 	
@@ -672,9 +661,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	    });
 	};
 
-/***/ },
+/***/ }),
 /* 15 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	"use strict";
 	
@@ -692,9 +681,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return this.client.indices.putSettings(options);
 	};
 
-/***/ },
+/***/ }),
 /* 16 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	"use strict";
 	
@@ -714,9 +703,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return this.client.indices.putMapping(options);
 	};
 
-/***/ },
+/***/ }),
 /* 17 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
 	
@@ -753,9 +742,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
-/***/ },
+/***/ }),
 /* 18 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
 	
@@ -789,9 +778,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
-/***/ },
+/***/ }),
 /* 19 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
 	
@@ -999,9 +988,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	        }
 	*/
 
-/***/ },
+/***/ }),
 /* 20 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
 	
@@ -1060,18 +1049,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	            var more = response.hits.hits.length;
 	            var data = _.reduce(response.hits.hits, function (sum, hit) {
 	                if (options._source) {
-	                    (function () {
-	                        var fields = _.cloneDeep(options._source);
-	                        var len = fields.length;
-	                        _.forEach(fields, function (f, i) {
-	                            sum += hit._source[f] || hit[f] || " ";
-	                            if (i < len - 1) {
-	                                sum += "\t";
-	                            } else {
-	                                sum += "\n";
-	                            }
-	                        });
-	                    })();
+	                    var fields = _.cloneDeep(options._source);
+	                    var len = fields.length;
+	                    _.forEach(fields, function (f, i) {
+	                        sum += hit._source[f] || hit[f] || " ";
+	                        if (i < len - 1) {
+	                            sum += "\t";
+	                        } else {
+	                            sum += "\n";
+	                        }
+	                    });
 	                } else {
 	                    sum += JSON.stringify(hit._source) + "\n";
 	                }
@@ -1126,15 +1113,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var moment = __webpack_require__(6);
 
-/***/ },
+/***/ }),
 /* 21 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	module.exports = __WEBPACK_EXTERNAL_MODULE_21__;
 
-/***/ },
+/***/ }),
 /* 22 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	"use strict";
 	
@@ -1156,9 +1143,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return this.client.get(options);
 	};
 
-/***/ },
+/***/ }),
 /* 23 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	"use strict";
 	
@@ -1180,34 +1167,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return this.client.mget(options);
 	};
 
-/***/ },
-/* 24 */
-/***/ function(module, exports) {
-
-	"use strict";
-	
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	
-	exports.default = function (query) {
-	    var _query = {
-	        "query": {
-	            "match_all": {}
-	        }
-	    };
-	    if (query) {
-	        _query.query = query;
-	    }
-	    var options = {
-	        index: this.index,
-	        type: this.type,
-	        body: _query
-	    };
-	    return this.client.count(options);
-	};
-
-/***/ }
+/***/ })
 /******/ ])
 });
 ;

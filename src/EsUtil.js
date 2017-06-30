@@ -18,7 +18,6 @@ import scrollAndBulkUpdate from "./scrollAndBulkUpdate"
 import scrollAndAppendFile from "./scrollAndAppendFile"
 import searchById from "./searchById"
 import mgetByIds from "./mgetByIds"
-import count from "./count"
 
 class EsUtil {
     constructor(config, index, type) {
@@ -105,11 +104,6 @@ class EsUtil {
     mgetByIds(ids) {
         const _mgetByIds = mgetByIds.bind(this, ids)
         return _mgetByIds()
-    }
-
-    count(query) {
-        const _count = count.bind(this, query)
-        return _count()
     }
 }
 
