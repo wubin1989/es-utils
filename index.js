@@ -144,6 +144,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _mgetByIds4 = _interopRequireDefault(_mgetByIds3);
 	
+	var _count3 = __webpack_require__(24);
+	
+	var _count4 = _interopRequireDefault(_count3);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
@@ -254,6 +258,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	        value: function mgetByIds(ids) {
 	            var _mgetByIds = _mgetByIds4.default.bind(this, ids);
 	            return _mgetByIds();
+	        }
+	    }, {
+	        key: "count",
+	        value: function count(query) {
+	            var _count = _count4.default.bind(this, query);
+	            return _count();
 	        }
 	    }]);
 	
@@ -1165,6 +1175,36 @@ return /******/ (function(modules) { // webpackBootstrap
 	    };
 	
 	    return this.client.mget(options);
+	};
+
+/***/ }),
+/* 24 */
+/***/ (function(module, exports) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	exports.default = function (query) {
+	
+	    var _query = {
+	        "query": {
+	            "match_all": {}
+	        }
+	    };
+	    if (query) {
+	        _query.query = query;
+	    }
+	
+	    var options = {
+	        index: this.index,
+	        type: this.type,
+	        body: _query
+	    };
+	
+	    return this.client.count(options);
 	};
 
 /***/ })
